@@ -72,7 +72,7 @@ The enforcement point also depends on who executes the operation. [OpenAI's acco
 
 Let $id$ be a unique call ID, $\tau$ the selected tool, $x$ its argument, and $\kappa$ an optional **idempotency key**: a server-recognized identifier that makes repeated submissions of one logical operation count as one transaction. Represent a call by $(id,\tau,x,\kappa)$. If a network timeout occurs after execution, a blind retry can duplicate a purchase or email. For a side-effecting operation, either the downstream service must honor $\kappa$, or the harness must **reconcile** the state by querying an authoritative record before retrying. Record tool version, time, arguments (with secret fields removed), outcome, and verification evidence. A completed network exchange does not, by itself, confirm the postcondition. The harness needs evidence about the state the downstream service actually reached.
 
-The admission rule is implemented in [tools.py](https://github.com/az9713/agent-systems-foundations/blob/main/agent_lab/tools.py). `spec.fields` maps argument names to required Python types. `spec.effects` is the set $\operatorname{req}(\tau,x)$ for this simplified tool specification; `authority.effects` is $\operatorname{cap}(u)$. `spec.precondition` is a function of the proposed call and previously recorded observations. The code rejects an unknown tool, an altered argument shape, an ungranted effect, or missing evidence *before* calling the handler.
+The admission rule is implemented in [tools.py](https://github.com/az9713/11-768-ai-agents-notes/blob/main/agent_lab/tools.py). `spec.fields` maps argument names to required Python types. `spec.effects` is the set $\operatorname{req}(\tau,x)$ for this simplified tool specification; `authority.effects` is $\operatorname{cap}(u)$. `spec.precondition` is a function of the proposed call and previously recorded observations. The code rejects an unknown tool, an altered argument shape, an ungranted effect, or missing evidence *before* calling the handler.
 
 ```python
 def admit(self, call, authority, evidence):
@@ -91,7 +91,7 @@ def admit(self, call, authority, evidence):
     return spec
 ```
 
-The order example registers `cancel_order` with the effect `order.cancel` and with a precondition requiring a matching `get_order_status` observation. This client-side check establishes *admissibility from evidence*. It does not establish that the order remains unshipped. In [order_demo.py](https://github.com/az9713/agent-systems-foundations/blob/main/agent_lab/order_demo.py), the service therefore holds a lock while checking its current status and revision and changing the state:
+The order example registers `cancel_order` with the effect `order.cancel` and with a precondition requiring a matching `get_order_status` observation. This client-side check establishes *admissibility from evidence*. It does not establish that the order remains unshipped. In [order_demo.py](https://github.com/az9713/11-768-ai-agents-notes/blob/main/agent_lab/order_demo.py), the service therefore holds a lock while checking its current status and revision and changing the state:
 
 ```python
 with self._lock:
@@ -125,7 +125,7 @@ A network timeout means the client does not know whether the server **committed*
 
 The event log should store `call_id`, $\kappa$, a **request hash** (a compact fingerprint of the submitted arguments), an attempt number, a **transport outcome** (whether the network exchange completed), and a downstream transaction identifier. On restart, the harness can reconcile an unfinished call rather than asking the model to guess. Model text is an unreliable substitute for an external side-effect ledger.
 
-The runnable example distinguishes a *known pre-commit rejection* from an outcome whose state is unknown to the caller. `ToolFailure` represents the first case, and `OutcomeUnknown` represents the second. An unexpected handler exception is conservatively classified as `unknown`: after an arbitrary exception, the harness cannot prove that no external effect occurred. The corresponding [tool adapter](https://github.com/az9713/agent-systems-foundations/blob/main/agent_lab/tools.py) turns both classes into observations rather than silently treating an exception as success.
+The runnable example distinguishes a *known pre-commit rejection* from an outcome whose state is unknown to the caller. `ToolFailure` represents the first case, and `OutcomeUnknown` represents the second. An unexpected handler exception is conservatively classified as `unknown`: after an arbitrary exception, the harness cannot prove that no external effect occurred. The corresponding [tool adapter](https://github.com/az9713/11-768-ai-agents-notes/blob/main/agent_lab/tools.py) turns both classes into observations rather than silently treating an exception as success.
 
 ```python
 try:

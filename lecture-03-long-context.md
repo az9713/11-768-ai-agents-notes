@@ -30,7 +30,7 @@ This is a **knapsack model**: select valuable items under a size limit. It is in
 
 For a candidate context $c$, let $|c|$ be its token length, $P(\text{success}\mid c)$ the task-success probability under a specified evaluation distribution when $c$ is supplied, $\operatorname{cost}(c)$ its resource cost, and $\lambda\ge0$ the cost weight. Define $U(c)=P(\text{success}\mid c)-\lambda\operatorname{cost}(c)$ and $c^*=\arg\max_{|c|\le B_t}U(c)$, where $\arg\max$ selects a maximizing context. The true utility $U$ is unknown to the context builder. It must use approximate retrieval and then measure how well the agent continues with the selected context. Token count alone does not establish that the selection improved task outcomes at acceptable cost.
 
-The [companion selector](https://github.com/az9713/agent-systems-foundations/blob/main/agent_lab/context.py) solves the additive, integer-cost form exactly for a small budget. `Candidate.tokens` represents $\ell_i$, `Candidate.value` represents $v_i$, and `budget` represents $B_t$. `best[c]` stores the best value and selected names with capacity $c$. Descending capacity prevents one item from being used twice. For three items with sizes $(6,3,3)$ and values $(8,5,5)$, the code selects the two smaller items under a six-unit budget; a greedy choice of the largest individual value would be worse.
+The [companion selector](https://github.com/az9713/11-768-ai-agents-notes/blob/main/agent_lab/context.py) solves the additive, integer-cost form exactly for a small budget. `Candidate.tokens` represents $\ell_i$, `Candidate.value` represents $v_i$, and `budget` represents $B_t$. `best[c]` stores the best value and selected names with capacity $c$. Descending capacity prevents one item from being used twice. For three items with sizes $(6,3,3)$ and values $(8,5,5)$, the code selects the two smaller items under a six-unit budget; a greedy choice of the largest individual value would be worse.
 
 ```python
 def select_items(candidates, budget):
@@ -74,7 +74,7 @@ Let $B_{KV}$ be the KV-cache size in bytes, $L$ the number of model layers, and 
 
 For $L=32$, $n=128{,}000$, $h_{KV}=8$, $d_k=128$, and $b=2$, this is $16{,}777{,}216{,}000$ bytes, or about $15.6$ **gibibytes (GiB)**, where one GiB is $2^{30}$ bytes, for one sequence before memory-allocation overhead. These parameter values are illustrative. Even when model weights fit in memory, KV states may limit the length or number of sequences a server can handle.
 
-The size calculation is one multiplication in [context.py](https://github.com/az9713/agent-systems-foundations/blob/main/agent_lab/context.py). It describes storage, not inference speed or a provider's billed token count.
+The size calculation is one multiplication in [context.py](https://github.com/az9713/11-768-ai-agents-notes/blob/main/agent_lab/context.py). It describes storage, not inference speed or a provider's billed token count.
 
 ```python
 def kv_cache_bytes(
@@ -186,7 +186,7 @@ Suppose the harness compacts after every 20 steps and replaces the accumulated s
 
 Under the stated convention, the summary replaces the preceding block's summary rather than accumulating with it. The first 20-call block submits $20(2{,}000)+300(0+\cdots+19)=97{,}000$ tokens. Each of the next four blocks submits $20(2{,}000+1{,}000)+300(0+\cdots+19)=117{,}000$ tokens. The total is $97{,}000+4(117{,}000)=565{,}000$ submitted input tokens, about $66.5\%$ below the uncompacted count. The last call contains $2{,}000+1{,}000+19(300)=8{,}700$ tokens. These counts exclude tokens and computation used to create summaries, any cached-token price reduction, and any accuracy loss. A comparison of billing or quality must include those terms separately.
 
-The two arithmetic functions in [context.py](https://github.com/az9713/agent-systems-foundations/blob/main/agent_lab/context.py) implement the respective sums. `calls` is the number $T$ of model calls, `prefix` the fixed instruction and tool-schema length, `growth` the new history length after each call, `block` the calls between compactions, and `summary` the replacement summary length. This function requires $T$ to be a multiple of the block length, matching the worked example.
+The two arithmetic functions in [context.py](https://github.com/az9713/11-768-ai-agents-notes/blob/main/agent_lab/context.py) implement the respective sums. `calls` is the number $T$ of model calls, `prefix` the fixed instruction and tool-schema length, `growth` the new history length after each call, `block` the calls between compactions, and `summary` the replacement summary length. This function requires $T$ to be a multiple of the block length, matching the worked example.
 
 ```python
 def submitted_input_tokens(calls, prefix, growth):
@@ -221,7 +221,7 @@ In the release repair, the summary must preserve the exact “do not publish” 
 
 Rather than ask for a generic narrative summary, define typed slots: `goal`, `hard_constraints`, `confirmed_facts`, `open_hypotheses`, `actions_completed`, `artifacts`, `pending_actions`, and `evidence_locations`. Mark each item with its source step and confidence. Keep exact identifiers and commands when subsequent steps depend on them. Store bulky logs outside the prompt with stable handles. On continuation, test that the compact state entails known invariants—for example, “do not publish” or “the target file is X”—before allowing further action. The summary is a form of state estimate: it must preserve information needed to choose future actions. A polished description of the past is insufficient when it omits an unresolved obligation.
 
-The implemented [compact state](https://github.com/az9713/agent-systems-foundations/blob/main/agent_lab/context.py) is narrower than this proposed production schema. It preserves the goal and hard constraints exactly, retains the most recent observations, and stores identifiers for every observation in the complete in-process history. `keep_recent` is the number retained in the prompt. The full history remains in `RunState`; the current package does not persist that history across a process restart or expose a retrieval tool for old identifiers.
+The implemented [compact state](https://github.com/az9713/11-768-ai-agents-notes/blob/main/agent_lab/context.py) is narrower than this proposed production schema. It preserves the goal and hard constraints exactly, retains the most recent observations, and stores identifiers for every observation in the complete in-process history. `keep_recent` is the number retained in the prompt. The full history remains in `RunState`; the current package does not persist that history across a process restart or expose a retrieval tool for old identifiers.
 
 ```python
 def compact_state(state, keep_recent):

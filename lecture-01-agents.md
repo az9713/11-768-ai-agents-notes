@@ -111,7 +111,7 @@ class FinalAnswer:
     text: str
 ```
 
-The complete definitions live in [types.py](https://github.com/az9713/agent-systems-foundations/blob/main/agent_lab/types.py). A `Model` adapter returns either `ToolCall` or `FinalAnswer`. The harness records the proposal before it evaluates the execution gate. In [harness.py](https://github.com/az9713/agent-systems-foundations/blob/main/agent_lab/harness.py), the decisive transition is:
+The complete definitions live in [types.py](https://github.com/az9713/11-768-ai-agents-notes/blob/main/agent_lab/types.py). A `Model` adapter returns either `ToolCall` or `FinalAnswer`. The harness records the proposal before it evaluates the execution gate. In [harness.py](https://github.com/az9713/11-768-ai-agents-notes/blob/main/agent_lab/harness.py), the decisive transition is:
 
 ```python
 proposal = model.propose(prompt)
@@ -139,7 +139,7 @@ if isinstance(proposal, FinalAnswer):
 
 This implements a stopping rule: a final answer terminates the run only after the verifier accepts it. The next branch in the same loop calls `tools.admit(proposal, authority, state.observations)` before `tools.invoke`. Admission implements the predicate $\operatorname{allow}(a,e,U)$ from Section 0. The model never calls the external service directly. On each completed invocation, the harness appends an `Observation` and an event, making the next proposal conditional on the returned evidence. A step limit bounds the run; an unverified answer consumes a step rather than becoming a false success.
 
-The package is executable with `python -m agent_lab.order_demo`. Its deterministic proposal source stands in for a language-model API so the example needs no credentials. The first case produces `get_order_status:ok`, `cancel_order:unknown`, and `get_order_status:ok`: the cancellation committed, its response was lost, and the agent reconciled by reading the authoritative state. The second case reads a shipped status and selects the return-policy branch. [The executable checks](https://github.com/az9713/agent-systems-foundations/blob/main/tests/test_agent_lab.py) exercise permission rejection, verification failure, and both outcomes.
+The package is executable with `python -m agent_lab.order_demo`. Its deterministic proposal source stands in for a language-model API so the example needs no credentials. The first case produces `get_order_status:ok`, `cancel_order:unknown`, and `get_order_status:ok`: the cancellation committed, its response was lost, and the agent reconciled by reading the authoritative state. The second case reads a shipped status and selects the return-policy branch. [The executable checks](https://github.com/az9713/11-768-ai-agents-notes/blob/main/tests/test_agent_lab.py) exercise permission rejection, verification failure, and both outcomes.
 
 A deployed loop also needs time and money budgets. It needs **retries**, which repeat an operation after failure, and **cancellation**, which stops in-flight work. Unique **call IDs** pair requests with results. **Concurrency controls** govern overlapping actions. **Checkpoints** save state for resumption, while **trace capture** records the action sequence. Sandboxing limits the effects of executed code. These requirements cannot be inferred from the short loop alone. This package implements a step budget and an in-process event record; it does not claim durable recovery after process failure or provide a production sandbox.
 

@@ -2,7 +2,7 @@
 
 **Agent Systems Foundations** is a set of independent, research-extended study chapters based on **CMU 11-768: AI Agents**.
 
-**[Open the HTML reading guide](index.html)** · [Development journey](development-journey.html) · [Twelve-reference editorial study](textbook-style-report.html)
+**[Open the live HTML reading guide](https://az9713.github.io/11-768-ai-agents-notes/)** · [Development journey](https://az9713.github.io/11-768-ai-agents-notes/development-journey.html) · [Twelve-reference editorial study](https://az9713.github.io/11-768-ai-agents-notes/textbook-style-report.html)
 
 The first nine available lectures of [CMU 11-768: AI Agents](https://www.cmu-agents.com/) supplied more than a syllabus. Their recordings, captions, and slides informed the chapters' topic order, technical concepts, distinctions, and some examples. The chapters re-explain that material and add independently developed mathematical models, research, code, cases, and exercises. Sixty-four of 66 main sections link to relevant recording segments. This count measures navigation, not the fraction of chapter content taken from the lectures. The [CMU 11-768 reading guide](index.html#sources) gives a chapter-by-chapter source map. These are **independent study notes, not official CMU 11-768 course notes**. They are not endorsed by Carnegie Mellon University or the instructors. Consult the original recordings for what was actually taught.
 
