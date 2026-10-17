@@ -1,0 +1,30 @@
+# Codex review: lecture-11-rl-advanced.md
+
+| # | Line | Quoted text | Problem | Evidence | Severity |
+|---|---|---|---|---|---|
+| 1 | 69 | “the estimate is unbiased whatever the critic's accuracy” | At $\lambda=1$, the **policy-gradient estimator** is unbiased under on-policy sampling. The advantage estimate itself need not be unbiased. | $\mathbb E_\mu[\hat A_t\mid h,a]=Q^\mu(h,a)-V_\phi(h)=A^\mu(h,a)+V^\mu(h)-V_\phi(h)$. For $Q^\mu=V^\mu=0.5$ and $V_\phi=0.3$, its expectation is $0.5-0.3=0.2$, whereas the true advantage is $0.5-0.5=0$. `../lecture-work/lecture-11/lecture-11-citations.md`, row 3, supports the gradient-specific property, called “γ-just.” | blocking |
+| 2 | 69 | “At $\lambda=0$ it is $\delta_t$, with lower variance” | Lower variance is not guaranteed for an inaccurate critic. | Counterexample: two actions, identically zero rewards, $V_\phi(h_0)=V_\phi(h_2)=0$, and equiprobable intermediate predictions $V_\phi(h_1)\in\{0,1\}$. Then $\operatorname{Var}(\delta_0)=\tfrac12(0-\tfrac12)^2+\tfrac12(1-\tfrac12)^2=\tfrac14>0=\operatorname{Var}(G_0-V_\phi(h_0))$. | blocking |
+| 3 | 117 | “it is biased whenever an earlier ratio differs from one” | Earlier policy mismatch makes the local ratio insufficient **in general**; it does not guarantee bias for every prefix-fixed quantity. | Take $g\equiv1$. Despite any earlier mismatch, $\mathbb E_\mu[r_t(\theta)g]=1=\mathbb E_{\pi_\theta}[g]$. Changed history probabilities can also cancel for nonconstant $g$. | blocking |
+| 4 | 117 | “strict variance reduction when the policies differ at a later history $\mu$ can reach” | Reachable future policy mismatch alone does not guarantee **strict** reduction. The weighted quantity must be nonzero where the suffix ratio has conditional variance. | Let the first action choose A or B equiprobably under both policies; set $g=1$ on A and $g=0$ on B. Let future policies differ only after B. Full-ratio and prefix-ratio estimators then coincide: both variances equal $\tfrac12(1-\tfrac12)^2+\tfrac12(0-\tfrac12)^2=\tfrac14$. | blocking |
+| 5 | 156 | “$[e^{-\epsilon^{\log}_{\rm low}\sqrt t},e^{\epsilon^{\log}_{\rm high}\sqrt t}]$” | The CTPO bounds retain a one-based position formula despite the chapter's zero-based indexing. | Line 115 defines $w_{\le t}$ using actions $0,\ldots,t$, hence $t+1$ factors. At the first action, the printed bounds give $e^{\pm\epsilon\sqrt0}=1$, so the interval collapses to $[1,1]$. Under the chapter's indexing, use $\sqrt{t+1}$. | blocking |
+| 6 | 156 | “with equality only for constant $w(\tau)$” | The Jensen equality condition needs $T>1$. At $T=1$, the transformation is linear and GSPO's weight is the ordinary importance ratio. | For $T=1$, $\mathbb E_\mu[w^{1/T}]=\mathbb E_\mu[w]=1$ even for the chapter's nonconstant ratios $1.75$ and $0.50$. | minor |
+| 7 | 193 | “one update can raise a token from 0.01 only to 0.012” | PPO clipping creates an objective plateau; it does not impose a hard probability cap on an optimizer step. This contradicts the chapter's own explanation at line 173. | For one binary-logit SGD ascent step with learning rate 1, advantage 1, and initial probability 0.01, the initial ratio is 1 and clipping is inactive: $p_{\rm new}=[1+\exp(-(\log(0.01/0.99)+0.99))]^{-1}\approx0.026465>0.012$. | blocking |
+| 8 | 205 | “the group gives no gradient” | Equal rewards eliminate the group-relative reward gradient, but reference-KL and entropy terms can still produce gradients. | The objectives at lines 199 and 203 retain these terms independently of centered rewards. `lecture-10-deep-research.md` explicitly explains that degenerate groups can still receive a KL update. | minor |
+| 9 | 225 | “Tests that reject correct solutions cap the measurable score below 100%.” | False negatives do not by themselves establish an attainable-score ceiling. A verifier can reject some correct implementations while accepting others for every task. | The preceding example supplies a counterexample: requiring `value is None` rejects alternative correct code, but accepts the correct explicit-`None` implementation. `../lecture-work/lecture-11/lecture-11-citations.md`, row 14, establishes rejected correct submissions, not an upper bound on achievable scores. | blocking |
+| 10 | 255 | “Shaping changes every advantage” | Potential shaping leaves exact advantages unchanged. With a consistently transformed critic, it also leaves TD errors and GAE estimates unchanged. Different training paths depend on approximation or initialization. | With terminal potential zero, $Q'^\mu=Q^\mu-\Phi$ and $V'^\mu=V^\mu-\Phi$, hence $A'^\mu=A^\mu$. Likewise, taking $V'_\phi=V_\phi-\Phi$ gives $\delta'_t=r_t+\Phi(h_{t+1})-\Phi(h_t)+V'_\phi(h_{t+1})-V'_\phi(h_t)=\delta_t$. | blocking |
+
+Checked without findings:
+
+- Section 0: retry-task behavior, centered and standardized group advantages, terminal reward-to-go.
+- Section 1: value definition, squared-error minimizer, numerical losses, network and value-head citations.
+- Section 2: TD/GAE equations, telescoping algebra, worked arithmetic, PRM claims, executable example.
+- Section 3: worker utilization, AReaL figures, fixed-history importance identity, independent-step moment formulas and numerical table.
+- Section 4: PPO/CISPO objective and gradient cases, reference coefficient, entropy arithmetic, executable example.
+- Section 5: verifier-noise identity, audit figures, documented hacking claims, dynamic-sampling arithmetic and ablation.
+- Section 6: partial-credit counterexample, shaping telescoping and terminal handling, auxiliary-reward reports.
+- Section 7: distillation equations and numerical examples, OPSD and ECHO claims.
+- Exercises 1–4: numerical solutions and supporting calculations.
+- Companion code: all four chapter code blocks and all 15 chapter-specific tests passed in memory without file writes.
+- Cross-references and notation: checked references to earlier chapters and the symbol ledger; no additional findings.
+
+Findings: 8 blocking, 2 minor, 0 uncertain.
