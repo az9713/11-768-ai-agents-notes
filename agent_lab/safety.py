@@ -14,6 +14,7 @@ def reachable_effects(
     write. The result is the union of effect sets over all runs reachable
     from ``start``, including ``start`` itself.
     """
+    trusts = {run: tuple(later) for run, later in trusts.items()}
     named = {start} | set(trusts)
     named |= {later for runs in trusts.values() for later in runs}
     if named - set(effects):

@@ -1,6 +1,6 @@
 # Verdicts on the Codex review of chapter 12
 
-Each finding in `codex-review-l12.md` was checked against `lecture-12-rl-systems.md` (as published in commit `06f7221`). "Confirmed" means the defect is real. The severity column gives the checker's severity, which can differ from the one Codex gave. No chapter text has been changed yet.
+Each finding in `codex-review-l12.md` was checked against `lecture-12-rl-systems.md` (as published in commit `06f7221`). "Confirmed" means the defect is real. The severity column gives the checker's severity, which can differ from the one Codex gave. The chapter text was not changed before this check.
 
 | # | Line | Verdict | Severity (Codex → checked) | Check |
 |---|---|---|---|---|
@@ -13,3 +13,5 @@ Each finding in `codex-review-l12.md` was checked against `lecture-12-rl-systems
 | 7 | 239 | Confirmed | blocking → blocking | 61,000 tokens is where attention per position equals the linear cost per position in one sequence. It is not the crossover between harnesses A and B. Recomputed with line 231's model: $C(20{,}000)=4.249\times10^{14}$ is more than $C(11{,}000)+C(11{,}300)=4.220\times10^{14}$. Fix: state that 61,000 tokens is the length where attention becomes the larger term, and that the A-against-B crossover depends on the lengths. |
 
 Result: 7 of 7 findings confirmed. Checked severity: 4 blocking (1, 2, 5, 7), 3 minor.
+
+Status, 17 October 2026: every fix above was applied in the commit that adds this line (see `git log -- review/codex-verdicts-l12.md`).

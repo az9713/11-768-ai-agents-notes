@@ -560,6 +560,11 @@ class ReachableEffectsTests(unittest.TestCase):
         self.assertIn("registry.write", reach)
         self.assertEqual(reach, TRIAGE | RELEASE)
 
+    def test_iterator_adjacency_is_not_consumed_by_validation(self) -> None:
+        effects = {"triage": TRIAGE, "release": RELEASE}
+        reach = reachable_effects(effects, {"triage": iter(["release"])}, "triage")
+        self.assertEqual(reach, TRIAGE | RELEASE)
+
     def test_removing_the_trust_edge_restores_the_run_bound(self) -> None:
         effects = {"triage": TRIAGE, "release": RELEASE}
         self.assertEqual(reachable_effects(effects, {}, "triage"), TRIAGE)

@@ -29,7 +29,7 @@ Each untrusted input is a fresh attempt by its author. Let $N_{\rm in}$ inputs e
 
 $$P(\text{at least one success})=1-(1-p_{\rm in})^{N_{\rm in}}.$$
 
-With $p_{\rm in}=0.001$ and $N_{\rm in}=5{,}000$ emails, the probability is about $0.993$. A rate ten times lower, $10^{-4}$, still gives about $0.39$. These rates are illustrative. For any fixed $p_{\rm in}>0$, the probability tends to one as $N_{\rm in}$ grows, and the attacker chooses $N_{\rm in}$. Lowering $p_{\rm in}$ therefore cannot suffice. A second defense must bound what one success can do. Adaptive attackers learn from failures, which raises their odds above this estimate.
+With $p_{\rm in}=0.001$ and $N_{\rm in}=5{,}000$ emails, the probability is about $0.993$. A rate ten times lower, $10^{-4}$, still gives about $0.39$. These rates are illustrative. For any fixed $p_{\rm in}>0$, the probability tends to one as $N_{\rm in}$ grows, and the attacker chooses $N_{\rm in}$. Lowering $p_{\rm in}$ therefore cannot suffice. A second defense must bound what one success can do. Adaptive attackers learn from failures, which can raise their odds above this estimate; correlated attempts can also lower them.
 
 ## 1. A threat model names whose intent an action serves [07:16](https://www.youtube.com/watch?v=Mbonnq-PUGM&t=436s)
 
@@ -94,7 +94,7 @@ A deployment can place the whole agent in the sandbox: the context builder $C_\p
 
 With only tools inside, every external effect of the agent except its model requests passes through a tool call, and those effects lie in $\epsilon_B$. The harness outside still holds its own credentials, which the bound does not cover.
 
-With the whole agent inside, the model credential must be inside too, and the network policy must allow the model's endpoint. Code in the sandbox can read the credential and call the model for its own ends; blocking such calls blocks the agent. Sandboxed code can also put any data it reads into requests to that endpoint. Placing the agent inside is simpler, and it is the only option when the agent's code is a black box. The source lecture reports one attempt at the tools-only layout, in which Model Context Protocol (MCP) servers and a web browser were harder to move than basic tools.
+With the whole agent inside and no credential broker, the model credential must be inside too, and the network policy must allow the model's endpoint. Code in the sandbox can read the credential and call the model for its own ends; blocking such calls blocks the agent. Sandboxed code can also put any data it reads into requests to that endpoint. Placing the agent inside is simpler, and it is the only option when the agent's code is a black box. The source lecture reports one attempt at the tools-only layout, in which Model Context Protocol (MCP) servers and a web browser were harder to move than basic tools.
 
 The [OpenShell architecture](https://github.com/NVIDIA/OpenShell/blob/ec49209da25be39840742df29b64ec694d159c2f/docs/about/architecture.mdx) keeps the agent inside and the credentials out. A supervisor on the trusted side checks every network connection from the sandbox against policy and adds credentials only to approved requests. Its documentation states that "Agents never see real credentials." The rules and their enforcement then sit outside the agent's control, as chapter 1 requires of a trusted gate.
 
@@ -192,7 +192,7 @@ rarer = alert_precision(0.001, 0.9, 0.01)
 assert abs(rarer - 0.0009 / 0.01089) < 1e-12
 ```
 
-At a base rate of 0.1%, precision falls to about 8.3%. The alert rate is the denominator above. As $P(Z=1)$ falls toward zero it approaches the false-positive rate, so review load grows with traffic, not with attacks. The calculation assumes independent decisions and fixed rates. An adaptive attacker targets the monitor's blind spots, so live sensitivity can fall below test sensitivity. A blocking check must also **fail closed** for consequential actions: when the monitor is down, it blocks. Checks, logs, and the stop control must lie outside the agent's control; the inbox owner in Section 0 reported being unable to stop the agent from a phone.
+At a base rate of 0.1%, precision falls to about 8.3%. The alert rate is the denominator above. As $P(Z=1)$ falls toward zero it approaches the false-positive rate, so review load grows with traffic, not with attacks. The calculation assumes fixed rates. An adaptive attacker targets the monitor's blind spots, so live sensitivity can fall below test sensitivity. A blocking check must also **fail closed** for consequential actions: when the monitor is down, it blocks. Checks, logs, and the stop control must lie outside the agent's control; the inbox owner in Section 0 reported being unable to stop the agent from a phone.
 
 ## 7. Safety evaluation separates attempts from completed harm [52:57](https://www.youtube.com/watch?v=Mbonnq-PUGM&t=3177s)
 

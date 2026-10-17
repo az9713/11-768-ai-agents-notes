@@ -1,6 +1,6 @@
 # Verdicts on the Codex review of chapter 11
 
-Each finding in `codex-review-l11.md` was checked against `lecture-11-rl-advanced.md` (as published in commit `06f7221`). "Confirmed" means the defect is real. The severity column gives the checker's severity, which can differ from the one Codex gave. No chapter text has been changed yet.
+Each finding in `codex-review-l11.md` was checked against `lecture-11-rl-advanced.md` (as published in commit `06f7221`). "Confirmed" means the defect is real. The severity column gives the checker's severity, which can differ from the one Codex gave. The chapter text was not changed before this check.
 
 | # | Line | Verdict | Severity (Codex → checked) | Check |
 |---|---|---|---|---|
@@ -16,3 +16,5 @@ Each finding in `codex-review-l11.md` was checked against `lecture-11-rl-advance
 | 10 | 255 | Confirmed | blocking → blocking | For potential-based shaping with $\Phi(h_T)=0$: $Q'=Q-\Phi$ and $V'=V-\Phi$, so $A'=A$ exactly. Shaping changes the per-step rewards and the critic's target, not the exact advantages. Fix: "Shaping changes the per-step rewards and what the critic must learn, so a finite run can stop elsewhere." |
 
 Result: 10 of 10 findings confirmed. Checked severity: 3 blocking (1, 5, 10), 7 minor.
+
+Status, 17 October 2026: every fix above was applied in the commit that adds this line (see `git log -- review/codex-verdicts-l11.md`).
