@@ -13,9 +13,9 @@ a{color:var(--accent);text-underline-offset:3px}a:hover{color:#b5dcff}.shell{max
 </style>
 <script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
 <script defer src="assets/mathjax-tex-svg.js"></script></head>
-<body><header class="top"><div class="shell"><a class="brand" href="index.html">Agent Systems Foundations · CMU 11-768 study</a><nav><a href="lecture-01-agents.html">What are agents?</a><a href="lecture-02-tool-use.html">Tool use</a><a href="lecture-03-long-context.html">Long context</a><a href="lecture-04-memory-and-skills.html">Memory and skills</a><a href="lecture-05-planning.html">Planning and coordination</a><a href="lecture-06-coding-agents.html">Coding agents</a><a href="lecture-07-computer-use.html">Computer use</a><a href="lecture-08-supervised-fine-tuning.html">Supervised fine-tuning</a><a href="lecture-09-reinforcement-learning.html">Reinforcement learning</a><a href="development-journey.html">Development journey</a><a href="textbook-style-report.html">Style study</a></nav></div></header>
+<body><header class="top"><div class="shell"><a class="brand" href="index.html">Agent Systems Foundations · CMU 11-768 study</a><nav><a href="lecture-01-agents.html">What are agents?</a><a href="lecture-02-tool-use.html">Tool use</a><a href="lecture-03-long-context.html">Long context</a><a href="lecture-04-memory-and-skills.html">Memory and skills</a><a href="lecture-05-planning.html">Planning and coordination</a><a href="lecture-06-coding-agents.html">Coding agents</a><a href="lecture-07-computer-use.html">Computer use</a><a href="lecture-08-supervised-fine-tuning.html">Supervised fine-tuning</a><a href="lecture-09-reinforcement-learning.html">Reinforcement learning</a><a href="lecture-10-deep-research.html">Deep research agents</a><a href="development-journey.html">Development journey</a><a href="textbook-style-report.html">Style study</a></nav></div></header>
 <div class="shell layout"><main class="main"><h1 id="companion-python-harness">Companion Python harness</h1>
-<p>This standard-library package accompanies the nine current study chapters. It
+<p>This standard-library package accompanies the ten current study chapters. It
 runs without a model account or network connection. The proposal source in
 <code>order_demo.py</code> is deterministic so the mechanics can be tested separately from
 model variability.</p>
@@ -62,6 +62,11 @@ model variability.</p>
 <td>8–9, training</td>
 <td><code>training.py</code></td>
 <td>Masked loss, effective mixtures, reward-to-go, REINFORCE, and group diagnostics</td>
+</tr>
+<tr>
+<td>10, deep research</td>
+<td><code>evaluation.py</code>, <code>training.py</code></td>
+<td>Chance-corrected judge agreement, citation accuracy and recall, contrastive retrieval loss</td>
 </tr>
 </tbody>
 </table>

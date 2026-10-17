@@ -1,4 +1,4 @@
-"""Focused provenance and package checks for the nine-lecture note set."""
+"""Focused provenance and package checks for the lecture note set."""
 
 import json
 import re
@@ -13,13 +13,16 @@ ROOT = Path(__file__).resolve().parent
 
 def main():
     manifest = json.loads((ROOT / "sources/manifest.json").read_text(encoding="utf-8"))
-    assert len(manifest) == 9
+    assert [r["lecture"] for r in manifest] == list(range(1, len(manifest) + 1))
     index = BeautifulSoup((ROOT / "index.html").read_text(encoding="utf-8"), "html.parser")
-    assert len(index.select(".card")) == 9
+    assert len(index.select(".card")) == len(manifest)
     assert index.find("a", href="development-journey.html") is not None
     assert index.find("a", href="textbook-style-report.html") is not None
-    assert "66 main sections" in index.get_text(" ")
-    assert "Sixty-four link" in index.get_text(" ")
+    headings = [line for f in sorted(ROOT.glob("lecture-*.md"))
+                for line in f.read_text(encoding="utf-8").splitlines() if line.startswith("## ")]
+    linked = sum("youtube.com/watch" in line for line in headings)
+    assert f"{len(headings)} main sections" in index.get_text(" ")
+    assert f"{linked} link" in index.get_text(" ")
     journey = BeautifulSoup((ROOT / "development-journey.html").read_text(encoding="utf-8"), "html.parser")
     assert journey.h1 is not None and len(journey.find_all("h2")) >= 8
     for record in manifest:
@@ -63,8 +66,7 @@ def main():
             assert len(solutions.split()) >= 250
             assert len(timestamp_lines) == len(re.findall(r"^## ", md, re.MULTILINE))
         assert record["caption_generated"] is True
-        durations = [4073, 3442, 4539, 4523, 4514, 4729, 4466, 3899, 4666]
-        assert record["last_caption_end_seconds"] > 0.98 * durations[number - 1]
+        assert record["last_caption_end_seconds"] > 0.98 * record["duration_seconds"]
         for link in soup.find_all("a", href=True):
             href = link["href"]
             if href.startswith("#"):
@@ -107,6 +109,10 @@ def main():
             "Supervised fine-tuning (SFT)",
             "Group Relative Policy Optimization (GRPO)",
             "Proximal Policy Optimization"),
+        10: ("Retrieval-augmented generation (RAG)",
+             "Reinforcement learning with verifiable rewards (RLVR)",
+             "Group Relative Policy Optimization (GRPO)",
+             "Dense Passage Retrieval (DPR)"),
     }
     for number, definitions in required_definitions.items():
         md = next(ROOT.glob(f"lecture-{number:02d}-*.md")).read_text(

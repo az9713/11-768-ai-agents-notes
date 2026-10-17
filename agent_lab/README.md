@@ -1,6 +1,6 @@
 # Companion Python harness
 
-This standard-library package accompanies the nine current study chapters. It
+This standard-library package accompanies the ten current study chapters. It
 runs without a model account or network connection. The proposal source in
 `order_demo.py` is deterministic so the mechanics can be tested separately from
 model variability.
@@ -14,6 +14,7 @@ model variability.
 | 5, planning | `planning.py` | Dependency graph, ready set, work/span, reliability product, and replanning rule |
 | 6–7, evaluation | `evaluation.py` | pass@k, multidimensional outcomes, weighted rubrics, and coordinate transforms |
 | 8–9, training | `training.py` | Masked loss, effective mixtures, reward-to-go, REINFORCE, and group diagnostics |
+| 10, deep research | `evaluation.py`, `training.py` | Chance-corrected judge agreement, citation accuracy and recall, contrastive retrieval loss |
 
 From the repository root, run:
 

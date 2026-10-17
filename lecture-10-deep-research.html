@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Deep research agents | Independent CMU 11-768 study | Agent Systems Foundations</title>
+<meta name="description" content="Independent, research-extended study material based on CMU 11-768: AI Agents.">
+<meta property="og:site_name" content="Agent Systems Foundations">
+<meta property="og:title" content="Deep research agents | Independent CMU 11-768 study">
+<meta property="og:description" content="Independent, research-extended study material based on CMU 11-768: AI Agents.">
+<style>
+:root {color-scheme:dark;--bg:#0c1018;--panel:#151d2a;--line:#2c3b4f;--text:#e8edf4;--muted:#aab9cc;--accent:#86c5ff;--warm:#ffd395}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:17px/1.68 system-ui,Segoe UI,sans-serif}
+a{color:var(--accent);text-underline-offset:3px}a:hover{color:#b5dcff}.shell{max-width:1180px;margin:auto;padding:0 24px}.top{border-bottom:1px solid var(--line);background:#101722;position:sticky;top:0;z-index:2}.top .shell{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-top:12px;padding-bottom:12px}.brand{font-weight:800;color:var(--text);text-decoration:none}.top nav{display:flex;gap:14px;flex-wrap:wrap;font-size:.87rem}.top nav a{text-decoration:none}.layout{display:grid;grid-template-columns:minmax(0,780px) 260px;gap:44px;align-items:start}.main{min-width:0;padding:46px 0 100px}.side{position:sticky;top:76px;max-height:calc(100vh - 90px);overflow:auto;padding:35px 0 20px;font-size:.83rem}.side strong{display:block;color:var(--warm);letter-spacing:.08em;text-transform:uppercase}.side ul{list-style:none;padding:0}.side li{margin:9px 0}.side a{text-decoration:none;color:var(--muted)}.side a:hover{color:var(--accent)}h1,h2,h3{line-height:1.2;letter-spacing:-.025em}h1{font-size:clamp(2.2rem,4vw,3.7rem);margin:0 0 22px}h2{font-size:1.7rem;margin:68px 0 18px;border-top:1px solid var(--line);padding-top:25px;scroll-margin-top:80px}h2 a[href*="youtube.com/watch"]{font-size:.58em;font-weight:650;letter-spacing:0;white-space:nowrap;vertical-align:middle}h3{font-size:1.2rem;color:var(--warm);margin:38px 0 12px;scroll-margin-top:80px}p{margin:0 0 1.15em}p:first-of-type{color:var(--muted)}strong{color:#fff}blockquote{border-left:3px solid var(--accent);padding:10px 18px;background:var(--panel);margin:24px 0}table{border-collapse:collapse;width:100%;margin:24px 0 34px;display:block;overflow-x:auto;font-size:.94rem}th,td{border:1px solid var(--line);padding:12px 13px;text-align:left;vertical-align:top}th{background:#192536;color:var(--warm)}tr:nth-child(even) td{background:#121b27}pre{background:#111a27;border:1px solid var(--line);border-radius:10px;padding:20px;overflow-x:auto;color:#d4e8ff;font:14px/1.5 Consolas,monospace}code{font-family:Consolas,monospace;background:#1b293a;padding:1px 4px;border-radius:3px}pre code{background:none;padding:0}ol,ul{padding-left:1.6em}li{margin-bottom:.55em}.MathJax_Display{overflow-x:auto}.hero{background:linear-gradient(135deg,#16243a,#111925);border:1px solid var(--line);border-radius:16px;padding:25px 30px;margin:36px 0}.eyebrow{font-size:.78rem;font-weight:800;color:var(--warm);letter-spacing:.12em;text-transform:uppercase}.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:28px}.card{display:block;background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:22px;text-decoration:none;color:var(--text)}.card:hover{border-color:var(--accent);transform:translateY(-2px)}.card b{font-size:1.15rem}.card span{display:block;color:var(--muted);margin-top:8px}.tiny{color:var(--muted);font-size:.85rem}.foot{border-top:1px solid var(--line);padding:24px 0 50px;color:var(--muted);font-size:.85rem}@media(max-width:900px){.layout{display:block}.side{display:none}.main{padding-top:32px}.cards{grid-template-columns:1fr}.top nav{display:none}}@media print{:root{color-scheme:light;--bg:#fff;--panel:#f5f5f5;--line:#ccc;--text:#111;--muted:#333;--accent:#064d8b;--warm:#704600}body{font-size:11pt}.top,.side{display:none}.shell{max-width:none;padding:0}.main{padding:0}h2{break-after:avoid}pre,table{break-inside:avoid}.card{break-inside:avoid}}
+.chapter-nav{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;border-block:1px solid var(--line);padding:18px 0;margin:0 0 42px;font-size:.93rem}.chapter-nav:last-child{margin:55px 0 0}.chapter-nav a{display:block;text-decoration:none}.chapter-nav .next{text-align:right}.chapter-nav .index{color:var(--muted)}@media(max-width:600px){.chapter-nav{grid-template-columns:1fr;gap:8px}.chapter-nav .next{text-align:left}}@media print{.chapter-nav{display:none}}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="assets/mathjax-tex-svg.js"></script></head>
+<body><header class="top"><div class="shell"><a class="brand" href="index.html">Agent Systems Foundations · CMU 11-768 study</a><nav><a href="lecture-01-agents.html">What are agents?</a><a href="lecture-02-tool-use.html">Tool use</a><a href="lecture-03-long-context.html">Long context</a><a href="lecture-04-memory-and-skills.html">Memory and skills</a><a href="lecture-05-planning.html">Planning and coordination</a><a href="lecture-06-coding-agents.html">Coding agents</a><a href="lecture-07-computer-use.html">Computer use</a><a href="lecture-08-supervised-fine-tuning.html">Supervised fine-tuning</a><a href="lecture-09-reinforcement-learning.html">Reinforcement learning</a><a href="lecture-10-deep-research.html">Deep research agents</a><a href="development-journey.html">Development journey</a><a href="textbook-style-report.html">Style study</a></nav></div></header>
+<div class="shell layout"><main class="main"><nav class="chapter-nav" aria-label="Chapter navigation"><a class="previous" href="lecture-09-reinforcement-learning.html">← Previous: Reinforcement learning</a><a class="index" href="index.html">Reading guide</a><span></span></nav><h1 id="lecture-10-deep-research-agents-evaluation-training-and-retrieval">Lecture 10 — Deep research agents: evaluation, training, and retrieval</h1>
+<p><em>Independent study chapter · Based on a CMU 11-768: AI Agents lecture by Akari Asai, 24 September 2026 · <a href="index.html#sources">Course and attribution</a></em></p>
+<h2 id="0-a-research-question-has-no-single-gold-document-0000">0. A research question has no single gold document <a href="https://www.youtube.com/watch?v=nKUBrXFQBUM&amp;t=0s">00:00</a></h2>
+<p>A user asks an agent: "Can AI agents synthesize scientific literature as well as human experts?" The agent must find studies that compare agents with experts, check which fields they tested, and write a qualified answer with citations. The consequential error is a confident claim attached to a citation that does not support it. A reader who trusts the citation inherits the error.</p>
+<p>Call this request the <strong>parity question</strong>; it is the running case of the chapter. A <strong>deep research agent</strong> answers such a question by repeated search, reading, and synthesis, and returns a long-form <strong>report</strong>. A <strong>citation</strong> points from a claim in the report to a source the reader can inspect. A claim is <strong>supported</strong> when the cited source states or entails it.</p>
+<p>A lookup such as Herbert Simon's Nobel year, 1978, sits on one page. <strong>Retrieval-augmented generation (RAG)</strong> suffices there. A retriever runs once, and a <strong>language model (LM)</strong> answers from the retrieved text, as the <a href="https://arxiv.org/abs/2312.10997">RAG survey</a> describes. The parity question's evidence is spread over papers that each answer a narrower question.</p>
+<p>In the <a href="https://www.nature.com/articles/s41586-025-10072-4">OpenScholar study</a>, GPT-4o hallucinated citations 78–90% of the time. Experts preferred OpenScholar-8B and OpenScholar-GPT-4o answers over expert-written ones 51% and 70% of the time, against 32% for GPT-4o. Its benchmark covers only computer science, physics, neuroscience, and biomedicine. A report that cites it for "parity holds in every field" makes an unsupported claim.</p>
+<h3 id="the-research-loop-is-an-instance-of-the-run-model">The research loop is an instance of the run model</h3>
+<p>Chapter 1 models a run with state $x_t=(s_t,h_t,m_t,b_t,u_t)$, proposal $z_t$, gate $G_\phi$, and a verifier. Let $x$ be the question, as in chapter 9; subscripted $x_t$ stays chapter 1's run state. The hidden state $s_t$ is the document collection's content, and $h_t$ holds reasoning, queries, and returned text. The budget $b_t$ counts tool calls, tokens, and money; $u_t$ grants read-only tools.</p>
+<p>Three actions suffice. The action $\operatorname{search}(q)$ returns ranked snippets for query $q$, which is not chapter 1's workflow state $q_t$. The action $\operatorname{browse}(d)$ returns document $d$, and $\operatorname{answer}(y)$ ends the run with report $y$. The <strong>stop rule</strong> ends the run at the first answer, when $b_t$ reaches zero, or at step $T_{\max}$.</p>
+<p>In one run, the first search returns a benchmark ranking AI systems and an expert evaluation. The agent searches again for tested tasks and domains. Its report reads: "Promising on tested tasks; broader parity with experts remains unproven".</p>
+<p><strong>Reflection</strong> is reasoning text in $h_t$, part of proposal $z_t$, that changes the next query. Let $\beta_t$ be chapter 1's belief over hidden states, here over which conclusion the literature supports. Evidence multiplies the odds by its likelihood ratio. A ranking of AI systems is about as likely whether parity holds or not, so its ratio is near one. An expert comparison is the discriminating evidence. A fixed RAG pipeline is a workflow in chapter 1's sense, $a_t=f(q_t,o_t)$. A deep research agent chooses each query from the history.</p>
+<p>The verifier has no reference string to compare against. Chapter 1 noted that a factual answer may require sources that support each claim. Section 2 builds that check.</p>
+<h2 id="1-short-answer-benchmarks-trade-realism-for-checkability-0358">1. Short-answer benchmarks trade realism for checkability <a href="https://www.youtube.com/watch?v=nKUBrXFQBUM&amp;t=238s">03:58</a></h2>
+<p>Natural Questions pairs real search queries with Wikipedia answers, such as "who wrote the score for the force awakens," answered by John Williams on one page. Four limits of such a benchmark define four design axes.</p>
+<table>
+<thead>
+<tr>
+<th>Axis</th>
+<th>Lookup end</th>
+<th>Deep research end</th>
+<th>Measurable test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Search complexity</strong></td>
+<td>one search</td>
+<td>evidence joined across sources</td>
+<td>does one document contain the answer?</td>
+</tr>
+<tr>
+<td><strong>Domain expertise</strong></td>
+<td>general</td>
+<td>expert</td>
+<td>do writing and checking need an expert?</td>
+</tr>
+<tr>
+<td><strong>Answer form</strong></td>
+<td>short entity</td>
+<td>long-form synthesis</td>
+<td>does a string match decide correctness?</td>
+</tr>
+<tr>
+<td><strong>Evidence support</strong></td>
+<td>not inspected</td>
+<td>cited sources checked</td>
+<td>does the score read the sources?</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Exact match (EM)</strong> scores a predicted answer $\hat y$ against a reference $y^*$: one when the strings agree after normalization, zero otherwise. The common convention lowercases and removes punctuation and articles; the sources here do not state one. EM is cheap for entities but blind to evidence. A model can recall "John Williams" from pretraining, which is <strong>memorization</strong>, and EM cannot tell recall from search.</p>
+<p><a href="https://arxiv.org/abs/2504.12516">BrowseComp</a> has 1,266 questions built by <strong>reverse construction</strong>. A writer starts from a known answer, hides its name, and combines factual clues. A question is kept only if LMs with search fail and five Google searches do not suffice. One asks for a fictional character who breaks the fourth wall, was helped by selfless ascetics, is known for humor, and had a 1960s–1980s show with fewer than 50 episodes. The answer is Plastic Man.</p>
+<p>Why is such a question hard to find but easy to check? Let $N_{\rm cand}$ be the number of candidate entities, and let clue $\ell$ hold for a fraction $\chi_\ell$ of them. If the $n_{\rm clue}$ clues are independent, one wrong candidate satisfies all of them with probability $\prod_\ell\chi_\ell$. Linearity of expectation over the $N_{\rm cand}-1$ wrong candidates gives</p>
+<p>$$\mathbb E[\text{wrong survivors}]=(N_{\rm cand}-1)\prod_{\ell=1}^{n_{\rm clue}}\chi_\ell.$$</p>
+<p>With $N_{\rm cand}=10^5$ and five clues at $\chi_\ell=0.1$, the count of wrong survivors is Binomial$(10^5-1,10^{-5})$, close to Poisson with mean one. The answer is then unique with probability $e^{-1}\approx0.37$; a sixth clue raises it to $e^{-0.1}\approx0.90$. Each clue is searchable alone, no index stores the intersection, and EM checks the short answer. Positively correlated clues leave more survivors, so uniqueness needs its own check.</p>
+<table>
+<thead>
+<tr>
+<th>System (BrowseComp, reported 2025)</th>
+<th style="text-align: right;">Accuracy (%)</th>
+<th style="text-align: right;">95% half-width (points)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPT-4o</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+<tr>
+<td>GPT-4o with browsing</td>
+<td style="text-align: right;">1.9</td>
+<td style="text-align: right;">0.8</td>
+</tr>
+<tr>
+<td>OpenAI o1 (medium)</td>
+<td style="text-align: right;">9.9</td>
+<td style="text-align: right;">1.6</td>
+</tr>
+<tr>
+<td>Deep Research (trained for BrowseComp-style tasks)</td>
+<td style="text-align: right;">51.5</td>
+<td style="text-align: right;">2.8</td>
+</tr>
+<tr>
+<td>Humans, reference matches on 1,255 attempted</td>
+<td style="text-align: right;">25.3</td>
+<td style="text-align: right;">2.4</td>
+</tr>
+</tbody>
+</table>
+<p>The half-widths are $1.96\sqrt{\hat p(1-\hat p)/N_q}$ for $N_q$ independent questions. GPT-4.5, at 0.9%, is omitted. The 1.3-point GPT-4o gap exceeds its difference half-width, $\sqrt{0.4^2+0.8^2}\approx0.9$. Every other adjacent gap exceeds its own more than three times. Because all systems answer the same questions, a paired test is the correct check. The abstract states the benchmark's boundary. It sidesteps a true user query distribution, long answers, and ambiguity.</p>
+<p>A live web adds cost, latency, and a changing index, so reruns differ. <a href="https://arxiv.org/abs/2508.06600">BrowseComp-Plus</a> uses a <strong>frozen corpus</strong>. The o3 model gathers evidence pages, and humans verify spans and clues. The builders add <strong>hard negatives</strong>, related pages that miss a clue. The result is 830 questions over 100,195 documents, with a 95% half-width near 3.4 points at 50% accuracy. The frozen corpus isolates the retriever. With one prompt, GPT-5 scores 55.9% with BM25, a word-matching retriever, and 70.1% with the Qwen3-Embedding-8B retriever, using fewer searches.</p>
+<p>On the second axis, <a href="https://arxiv.org/abs/2509.13160">FinSearchComp</a> used 70 financial experts to write 635 questions. <a href="https://arxiv.org/abs/2505.14963">MedBrowseComp</a> has over 1,000 human-curated medical questions.</p>
+<p>Search budgets limit these measurements. A 500-token prompt that grows by 1,100 tokens per call holds $500+1{,}100\,n_{\rm call}$ tokens after $n_{\rm call}$ calls. Six calls fit an 8,192-token window, and the seventh reaches 8,200. Read from a figure in the <a href="https://arxiv.org/abs/2510.24701">Tongyi DeepResearch report</a>, Tongyi's BrowseComp accuracy is about 0% at an 8K context limit and about 43.5% at 128K. The token counts are illustrative.</p>
+<h2 id="2-long-form-answers-need-rubrics-and-rubrics-need-audits-1353">2. Long-form answers need rubrics, and rubrics need audits <a href="https://www.youtube.com/watch?v=nKUBrXFQBUM&amp;t=833s">13:53</a></h2>
+<p>A <strong>reference-similarity metric</strong> scores an answer by closeness to a reference. <strong>Recall-Oriented Understudy for Gisting Evaluation (ROUGE)</strong> counts shared word sequences. <a href="https://arxiv.org/abs/1904.09675">BERTScore</a>, after Bidirectional Encoder Representations from Transformers (BERT), matches contextual embeddings. <a href="https://arxiv.org/abs/2004.04696">Bilingual Evaluation Understudy with Representations from Transformers (BLEURT)</a> is learned from ratings.</p>
+<p>One word can flip truth, as in "parity is unproven" versus "parity is proven". <a href="https://aclanthology.org/2023.acl-long.181/">A study of long-form question-answering evaluation</a> used 109 expert comparisons between answer pairs. ROUGE picked the expert-preferred answer 58% of the time, BERTScore 57%, and BLEURT 62%, against 50% for chance. The chance standard error is $\sqrt{0.25/109}\approx0.048$. These sit 1.7, 1.5, and 2.5 standard errors above chance. Only BLEURT clears the two-sided 5% level, and ROUGE passes only a one-sided test. BLEURT still misorders 38% of pairs.</p>
+<p>A rubric replaces similarity with criteria. Chapter 7 defines weights $w_j\ge0$, checks $c_j\in\{0,1\}$, and $R_{\rm rubric}=\sum_jw_jc_j/\sum_jw_j$. A <strong>judge</strong>, usually an LM, decides each check on report $y$: $c_j=\operatorname{Judge}(\text{crit}_j,y)$, where $\text{crit}_j$ is criterion $j$'s text. A parity rubric gives weight 2 to "Reports a direct comparison with human experts". It gives weight 1 to "Qualifies the conclusion by task and domain". The candidate "Experts preferred OpenScholar answers in one study [1]. This holds in every field [1]" passes only the first.</p>
+<pre><code class="language-python">from agent_lab.evaluation import rubric_score
+
+score = rubric_score(
+    {&quot;direct comparison&quot;: 2, &quot;qualified by task and domain&quot;: 1},
+    {&quot;direct comparison&quot;: True, &quot;qualified by task and domain&quot;: False},
+)
+assert abs(score - 2 / 3) &lt; 1e-12
+</code></pre>
+<p>The check assumes binary judgments and fixed weights. The score measures only listed criteria. The false sentence costs a point because the rubric anticipated it. By chapter 7's distinction, an unsupported claim may belong among hard constraints.</p>
+<p>Expert rubrics are costly, so <a href="https://arxiv.org/abs/2509.00496">ResearchQA</a> mines surveys from 75 fields into 21K queries and 160K rubric items. A <strong>parametric rubric</strong> is one an LM writes from its own weights, without retrieved sources. An expert audit found 15% of parametric items vacuous, erroneous, or unclear. An item citing a nonexistent paper rewards a hallucinated citation. A <strong>search-grounded rubric</strong> is written from retrieved sources instead. A third source is expert writing: <a href="https://arxiv.org/abs/2601.08536">DeepResearch Bench II</a> derives 9,430 binary items from expert articles, and its best agents satisfy fewer than 50%.</p>
+<h3 id="judge-agreement-needs-a-chance-correction-and-an-interval">Judge agreement needs a chance correction and an interval</h3>
+<p>In the OpenScholar evaluation, over 12 questions, 2 systems, and 2 expert raters per answer, an LM judge agreed with an expert on 79% of rubric judgments. Two experts agreed on 80%. <strong>Observed agreement</strong> $p_o$ is the fraction of identical labels, chance matches included. Let raters A and B mark an item satisfied with probabilities $\bar c_A$ and $\bar c_B$. Independent raters agree by chance with probability</p>
+<p>$$p_e=\bar c_A\bar c_B+(1-\bar c_A)(1-\bar c_B).$$</p>
+<p><strong>Cohen's kappa</strong> maps chance agreement to zero and perfect agreement to one, provided $p_e&lt;1$.</p>
+<p>$$\kappa=\frac{p_o-p_e}{1-p_e}.$$</p>
+<p>The function <code>agent_lab.evaluation.cohen_kappa</code> computes it from two label sequences. Base rates decide what 79% means. If both raters mark 70% of items satisfied, $p_e=0.58$ and $\kappa=0.50$. Disagreement needs at least one rater to say "unsatisfied," so $p_o\ge1-(1-\bar c_A)-(1-\bar c_B)$. At 88% for both, $p_o\ge0.76$ permits 79%, and $p_e\approx0.789$ gives $\kappa\approx0.01$, chance level. No base rates are reported, so $\kappa$ is unknown.</p>
+<p>If the 24 question–system answers are the independent units, 79% carries a 95% half-width of $1.96\sqrt{0.79\cdot0.21/24}\approx0.16$. Items within an answer are correlated. The one-point gap shows the judge is not grossly worse than a second expert here. It does not establish equivalence. The <a href="https://arxiv.org/abs/2306.05685">study of LMs as judges</a> documents position, verbosity, and self-enhancement biases.</p>
+<h3 id="citation-support-is-a-separate-measurement">Citation support is a separate measurement</h3>
+<p>A rubric judges the report. A citation check judges each link. <a href="https://arxiv.org/abs/2506.11763">DeepResearch Bench</a> introduces <strong>Factual Abundance and Citation Trustworthiness (FACT)</strong>. FACT extracts <strong>claim–citation pairs</strong>, fetches each cited page, and asks a judge whether the page supports the claim. Let the report contain claims $k=1,\ldots,N$, let claim $k$ cite $n_k\ge0$ sources, and let $v_{k,r}\in\{0,1\}$ record support by source $r$. With at least one pair, <strong>citation accuracy</strong> and <strong>effective citations</strong> are</p>
+<p>$$\operatorname{CA}=\frac{\sum_k\sum_rv_{k,r}}{\sum_kn_k},\qquad\operatorname{EC}=\sum_k\sum_rv_{k,r}.$$</p>
+<p>In a two-claim example, "OpenScholar was compared with human answers [1]" is supported and "OpenScholar matches experts in every field [1]" is not: $\operatorname{CA}=1/2$, $\operatorname{EC}=1$. Neither asks whether each claim has support. Define <strong>citation recall</strong>, which DeepResearch Bench does not report:</p>
+<p>$$\operatorname{CR}=\frac1N\sum_{k=1}^N\mathbf 1\Big[\max_rv_{k,r}=1\Big],$$</p>
+<p>where $\mathbf 1[\cdot]$ is one when its condition holds and a maximum over no sources is zero. Take five claims: two with one supported citation each, the "every field" claim with an unsupported one, one with two supported citations, and one uncited. Then $\operatorname{CA}=4/5$, $\operatorname{EC}=4$, and $\operatorname{CR}=3/5$.</p>
+<pre><code class="language-python">from agent_lab.evaluation import citation_metrics
+
+claims = [[True], [True], [False], [True, True], []]
+assert citation_metrics(claims) == (0.8, 4, 0.6)
+without_bad_link = [[True], [True], [], [True, True], []]
+assert citation_metrics(without_bad_link) == (1.0, 4, 0.6)
+</code></pre>
+<p>The function assumes correct extraction and judgments. The second assertion exposes an incentive: deleting the bad citation raises accuracy to 1.0 while the false claim stays. Only recall reveals it. Neither measures source quality, and the judge errs. Take a true-positive rate of 0.95, a false-positive rate of 0.10, and 40% of pairs unsupported. Measured accuracy is $0.95\cdot0.60+0.10\cdot0.40=0.61$ against a true 0.60. Yet $0.04/0.61\approx6.6\%$ of accepted pairs are unsupported. These rates are illustrative.</p>
+<h2 id="3-training-data-comes-from-checkable-questions-and-filtered-trajectories-2409">3. Training data comes from checkable questions and filtered trajectories <a href="https://www.youtube.com/watch?v=nKUBrXFQBUM&amp;t=1449s">24:09</a></h2>
+<p>A rollout alternates model text, such as the reasoning "Find expert comparisons" and the call <code>search("expert comparisons")</code>, with tool text the harness appends. Let trajectory $\tau_i$ be a token sequence $(\tau_{i,1},\ldots,\tau_{i,L_i})$. Let $m_{i,j}=1$ when the policy generated token $j$, giving <strong>model tokens</strong>, and $m_{i,j}=0$ for question and <strong>tool tokens</strong>. Chapter 8's masked loss and Section 4's losses train only model tokens. The <a href="https://arxiv.org/abs/2503.09516">Search-R1</a> abstract names retrieved-token masking as a condition for stable training. Training tool tokens would teach a model of the search engine, not a policy. A step with 40 reasoning tokens, a 15-token call, and a 1,200-token result trains only $55/1{,}255\approx4.4\%$ of its tokens. The counts are illustrative.</p>
+<p>The Tongyi report uses three stages. <strong>Mid-training</strong> continues pretraining on agent trajectories. <strong>Supervised fine-tuning (SFT)</strong> imitates teacher trajectories. <strong>Reinforcement learning (RL)</strong> learns from the policy's own rollouts. Each stage needs questions with checkable answers.</p>
+<p>A <strong>knowledge graph</strong> stores facts as triples (subject, relation, object), such as (Allen Newell, faculty member of, Carnegie Mellon). A <strong>random walk</strong> from Newell collects connected facts: the 1975 Turing Award shared with Herbert Simon, Simon's 1978 Nobel Prize, and their 1972 book <em>Human Problem Solving</em>. Hiding the target and rewriting relations as clues yields a question. It asks: "Which CMU researcher coauthored a book on human problem solving with a future economics Nobel laureate, and shared the Turing Award with that colleague three years before the Nobel Prize?" The answer is Allen Newell. <a href="https://arxiv.org/abs/2509.13305">WebSailor-V2</a> builds high-uncertainty tasks by such structured sampling and information obfuscation.</p>
+<p>The procedure mirrors reverse construction and its failure. The Newell question looks four-hop but falls in one or two searches: one finds Simon from the book and prize, and one finds both 1975 recipients. BrowseComp's five-search rule would reject it, though it remains a usable easy training item. Synthesis needs a difficulty filter and a uniqueness check over the graph.</p>
+<h3 id="filtering-selects-what-imitation-learns">Filtering selects what imitation learns</h3>
+<p>In filtered teacher SFT, a stronger <strong>teacher</strong> model generates trajectories, and a filter keeps some. The student trains on them with chapter 8's masked loss, as in <a href="https://arxiv.org/abs/2505.22648">WebDancer</a>. The retained set is $\mathcal D^+=\{\tau:\operatorname{EM}(\operatorname{ans}(\tau),y^*)=1,\ \operatorname{valid}(\tau)=1,\ \operatorname{coherent}(\tau)=1\}$, where $\operatorname{ans}(\tau)$ is the final answer and coherence is a judgment. Here EM is exact match, not the expectation-maximization of chapter 9's ReST-EM. This is chapter 9's filtered objective with the teacher as sampler.</p>
+<p>The filter shifts the training distribution. Suppose half the questions are hard, and the teacher solves 60% of easy and 10% of hard ones, one trajectory each. Hard questions then form $0.5\cdot0.10/(0.5\cdot0.60+0.5\cdot0.10)=0.05/0.35\approx14\%$ of the retained set, not 50%. A lucky correct string reached by an incoherent path passes EM, so only the coherence judgment catches it. These numbers are illustrative.</p>
+<p>Mid-training instead continues next-token prediction on agent trajectories mixed with general text. <a href="https://arxiv.org/abs/2509.13310">Scaling Agents via Continual Pre-training</a> applies one SFT set to a Qwen3 base and to its mid-trained AgentFounder base. Pass@1, chapter 6's pass@$k$ at $k=1$, rose from 28.6% to 39.9% on BrowseComp-en and from 35.6% to 43.3% on BrowseComp-zh. On GAIA, a benchmark for General AI Assistants, it rose from 71.8% to 72.8%. The abstract confirms 39.9% and 43.3% for AgentFounder. Only the GAIA pair is assigned from the figure legend. That is one comparison. No interval is printed, so the 1.0-point GAIA change is unresolved.</p>
+<h2 id="4-exact-match-reward-turns-short-answers-into-an-rl-signal-3115">4. Exact-match reward turns short answers into an RL signal <a href="https://www.youtube.com/watch?v=nKUBrXFQBUM&amp;t=1875s">31:15</a></h2>
+<p>RL trains on the policy's own attempts, so it sees the histories its own errors create. <strong>Reinforcement learning with verifiable rewards (RLVR)</strong> computes reward by a program that checks the outcome. For a short answer,</p>
+<p>$$R(\tau_i)=\operatorname{EM}\big(\operatorname{ans}(\tau_i),y^*\big).$$</p>
+<p>If three Newell rollouts answer Herbert Simon, Allen Newell, and Allen Newell, their rewards are 0, 1, and 1, as an illustration. Search-R1 reports relative gains, as the abstract words them, of 41% for Qwen2.5-7B and 20% for Qwen2.5-3B over retrieval-augmented baselines on seven datasets. EM gives zero to an alias such as "A. Newell" and one to a lucky guess. It never inspects the evidence path.</p>
+<h3 id="the-clipped-objective-weights-model-tokens-by-a-probability-ratio">The clipped objective weights model tokens by a probability ratio</h3>
+<p>Let $n$ be the number of rollouts per question. Chapter 9 writes $G$, reserved here for the gate $G_\phi$. <strong>Group Relative Policy Optimization (GRPO)</strong>, from <a href="https://arxiv.org/abs/2402.03300">DeepSeekMath</a>, compares each rollout with the other $n-1$. Chapter 9 defines the centered advantage $\hat A_i=R_i-\bar R$. DeepSeekMath also divides by the group standard deviation. For $n=3$ rewards $(0,1,1)$, the centered advantages are $(-2/3,1/3,1/3)$. With the population deviation they standardize to about $(-1.41,0.71,0.71)$; chapter 9's sample deviation gives $(-1.15,0.58,0.58)$.</p>
+<p>Let $\pi_{\theta_{\rm old}}$ be the sampling policy. For a model token, define the policy ratio</p>
+<p>$$r_{i,j}(\theta)=\frac{\pi_\theta(\tau_{i,j}\mid x,\tau_{i,&lt;j})}{\pi_{\theta_{\rm old}}(\tau_{i,j}\mid x,\tau_{i,&lt;j})},$$</p>
+<p>where $\tau_{i,&lt;j}$ is every earlier token, tool tokens included. This is the token-level form of chapter 9's ratio $r_t(\theta)$, with $\pi_{\theta_{\rm old}}$ in place of $\mu$. Let $M_i=\sum_jm_{i,j}$, let $\epsilon&gt;0$ be chapter 9's clip width, and let $\beta_{\rm KL}\ge0$ weight a <strong>Kullback-Leibler (KL)</strong> penalty. The coefficient $\beta_{\rm KL}$ is unrelated to the belief $\beta_t$. The surrogate is</p>
+<p>$$L^{\rm GRPO}(\theta)=\mathbb E\Big[\frac1n\sum_{i=1}^n\frac1{M_i}\sum_jm_{i,j}\Big(\min\big(r_{i,j}\hat A_i,\operatorname{clip}(r_{i,j},1-\epsilon,1+\epsilon)\hat A_i\big)-\beta_{\rm KL}D_{{\rm KL},i,j}\Big)\Big].$$</p>
+<p>The expectation runs over questions and sampled groups. The term $D_{{\rm KL},i,j}$ is chapter 9's divergence from reference $\pi_{\rm ref}$ at token $j$'s history. The factor $1/M_i$ averages within a trajectory; batch-level token averaging is a different objective. Tool tokens leave the sum but stay in the conditioning history. For positive $\hat A_i$, clipping stops the gain once $r_{i,j}&gt;1+\epsilon$; for negative $\hat A_i$, once $r_{i,j}&lt;1-\epsilon$. Only the mask is specific to search.</p>
+<p>Search makes degenerate groups common. Chapter 9 gives $p^n+(1-p)^n$ as the probability that all rewards tie. At $p=0.1$ and $n=8$ it is about $0.43$. About 43% of such groups give zero advantages, and only the KL term updates them.</p>
+<p>Rollout length also varies. Suppose eight rollouts finish between 10 and 120 seconds, mean 55. A synchronous trainer is then busy about $55/120\approx46\%$ of each step, as an illustration. An <strong>asynchronous rollout</strong> scheme scores each trajectory as it finishes and batches completed ones. The Tongyi report also caches tool results. The cost is <strong>staleness</strong>: a rollout begun under $\pi_{\theta_{\rm old}}$ can finish after an update. It stays valid only if the trainer logs its sampling probabilities for $r_{i,j}$, as chapter 9 requires for off-policy reuse.</p>
+<h2 id="5-rubric-rewards-extend-rl-to-open-ended-reports-3546">5. Rubric rewards extend RL to open-ended reports <a href="https://www.youtube.com/watch?v=nKUBrXFQBUM&amp;t=2146s">35:46</a></h2>
+<p>EM cannot score the parity question, whose report needs coverage, relevance, factuality, and supported claims. A <strong>rubric reward</strong> scores rollout $\tau_i$ by a rubric applied to its report $y_i$. <a href="https://arxiv.org/abs/2511.19399">Deep Research Tulu (DR Tulu)</a> trains an 8-billion-parameter agent this way.</p>
+<p>Rubric rewards appear with three normalizations: by the total weight, by the positive weight, or none. The DR Tulu paper's Eq. (1), in version 3, divides by the positive-weight sum. Its judge outputs 0, 0.5, or 1. Let $\Xi_t(x)$ index the items active for question $x$ at step $t$. The letter $\Xi$ is unused elsewhere in the series. With graded checks $c_j(y)\in\{0,\tfrac12,1\}$,</p>
+<p>$$R_t(\tau)=\frac{\sum_{j\in\Xi_t(x)}w_jc_j(y)}{W_t(x)},\qquad W_t(x)=\sum_{j\in\Xi_t(x):\,w_j&gt;0}w_j.$$</p>
+<p>With all weights positive, this is $R_{\rm rubric}$ with graded checks. The equation permits negative weights. How DR Tulu weights negative rubrics is not given in the sources cited.</p>
+<p>Does normalization matter for GRPO? Suppose all $n$ rollouts in a group are judged against one rubric set. The paper scores all responses with the current active rubrics. Then $W_t(x)$ is a group constant. With $S_i=W_t(x)R_i$, the group mean is $\bar S=W_t(x)\bar R$, so</p>
+<p>$$S_i-\bar S=W_t(x)\,(R_i-\bar R).$$</p>
+<p>Centered advantages scale by $W_t(x)$, and so does the group standard deviation. Standardized advantages are therefore identical under all three forms whenever the deviation is positive. Without standardization, questions with more rubric weight get larger updates. As a check, let three parity reports pass item 1 only, both items, and neither. Normalized rewards $(2/3,1,0)$ give centered advantages $(1/9,4/9,-5/9)$; unnormalized rewards $(2,3,0)$ give $(1/3,4/3,-5/3)$. Both standardize, with the population deviation, to about $(0.27,1.07,-1.34)$.</p>
+<h3 id="evolving-rubrics-make-the-reward-non-stationary">Evolving rubrics make the reward non-stationary</h3>
+<p>DR Tulu's <strong>reinforcement learning with evolving rubrics (RLER)</strong> changes $\Xi_t(x)$ during training. Initial rubrics are written with search and persist. At each step, an LM contrasts the sampled reports and writes new rubrics. A <strong>positive rubric</strong> rewards a correct, specific claim that some rollout made. A <strong>negative rubric</strong> penalizes a specific error that some rollout made. A <strong>rubric buffer</strong> keeps the persistent and useful collected rubrics. On the parity question, a rollout claiming "OpenScholar matches experts in every field" can trigger the negative rubric "The response claims parity across all fields". While that rubric stays in the buffer, every later rollout that repeats the claim loses reward, which a rubric fixed in advance would have to anticipate.</p>
+<p>The cost is a <strong>non-stationary reward</strong>, one whose definition changes during optimization. The step-$t$ objective is $J_t(\theta)=\mathbb E[R_t(\tau)]$. Its $\Xi_t(x)$ depends on earlier rollouts, hence on earlier parameters. Chapter 9's policy-gradient identity assumes a reward independent of $\theta$ except through the trajectory. The rubric set is fixed while a group is scored, so each estimate is valid for $J_t$, but the target moves. A rising training-reward curve is therefore not comparable across steps. The generator and judge are LMs, so their errors become reward. In Section 2, 15% of parametric items were flawed. No flaw rate is reported for evolving rubrics.</p>
+<p>DR Tulu trains with 8 rollouts per prompt and 32 prompts per batch. Its ablations, read from the figures, average HealthBench, ScholarQABench v2, and DeepResearch Bench.</p>
+<table>
+<thead>
+<tr>
+<th>Reward, from the same SFT start</th>
+<th style="text-align: right;">Score at 2,500 steps (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No RL</td>
+<td style="text-align: right;">about 50.0</td>
+</tr>
+<tr>
+<td>Random rewards</td>
+<td style="text-align: right;">about 50.9</td>
+</tr>
+<tr>
+<td>Initial rubrics only</td>
+<td style="text-align: right;">about 59.5</td>
+</tr>
+<tr>
+<td>Evolving rubrics</td>
+<td style="text-align: right;">about 61.2</td>
+</tr>
+</tbody>
+</table>
+<p>Random rewards stay within about one point of no RL, so the reward's content matters. Evolving rubrics lead initial ones by up to 2.7 points, at 2,000 steps. A second figure tests SFT as a <strong>warm start</strong>: at 600 RL steps, no SFT scores about 38.5% and full SFT about 54.2%; the undertrained start lies between.</p>
+<p>Read from the cost figure, DR Tulu-8B costs about 0.0018 US dollars per query against about 1.8 for OpenAI Deep Research. Its score sits about 0.5 above OpenAI Deep Research and 0.5 below GPT-5 with search, inside reading error. The abstract reports a 0.7% average gain. A system lies on the <strong>Pareto frontier</strong> when no other is both cheaper and higher scoring. DR Tulu, the cheapest plotted system, is on it by cost alone. This figure averages four benchmarks, the ablation three.</p>
+<h2 id="6-retrieval-quality-bounds-what-the-agent-can-find-4500">6. Retrieval quality bounds what the agent can find <a href="https://www.youtube.com/watch?v=nKUBrXFQBUM&amp;t=2700s">45:00</a></h2>
+<p>An agent can cite only what its search returns, from a local collection or a web search application programming interface (API). Section 1 measured the stakes. With the same prompt, GPT-5 rose from 55.9% to 70.1% when BM25 was replaced by Qwen3-Embedding-8B.</p>
+<p><strong>BM25</strong>, short for Okapi Best Matching 25, is a lexical scoring function. For each query term, it multiplies a saturating, length-normalized term-frequency factor by an inverse-document-frequency weight that favors rare terms, and sums. It needs no training. The <a href="https://arxiv.org/abs/2104.08663">BEIR benchmark</a> found it a robust zero-shot baseline. A <strong>dual encoder</strong> maps queries and documents to vectors through encoders $\operatorname{enc}_q$ and $\operatorname{enc}_d$ with parameters $\psi$, and scores</p>
+<p>$$\operatorname{sim}(q,d)=\operatorname{enc}_q(q;\psi)^\top\operatorname{enc}_d(d;\psi).$$</p>
+<p>Documents are encoded offline into a <strong>vector index</strong>. A query returns its nearest vectors, chapter 4's top-$k$ rule. <a href="https://aclanthology.org/2020.emnlp-main.550/">Dense Passage Retrieval (DPR)</a> reports 9–19 points higher top-20 accuracy than Lucene BM25.</p>
+<p>A three-document example uses the Newell facts. The query is "Who shared the Turing Award with Simon?" Document [1], "Newell and Simon: 1975 Turing Award," is relevant. Document [2], "Simon: economics Nobel Prize, 1978," shares "Simon," so it is a hard negative. Document [3], "CMU campus buildings and directions," is an easy negative.</p>
+<h3 id="the-contrastive-loss-is-a-softmax-cross-entropy">The contrastive loss is a softmax cross-entropy</h3>
+<p>Let $d^+$ be the relevant document and $\mathcal N(q)$ a set of negatives. Over the candidates $\{d^+\}\cup\mathcal N(q)$, define</p>
+<p>$$p_\psi(d\mid q)=\frac{\exp\operatorname{sim}(q,d)}{\exp\operatorname{sim}(q,d^+)+\sum_{d^-\in\mathcal N(q)}\exp\operatorname{sim}(q,d^-)}.$$</p>
+<p>The <strong>contrastive loss</strong> is the cross-entropy against a target with all mass on $d^+$.</p>
+<p>$$\mathcal L_{\rm contrast}(\psi)=-\log p_\psi(d^+\mid q)=-\operatorname{sim}(q,d^+)+\log\sum_d\exp\operatorname{sim}(q,d).$$</p>
+<p>This form is widely called InfoNCE after the <a href="https://arxiv.org/abs/1807.03748">contrastive predictive coding paper</a>, which uses a probabilistic contrastive loss with negative sampling. Differentiate by one candidate's score. The first term gives $-1$ for $d^+$ only, and the log-sum-exp gives the softmax probability. Hence</p>
+<p>$$\frac{\partial\mathcal L_{\rm contrast}}{\partial\operatorname{sim}(q,d)}=p_\psi(d\mid q)-\mathbf 1[d=d^+],\qquad\nabla_\psi\mathcal L_{\rm contrast}=\sum_d\big(p_\psi(d\mid q)-\mathbf 1[d=d^+]\big)\nabla_\psi\operatorname{sim}(q,d).$$</p>
+<p>The positive is pulled up with weight $1-p_\psi(d^+\mid q)$, and each negative is pushed down in proportion to its current probability. A negative far below the positive receives almost no gradient, so hard negatives carry the signal.</p>
+<p>Let the Newell scores be $(2,1,0)$. The exponentials $7.389$, $2.718$, and $1$ sum to $11.107$. The probabilities are $(0.665,0.245,0.090)$, and the loss is $-\log0.665\approx0.408$. The score gradient $(-0.335,0.245,0.090)$ pushes the hard negative about 2.7 times harder than the easy one.</p>
+<pre><code class="language-python">from agent_lab.training import contrastive_loss
+
+loss = contrastive_loss([2.0, 1.0, 0.0], positive_index=0)
+assert abs(loss - 0.4076) &lt; 1e-4
+assert abs(contrastive_loss([12.0, 11.0, 10.0], 0) - loss) &lt; 1e-12
+</code></pre>
+<p>The function assumes one positive and raw inner-product scores without a temperature. The second assertion checks shift invariance, which holds because the derivative along the all-ones direction is zero (Exercise 2). <strong>In-batch negatives</strong> reuse the other $B-1$ queries' positives in a minibatch at no extra encoding cost. DPR adds BM25 hard negatives. Either source can yield <strong>false negatives</strong>, relevant documents labeled negative, whose gradient pushes a correct document down.</p>
+<h3 id="reasoning-aware-retrieval-conditions-on-the-agents-information-need">Reasoning-aware retrieval conditions on the agent's information need</h3>
+<p>The retriever usually sees only the latest query $q_t$. On the parity question, "expert comparisons" does not say what is compared with what. The preceding reasoning, "Find expert comparisons; check the tested tasks," does. Let $\zeta_t$ be that reasoning, the part of proposal $z_t$ written just before $q_t$.</p>
+<p><a href="https://arxiv.org/abs/2603.04384">AgentIR</a> jointly embeds $\zeta_t$ and $q_t$, which it calls reasoning-aware retrieval. Its DR-Synth method generates labels for intermediate searches from standard question-answering datasets. DR-Synth keeps the top 45 of the 50 results for an intermediate query, inserts 5 global gold documents, and reranks with the global question and answer in view. Top ranks become positives and bottom ranks negatives; the cut-off rank is not given.</p>
+<p>On BrowseComp-Plus with the Tongyi-DeepResearch agent, the abstract reports 68% accuracy for AgentIR-4B, 50% for embedders twice its size, and 37% for BM25. Read from the figure, Tongyi's mean search calls fall from about 32.9 with BM25 to 25.9 with AgentIR. An ablation separates reasoning input from DR-Synth training. All values below are printed, not read by eye.</p>
+<table>
+<thead>
+<tr>
+<th>Retriever (accuracy, %)</th>
+<th style="text-align: right;">Tongyi-DR</th>
+<th style="text-align: right;">gpt-oss-120B</th>
+<th style="text-align: right;">GLM-4.7</th>
+<th style="text-align: right;">Tongyi-DR (visit)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Query only, untrained</td>
+<td style="text-align: right;">48.7</td>
+<td style="text-align: right;">47.6</td>
+<td style="text-align: right;">50.5</td>
+<td style="text-align: right;">50.2</td>
+</tr>
+<tr>
+<td>Query plus reasoning, untrained</td>
+<td style="text-align: right;">55.5</td>
+<td style="text-align: right;">51.3</td>
+<td style="text-align: right;">50.9</td>
+<td style="text-align: right;">54.0</td>
+</tr>
+<tr>
+<td>Query only, DR-Synth trained</td>
+<td style="text-align: right;">59.4</td>
+<td style="text-align: right;">59.2</td>
+<td style="text-align: right;">57.5</td>
+<td style="text-align: right;">59.5</td>
+</tr>
+<tr>
+<td>Both (AgentIR)</td>
+<td style="text-align: right;">66.3</td>
+<td style="text-align: right;">67.0</td>
+<td style="text-align: right;">64.7</td>
+<td style="text-align: right;">68.1</td>
+</tr>
+</tbody>
+</table>
+<p>No benchmark is named for this ablation, and the "visit" column is not defined. Its 68.1 matches the abstract's 68% on BrowseComp-Plus. The Tongyi-DR 66.3 also matches the 66.4 read by eye from the BrowseComp-Plus scatter. The trained query-only row reappears exactly as the history ablation's baseline.</p>
+<p>For gpt-oss-120B, reasoning alone adds 3.7 points and training alone 11.6, a sum of 15.3. Both add 19.4, an interaction of 4.1. The interaction is 0.1 for Tongyi-DR, 6.8 for GLM-4.7, and 4.8 for the visit column. On GLM-4.7, the encoder needed training before the reasoning helped: 0.4 points untrained, 7.2 trained. On Tongyi-DR, reasoning adds about 7 points with or without training. If the four accuracies are independent estimates on 830 questions, an interaction carries a 95% half-width near 6.8 points. No interval is printed, and paired questions would narrow it.</p>
+<p>A second ablation fixes DR-Synth training and varies the input. On Tongyi-DR, query only scores 59.4, prior queries 63.1, with reasoning 63.1, and with documents added 60.0. Current reasoning alone scores 66.3. Adding documents falls below prior queries in all four columns. The source lecture attributes the drop to long inputs that exceed what the embedder represents well. The table does not test that explanation.</p>
+<h2 id="7-evaluation-limits-every-reported-number-6617">7. Evaluation limits every reported number <a href="https://www.youtube.com/watch?v=nKUBrXFQBUM&amp;t=3977s">66:17</a></h2>
+<p>Short-answer evaluation is measurable. BrowseComp accuracy rose from 1.9% for GPT-4o with browsing to 51.5% for a system trained on such tasks. The DR Tulu abstract notes that most open agents train with short-form verifiable rewards. Graph-synthesized questions imitate the construction of the benchmark that scores them, so a gain may measure fit to that procedure rather than research ability. No benchmark here measures whether a report improves a later decision.</p>
+<p><strong>Contamination</strong> is the presence of evaluation answers in material the system can access. The official BrowseComp file stores questions and answers encrypted, which keeps that file out of plain-text crawls but not copies decrypted elsewhere. Memorization of such copies is one route. Running the agent with search disabled probes it. Retrieval is the other: a live-search agent can find a decrypted copy. A <strong>blocklist</strong> of dataset hosts removes known copies, and the harness should log and flag listed visits. A frozen corpus without benchmark files closes this route.</p>
+<h3 id="scope-and-limits-of-deep-research-evaluation-and-training">Scope and limits of deep research evaluation and training</h3>
+<p>Three results are formal. The uniqueness argument assumes independent clues. The normalization result needs one rubric set per group. The contrastive gradient is exact for a finite softmax. Everything else is empirical, mostly from one paper, one comparison, or a figure read by eye. A result should report the corpus or search API and its date, the retriever, the judge, citation accuracy with recall, cost, and contamination controls.</p>
+<h3 id="exercises">Exercises</h3>
+<ol>
+<li>A parity report has four claims. Claim 1 cites two sources, one supporting. Claim 2 cites one supporting source. Claim 3 cites one non-supporting source. Claim 4 cites nothing. Compute CA, EC, and CR. Then compute the rubric score for weights $(3,2,1)$ and checks $(1,0,1)$.</li>
+<li>Prove that the score gradient of $\mathcal L_{\rm contrast}$ sums to zero and that adding one constant to every score leaves the loss unchanged.</li>
+<li>Two raters have observed agreement $p_o=0.85$; rater A marks 80% of items satisfied and rater B 75%. Compute $p_e$ and $\kappa$, and explain why $p_o$ alone cannot show that an LM judge can replace an expert.</li>
+<li>Design a held-out evaluation for an agent trained with evolving rubrics on long-form questions whose evidence comes from the BrowseComp-Plus corpus. Name three controls, state what each rules out, and say what to report beside the rubric score.</li>
+</ol>
+<h3 id="solutions-and-discussion">Solutions and discussion</h3>
+<ol>
+<li>The pairs are $(1,0)$ for claim 1, $(1)$ for claim 2, and $(0)$ for claim 3: four pairs, two supported. So $\operatorname{CA}=2/4=0.5$ and $\operatorname{EC}=2$. Claims 1 and 2 have support and claims 3 and 4 do not, so $\operatorname{CR}=2/4=0.5$. The rubric score is $(3+0+1)/6=4/6\approx0.667$.</li>
+<li>Component $d$ of the score gradient is $p_\psi(d\mid q)-\mathbf 1[d=d^+]$. Summing over candidates gives $\sum_dp_\psi(d\mid q)-1=0$. Replacing every score by $\operatorname{sim}+a$ changes the first term to $-\operatorname{sim}(q,d^+)-a$ and the second to $\log\big(e^a\sum_d\exp\operatorname{sim}(q,d)\big)=a+\log\sum_d\exp\operatorname{sim}(q,d)$. The changes cancel.</li>
+<li>$p_e=0.80\cdot0.75+0.20\cdot0.25=0.65$, so $\kappa=(0.85-0.65)/0.35\approx0.57$. Of the 85% raw agreement, 65 points are expected from base rates alone. Replacement also needs the expert–expert $\kappa$, intervals from the number of independent questions, and bias checks such as verbosity.</li>
+<li>Hold out questions whose evidence documents and source BrowseComp items were absent from training; this rules out answer reuse. Confirm the corpus holds no benchmark files and log retrieved documents; this rules out reading reference answers. Score with a fixed rubric set and a judge not used in training; this rules out credit for adapting to the training judge. Report citation accuracy and recall, search calls, and cost per question beside the rubric score, with 95% intervals.</li>
+</ol>
+<p>The first answer shows why the citation quantities differ: claim 1 counts for recall although half its citations fail, and claim 4 lowers recall but not accuracy. A high rubric score does not imply supported citations.</p>
+<p>The second answer shows that only score differences matter: the pull on the positive equals the total push on the negatives.</p>
+<p>The third answer shows that base rates control agreement. When most items are satisfied, unrelated raters still agree often.</p>
+<p>The fourth answer combines both contamination routes with non-stationarity: a drifting training reward cannot measure progress, but a fixed, independent evaluation can.</p>
+<h3 id="further-reading">Further reading</h3>
+<ul>
+<li><a href="https://arxiv.org/abs/2504.12516">BrowseComp</a>: reverse-constructed questions that are hard to find and easy to verify.</li>
+<li><a href="https://arxiv.org/abs/2508.06600">BrowseComp-Plus</a>: a frozen corpus with verified evidence and hard negatives, which isolates the retriever.</li>
+<li><a href="https://arxiv.org/abs/2511.19399">DR Tulu</a>: reinforcement learning with evolving rubrics for long-form research.</li>
+<li><a href="https://arxiv.org/abs/2603.04384">AgentIR</a>: reasoning-aware retrieval and DR-Synth data for intermediate searches.</li>
+</ul><nav class="chapter-nav" aria-label="Chapter navigation"><a class="previous" href="lecture-09-reinforcement-learning.html">← Previous: Reinforcement learning</a><a class="index" href="index.html">Reading guide</a><span></span></nav></main><aside class="side"><strong>On this page</strong><ul><li><a href="#0-a-research-question-has-no-single-gold-document-0000">0. A research question has no single gold document</a></li><li><a href="#1-short-answer-benchmarks-trade-realism-for-checkability-0358">1. Short-answer benchmarks trade realism for checkability</a></li><li><a href="#2-long-form-answers-need-rubrics-and-rubrics-need-audits-1353">2. Long-form answers need rubrics, and rubrics need audits</a></li><li><a href="#3-training-data-comes-from-checkable-questions-and-filtered-trajectories-2409">3. Training data comes from checkable questions and filtered trajectories</a></li><li><a href="#4-exact-match-reward-turns-short-answers-into-an-rl-signal-3115">4. Exact-match reward turns short answers into an RL signal</a></li><li><a href="#5-rubric-rewards-extend-rl-to-open-ended-reports-3546">5. Rubric rewards extend RL to open-ended reports</a></li><li><a href="#6-retrieval-quality-bounds-what-the-agent-can-find-4500">6. Retrieval quality bounds what the agent can find</a></li><li><a href="#7-evaluation-limits-every-reported-number-6617">7. Evaluation limits every reported number</a></li></ul></aside></div>
+<footer class="foot shell">Independent study companion to <a href="https://www.cmu-agents.com/">CMU 11-768: AI Agents</a> · <a href="index.html#sources">Attribution and scope</a> · Not an official CMU resource</footer></body></html>

@@ -1,0 +1,1554 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Writing new lecture notes | Independent CMU 11-768 study | Agent Systems Foundations</title>
+<meta name="description" content="Independent, research-extended study material based on CMU 11-768: AI Agents.">
+<meta property="og:site_name" content="Agent Systems Foundations">
+<meta property="og:title" content="Writing new lecture notes | Independent CMU 11-768 study">
+<meta property="og:description" content="Independent, research-extended study material based on CMU 11-768: AI Agents.">
+<style>
+:root {color-scheme:dark;--bg:#0c1018;--panel:#151d2a;--line:#2c3b4f;--text:#e8edf4;--muted:#aab9cc;--accent:#86c5ff;--warm:#ffd395}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:17px/1.68 system-ui,Segoe UI,sans-serif}
+a{color:var(--accent);text-underline-offset:3px}a:hover{color:#b5dcff}.shell{max-width:1180px;margin:auto;padding:0 24px}.top{border-bottom:1px solid var(--line);background:#101722;position:sticky;top:0;z-index:2}.top .shell{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-top:12px;padding-bottom:12px}.brand{font-weight:800;color:var(--text);text-decoration:none}.top nav{display:flex;gap:14px;flex-wrap:wrap;font-size:.87rem}.top nav a{text-decoration:none}.layout{display:grid;grid-template-columns:minmax(0,780px) 260px;gap:44px;align-items:start}.main{min-width:0;padding:46px 0 100px}.side{position:sticky;top:76px;max-height:calc(100vh - 90px);overflow:auto;padding:35px 0 20px;font-size:.83rem}.side strong{display:block;color:var(--warm);letter-spacing:.08em;text-transform:uppercase}.side ul{list-style:none;padding:0}.side li{margin:9px 0}.side a{text-decoration:none;color:var(--muted)}.side a:hover{color:var(--accent)}h1,h2,h3{line-height:1.2;letter-spacing:-.025em}h1{font-size:clamp(2.2rem,4vw,3.7rem);margin:0 0 22px}h2{font-size:1.7rem;margin:68px 0 18px;border-top:1px solid var(--line);padding-top:25px;scroll-margin-top:80px}h2 a[href*="youtube.com/watch"]{font-size:.58em;font-weight:650;letter-spacing:0;white-space:nowrap;vertical-align:middle}h3{font-size:1.2rem;color:var(--warm);margin:38px 0 12px;scroll-margin-top:80px}p{margin:0 0 1.15em}p:first-of-type{color:var(--muted)}strong{color:#fff}blockquote{border-left:3px solid var(--accent);padding:10px 18px;background:var(--panel);margin:24px 0}table{border-collapse:collapse;width:100%;margin:24px 0 34px;display:block;overflow-x:auto;font-size:.94rem}th,td{border:1px solid var(--line);padding:12px 13px;text-align:left;vertical-align:top}th{background:#192536;color:var(--warm)}tr:nth-child(even) td{background:#121b27}pre{background:#111a27;border:1px solid var(--line);border-radius:10px;padding:20px;overflow-x:auto;color:#d4e8ff;font:14px/1.5 Consolas,monospace}code{font-family:Consolas,monospace;background:#1b293a;padding:1px 4px;border-radius:3px}pre code{background:none;padding:0}ol,ul{padding-left:1.6em}li{margin-bottom:.55em}.MathJax_Display{overflow-x:auto}.hero{background:linear-gradient(135deg,#16243a,#111925);border:1px solid var(--line);border-radius:16px;padding:25px 30px;margin:36px 0}.eyebrow{font-size:.78rem;font-weight:800;color:var(--warm);letter-spacing:.12em;text-transform:uppercase}.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:28px}.card{display:block;background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:22px;text-decoration:none;color:var(--text)}.card:hover{border-color:var(--accent);transform:translateY(-2px)}.card b{font-size:1.15rem}.card span{display:block;color:var(--muted);margin-top:8px}.tiny{color:var(--muted);font-size:.85rem}.foot{border-top:1px solid var(--line);padding:24px 0 50px;color:var(--muted);font-size:.85rem}@media(max-width:900px){.layout{display:block}.side{display:none}.main{padding-top:32px}.cards{grid-template-columns:1fr}.top nav{display:none}}@media print{:root{color-scheme:light;--bg:#fff;--panel:#f5f5f5;--line:#ccc;--text:#111;--muted:#333;--accent:#064d8b;--warm:#704600}body{font-size:11pt}.top,.side{display:none}.shell{max-width:none;padding:0}.main{padding:0}h2{break-after:avoid}pre,table{break-inside:avoid}.card{break-inside:avoid}}
+.chapter-nav{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;border-block:1px solid var(--line);padding:18px 0;margin:0 0 42px;font-size:.93rem}.chapter-nav:last-child{margin:55px 0 0}.chapter-nav a{display:block;text-decoration:none}.chapter-nav .next{text-align:right}.chapter-nav .index{color:var(--muted)}@media(max-width:600px){.chapter-nav{grid-template-columns:1fr;gap:8px}.chapter-nav .next{text-align:left}}@media print{.chapter-nav{display:none}}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script>
+<script defer src="assets/mathjax-tex-svg.js"></script></head>
+<body><header class="top"><div class="shell"><a class="brand" href="index.html">Agent Systems Foundations · CMU 11-768 study</a><nav><a href="lecture-01-agents.html">What are agents?</a><a href="lecture-02-tool-use.html">Tool use</a><a href="lecture-03-long-context.html">Long context</a><a href="lecture-04-memory-and-skills.html">Memory and skills</a><a href="lecture-05-planning.html">Planning and coordination</a><a href="lecture-06-coding-agents.html">Coding agents</a><a href="lecture-07-computer-use.html">Computer use</a><a href="lecture-08-supervised-fine-tuning.html">Supervised fine-tuning</a><a href="lecture-09-reinforcement-learning.html">Reinforcement learning</a><a href="lecture-10-deep-research.html">Deep research agents</a><a href="development-journey.html">Development journey</a><a href="textbook-style-report.html">Style study</a></nav></div></header>
+<div class="shell layout"><main class="main"><h1 id="writing-new-cmu-11-768-lecture-notes-in-the-existing-style">Writing new CMU 11-768 lecture notes in the existing style</h1>
+<p>Prepared 16 October 2026 from the repository, the Codex session that built it, and the two editorial skills it used. Use this guide to write lectures 10 and later so that they match lectures 1–9 in style, voice, and substance.</p>
+<h2 id="1-summary">1. Summary</h2>
+<p>The nine existing chapters came from one Codex session in two rounds, 12 September and 25 September 2026. The round-2 chapters (5–9) failed a depth audit on their first attempt. The repair was a full rebuild, not a polish. Read the facts below before you start.</p>
+<ul>
+<li><strong>New material exists.</strong> The playlist now lists lectures 10–13 (section 2). Two more entries (14, 15) are hidden.</li>
+<li><strong>The raw sources are not on this machine.</strong> The transcripts, slides, source maps, and the transcript-fetch script were never committed. Rebuild them first (section 3).</li>
+<li><strong>Depth comes from the first draft.</strong> Chapters 1–4 averaged 4,660 words at first publication. The first draft of chapters 5–9 averaged 2,722 words and had to be rebuilt to about 5,064 (section 4).</li>
+<li><strong>A correct new chapter fails the validator until five hardcoded values change.</strong> The validator counts nine lectures (section 6).</li>
+<li><strong>The style is measurable.</strong> Chapters 1–9 have 4,971–5,385 words, 6–8 main sections, 3–5 exercises with worked solutions, and 14–18 integrated primary sources (section 7).</li>
+<li><strong>The voice is impersonal.</strong> The running prose uses no "we" or "you", and no narration of the lecture (section 8).</li>
+<li><strong>Fifteen unknown unknowns are listed in section 11.</strong> Three have the largest consequence. A wrong citation was published in chapter 7 (fixed on 16 October). A stale public copy of the site exists. A course policy bans public assignment solutions.</li>
+<li><strong>Three choices are settled.</strong> The links are fixed. The licence is MIT. You chose to contact no one. The open decisions each have a recommended default (section 12).</li>
+</ul>
+<h3 id="the-ten-rules-that-matter-most">The ten rules that matter most</h3>
+<ol>
+<li>Treat the transcript as the spine. Never treat it as the prose.</li>
+<li>Put a recording timestamp on each main heading. Put no other reference to the recording anywhere.</li>
+<li>Open each chapter with one concrete task and its consequence. Reuse that task in every later section.</li>
+<li>Define every term and symbol before its first use. A glossary cannot repair a late definition.</li>
+<li>For each central result, state the question, derive it, interpret it in words, test it on numbers, and state its limit.</li>
+<li>Cite primary sources inside the argument, beside the claim each one supports.</li>
+<li>Put code after the model it implements. Extend the cumulative <code>agent_lab</code> package and add a test.</li>
+<li>Write full solutions to the exercises. Show the reasoning.</li>
+<li>Finish one chapter at full depth before you start the next.</li>
+<li>Treat the validator as a structure check. It does not measure depth.</li>
+</ol>
+<h2 id="2-the-new-recordings">2. The new recordings</h2>
+<p>The command <code>yt-dlp --flat-playlist</code> returned this list on 16 October 2026. The playlist is <code>PLSN0qpDfUvTM</code>. The durations feed the <code>durations</code> list in <code>validate_notes.py</code> (section 6).</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Video ID</th>
+<th style="text-align: right;">Seconds</th>
+<th>Title on YouTube</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td><code>nKUBrXFQBUM</code></td>
+<td style="text-align: right;">4345</td>
+<td>CMU AI Agents 2026: 10. Deep Research</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>jKx7_fOZRzg</code></td>
+<td style="text-align: right;">4095</td>
+<td>CMU AI Agents 2026: 11. Advanced RL Algorithms</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>dwR6NP9nI-8</code></td>
+<td style="text-align: right;">3987</td>
+<td>CMU AI Agents 2026: 12. RL Systems</td>
+</tr>
+<tr>
+<td>13</td>
+<td><code>Mbonnq-PUGM</code></td>
+<td style="text-align: right;">3251</td>
+<td>CMU AI Agents 2026: 13. Agentic Safety</td>
+</tr>
+<tr>
+<td>14</td>
+<td><code>IZWKcsV9ziI</code></td>
+<td style="text-align: right;">NA</td>
+<td>no title returned</td>
+</tr>
+<tr>
+<td>15</td>
+<td><code>VAzZkT68h2Q</code></td>
+<td style="text-align: right;">NA</td>
+<td>no title returned</td>
+</tr>
+</tbody>
+</table>
+<p><code>yt-dlp</code> printed "2 unavailable videos are hidden". Do not write notes for entries 14 and 15 until they become public. The existing chapters use the short title without the "CMU AI Agents 2026: N." prefix.</p>
+<p>The list has no lecturer or date. The course site has dates, slide files, and a lecturer for guests only. Section 11, item 1 gives the site data for lectures 10–14. Lectures 11 and 13 have no lecturer on the site. Confirm each lecturer from the recording, and never guess one.</p>
+<h2 id="3-start-here-the-raw-sources-are-missing">3. Start here: the raw sources are missing</h2>
+<p>The original working folder, <code>~/Downloads/11-768</code>, does not exist on this machine. The current clone is <code>~/Downloads/11_768_lecture_notes/11-768-ai-agents-notes</code>. Its <code>.gitignore</code> excludes everything in <code>sources/</code> except <code>manifest.json</code>, and excludes <code>*.pdf</code>. A fresh clone therefore holds only <code>sources/manifest.json</code> (which lists lectures 1–9).</p>
+<table>
+<thead>
+<tr>
+<th>Missing item</th>
+<th>Used for</th>
+<th>Rebuild with</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sources/fetch_transcripts.py</code></td>
+<td>Caption download and manifest</td>
+<td>The listing below</td>
+</tr>
+<tr>
+<td><code>sources/lecture-NN.json</code>, <code>lecture-NN.txt</code></td>
+<td>Timed caption segments; <code>[MM:SS]</code> text</td>
+<td><code>fetch_transcripts.py</code></td>
+</tr>
+<tr>
+<td><code>sources/lecture-NN-&lt;slug&gt;.pdf</code> and <code>-slides.txt</code></td>
+<td>Official slides; term and notation checks</td>
+<td>Section 5, step 4</td>
+</tr>
+<tr>
+<td><code>sources/lecture-NN-map.md</code></td>
+<td>Private source map (span, spine, extension)</td>
+<td>Section 5, step 6</td>
+</tr>
+<tr>
+<td><code>sources/course-site-current.js</code></td>
+<td>Lecturer, date, slide URL, reading list</td>
+<td>Section 5, step 2</td>
+</tr>
+</tbody>
+</table>
+<p>These tools are present on this machine as of 16 October 2026: <code>yt-dlp</code>, <code>gh</code>, and <code>pdftotext</code>. So are the Python modules <code>youtube_transcript_api</code>, <code>fitz</code> (PyMuPDF), <code>requests</code>, <code>markdown</code>, <code>bs4</code>, <code>playwright</code>, and <code>pycodestyle</code>. <code>requirements.txt</code> lists only <code>Markdown</code>, <code>beautifulsoup4</code>, and <code>playwright</code>.</p>
+<p>The listing below is the fetch script reconstructed from the two patches in the Codex session. The first patch created it for four videos. The second patch appended lectures 5–9. I compiled it but did not run it. Append the new IDs and titles to <code>VIDEOS</code>.</p>
+<pre><code class="language-python">&quot;&quot;&quot;Acquire time-coded captions for the available CMU playlist videos.&quot;&quot;&quot;
+
+import json
+from datetime import datetime, timezone
+from pathlib import Path
+
+from youtube_transcript_api import YouTubeTranscriptApi
+
+
+VIDEOS = [
+    (&quot;UwfjzyLnvMg&quot;, &quot;What are Agents and How Do They Work?&quot;),
+    (&quot;jXChFB4JSyw&quot;, &quot;Tool Use for Language Model Agents&quot;),
+    (&quot;AiwCCvFW1uE&quot;, &quot;Long Context Modeling for Agents&quot;),
+    (&quot;6zigF2a-2Pw&quot;, &quot;Memory and Skills for Agents&quot;),
+    (&quot;S8v-dR4s29M&quot;, &quot;Planning, Task Decomposition, and Multi-Agent Coordination&quot;),
+    (&quot;1BWeH1oOM7k&quot;, &quot;Agents for Coding and Software Development&quot;),
+    (&quot;jwGluLrrqjQ&quot;, &quot;Computer Use Agents&quot;),
+    (&quot;O3HSU0AoILc&quot;, &quot;Supervised Fine Tuning&quot;),
+    (&quot;paAcPaaYZGM&quot;, &quot;Reinforcement Learning Basics&quot;),
+]
+
+
+def main():
+    root = Path(__file__).resolve().parent
+    api = YouTubeTranscriptApi()
+    manifest = []
+    for index, (video_id, title) in enumerate(VIDEOS, 1):
+        tracks = api.list(video_id)
+        available = [
+            {&quot;language_code&quot;: t.language_code, &quot;is_generated&quot;: t.is_generated}
+            for t in tracks
+        ]
+        english = [t for t in tracks if t.language_code.startswith(&quot;en&quot;)]
+        if not english:
+            raise RuntimeError(f&quot;No English captions for {video_id}: {available}&quot;)
+        track = sorted(english, key=lambda t: (t.is_generated, t.language_code != &quot;en&quot;))[0]
+        fetched = track.fetch()
+        segments = [
+            {&quot;start&quot;: item.start, &quot;duration&quot;: item.duration, &quot;text&quot;: item.text}
+            for item in fetched
+        ]
+        file_stem = f&quot;lecture-{index:02d}&quot;
+        (root / f&quot;{file_stem}.json&quot;).write_text(
+            json.dumps(segments, ensure_ascii=False, indent=2), encoding=&quot;utf-8&quot;
+        )
+        with (root / f&quot;{file_stem}.txt&quot;).open(&quot;w&quot;, encoding=&quot;utf-8&quot;) as out:
+            for item in segments:
+                minute, second = divmod(int(item[&quot;start&quot;]), 60)
+                out.write(f&quot;[{minute:02d}:{second:02d}] {item['text']}\n&quot;)
+        record = {
+            &quot;lecture&quot;: index,
+            &quot;title&quot;: title,
+            &quot;video_id&quot;: video_id,
+            &quot;url&quot;: f&quot;https://www.youtube.com/watch?v={video_id}&quot;,
+            &quot;caption_language&quot;: track.language_code,
+            &quot;caption_generated&quot;: track.is_generated,
+            &quot;available_tracks&quot;: available,
+            &quot;segments&quot;: len(segments),
+            &quot;last_caption_end_seconds&quot;: round(
+                segments[-1][&quot;start&quot;] + segments[-1][&quot;duration&quot;], 2
+            ),
+            &quot;retrieved_utc&quot;: datetime.now(timezone.utc).isoformat(),
+        }
+        manifest.append(record)
+        print(json.dumps(record, ensure_ascii=False))
+    (root / &quot;manifest.json&quot;).write_text(
+        json.dumps(manifest, ensure_ascii=False, indent=2), encoding=&quot;utf-8&quot;
+    )
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre>
+<p>Two behaviors of this script need care.</p>
+<ol>
+<li>The script fetches every video in <code>VIDEOS</code> again and rewrites <code>manifest.json</code> completely. On 25 September the session restored the entries for lectures 1–4 from <code>git show HEAD:sources/manifest.json</code>, so their <code>retrieved_utc</code> values stayed at 12 September.</li>
+<li>The <code>available_tracks</code> field lists about 20 auto-translated languages. For the new entries, the session kept only the track whose <code>language_code</code> equals <code>caption_language</code>.</li>
+</ol>
+<h2 id="4-where-the-notes-came-from">4. Where the notes came from</h2>
+<p>One Codex session, <code>01a09617-d85f-71e2-8be3-a934d219d884</code>, wrote all 17 commits. It ran from 12 September 07:49 to 25 September 19:05 (Pacific time) and holds 39 user messages. The file is <code>~/.codex/sessions/2026/09/12/rollout-2026-09-12T07-49-00-01a09617-d85f-71e2-8be3-a934d219d884.jsonl.zst</code>.</p>
+<h3 id="round-1-chapters-14-12-september">Round 1: chapters 1–4 (12 September)</h3>
+<p>The brief had five parts:</p>
+<ul>
+<li>Use the transcript as the spine.</li>
+<li>Research the gaps that a one-hour lecture leaves.</li>
+<li>Add code and LaTeX. Prefer precise definitions in math and logic.</li>
+<li>Write for advanced graduate readers who have used agents but not built them.</li>
+<li>Use the <code>rigorous-explainer</code> skill. The user called it "the floor not ceiling".</li>
+</ul>
+<p>The first four chapters then changed through 25 further reader requests, all on the same day. The main changes were:</p>
+<ul>
+<li>Timestamps only in headings, and no recount of the lecture.</li>
+<li>Deeper use of real harness documentation, with a mathematical backbone.</li>
+<li>A define-before-use audit, and less compression.</li>
+<li>A study of twelve machine-learning textbooks and two technical-writing guides.</li>
+<li>A cumulative Python harness.</li>
+</ul>
+<p>The mean word count per chapter rose in steps. It was 4,660 at first publication (commit <code>c201899</code>). It was 5,139 after the Python harness (<code>2da17c7</code>) and 5,203 after the prose audit (<code>53e075f</code>). It is 5,250 in the current files.</p>
+<h3 id="round-2-chapters-59-25-september">Round 2: chapters 5–9 (25 September)</h3>
+<p>The user asked for the same style "as previous 4 lectures". The session drafted all five chapters together. Commit <code>2717000</code> shipped them at 13,612 words in total (mean 2,722). The user then compared sections and wrote "sections in lectures 5-9 are much shorter". The session measured the gap and wrote it up without changing files:</p>
+<table>
+<thead>
+<tr>
+<th>Measure (from the session)</th>
+<th style="text-align: right;">Chapters 1–4</th>
+<th style="text-align: right;">Chapters 5–9, first attempt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mean words per chapter</td>
+<td style="text-align: right;">5,248</td>
+<td style="text-align: right;">2,722 (52%)</td>
+</tr>
+<tr>
+<td>Mean words per main section</td>
+<td style="text-align: right;">777</td>
+<td style="text-align: right;">309 (40%)</td>
+</tr>
+<tr>
+<td>Displayed equations in total</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">74</td>
+</tr>
+<tr>
+<td>Mean solution length (words)</td>
+<td style="text-align: right;">288</td>
+<td style="text-align: right;">113</td>
+</tr>
+</tbody>
+</table>
+<p>I re-counted the chapter totals from git. Commit <code>2717000</code> has 13,612 words. Commit <code>994bbef</code> has 25,320 words (mean 5,064). The other rows are the session's own figures.</p>
+<p>The diagnosis was: the new chapters had more equations and less explanation. They resembled "mathematically sophisticated extended notes", not graduate-textbook chapters. The user then asked for a reusable skill. The session wrote <code>transcript-grounded-textbook</code> (section 13). It rebuilt chapter 5 as the calibration chapter. It then applied the same pattern to chapters 6–9 and committed the result as <code>994bbef</code>.</p>
+<h3 id="what-else-happened">What else happened</h3>
+<ul>
+<li>The user asked for an explicit role statement for 11-768. The result is the attribution table in <code>index.html#sources</code> and the byline in each chapter.</li>
+<li>On 25 September the user asked whether to prefix the repository name with "cmu 11-768". The session advised against it without written permission from the university, and put the course identifier in subtitles, metadata, and footers instead (commit <code>27f6078</code>). That advice is a risk assessment, not legal advice.</li>
+<li>The user asked for a push to <code>az9733/11-768-ai-agents</code>. That owner does not exist. The session used the authenticated account <code>az9713</code>, reported the substitution, and the user then renamed the repository to <code>11-768-ai-agents-notes</code>.</li>
+<li>GitHub Pages was enabled from branch <code>main</code>, path <code>/</code> (commit <code>56fc731</code>).</li>
+</ul>
+<p>Two documents in the repository give the longer account. Read <a href="development-journey.html">the development journey</a> and <a href="textbook-style-report.html">the twelve-reference style study</a> when you need the reasoning behind a rule.</p>
+<h2 id="5-the-pipeline-step-by-step">5. The pipeline, step by step</h2>
+<p>Run the steps in order. Finish chapter 10 completely (step 12) before you draft chapter 11.</p>
+<p><strong>Step 0. Calibrate.</strong> Read two finished chapters end to end. Read <code>lecture-01-agents.md</code> (strongest early exemplar) and <code>lecture-09-reinforcement-learning.md</code> (strongest rebuilt exemplar). Read <code>agent_lab/README.md</code> and <code>tests/test_agent_lab.py</code>. Do not infer the style from the contents list or the CSS. The prose, the worked cases, and the solutions are the style.</p>
+<p><strong>Step 1. Enumerate the recordings.</strong></p>
+<pre><code>yt-dlp --flat-playlist --print &quot;%(playlist_index)s  %(id)s  %(duration)s    %(title)s&quot; &quot;https://www.youtube.com/playlist?list=PLSN0qpDfUvTM&quot;
+</code></pre>
+<p><strong>Step 2. Read the course site.</strong> The site <code>https://www.cmu-agents.com/</code> is a client-side application. The schedule sits in one bundled script. Fetch the HTML, find the <code>&lt;script src="/assets/index-XXXX.js"&gt;</code> tag, and download that file. The hash in the file name changes between builds (the session saw two different names). Each lecture is an object of this shape in the bundle:</p>
+<pre><code>{code:&quot;3a&quot;,date:&quot;Tue, Sep 8&quot;,title:&quot;...&quot;,module:&quot;...&quot;,lecturer:{name:&quot;...&quot;},
+ slides:{label:&quot;Lecture 5 slides&quot;,url:&quot;/slides/lecture-05-planning.pdf&quot;},
+ readings:[{label:&quot;...&quot;,url:&quot;...&quot;}],references:[{label:&quot;...&quot;,url:&quot;...&quot;}]}
+</code></pre>
+<p>The object gives the date, the slide path, and two reading lists. On 16 October the <code>lecturer</code> field was present for guest lecturers only. Examples are JY Koh, Yueqi Song, Akari Asai, and Apurva Gandhi. Graham Neubig appears for lecture 14. For the other lectures, confirm the lecturer from the recording. The slide file names are not uniform: <code>lecture-07-computer-use-agents.pdf</code>, <code>lecture-08-sft.pdf</code>, <code>lecture-09-rl-basics.pdf</code>. Take each path from the bundle. Check the bundle format again, because it can change.</p>
+<p><strong>Step 3. Fetch captions.</strong> Run the script from section 3. Confirm that <code>last_caption_end_seconds</code> is greater than 0.98 times the video duration. The validator enforces this. The captions are auto-generated (<code>caption_generated: true</code> for all nine). They are evidence of sequence and timing. They are not an authority on technical spelling or notation.</p>
+<p><strong>Step 4. Fetch and extract the slides.</strong> Download <code>https://www.cmu-agents.com</code> plus the slide path. Extract the text with PyMuPDF:</p>
+<pre><code class="language-python">from pathlib import Path
+import fitz
+
+for pdf in sorted(Path(&quot;sources&quot;).glob(&quot;lecture-1[0-3]-*.pdf&quot;)):
+    doc = fitz.open(pdf)
+    out = pdf.with_name(pdf.stem + &quot;-slides.txt&quot;)
+    parts = []
+    for i, page in enumerate(doc, 1):
+        parts.append(f&quot;\n===== SLIDE {i} =====\n&quot;)
+        parts.append(page.get_text(&quot;text&quot;))
+    out.write_text(&quot;&quot;.join(parts), encoding=&quot;utf-8&quot;)
+</code></pre>
+<p>Use the slides to correct names, equations, benchmarks, and citations that the captions garble.</p>
+<p><strong>Step 5. Skim the transcript in five-minute chunks.</strong></p>
+<pre><code class="language-python">import json, pathlib
+
+data = json.loads(pathlib.Path(&quot;sources/lecture-10.json&quot;).read_text(encoding=&quot;utf-8&quot;))
+end = int(data[-1][&quot;start&quot;] + data[-1][&quot;duration&quot;])
+for t in range(0, end + 1, 300):
+    chunk = &quot; &quot;.join(x[&quot;text&quot;] for x in data if t &lt;= x[&quot;start&quot;] &lt; t + 90)
+    print(f&quot;[{t // 60:02d}:{t % 60:02d}] {chunk[:700]}&quot;)
+</code></pre>
+<p>Then read the full transcript in sequence. Choose the section start times. Combine adjacent slides when one argument needs more continuity than the spoken hour gives.</p>
+<p><strong>Step 6. Write the private source map.</strong> Create <code>sources/lecture-NN-map.md</code>. The file stays out of git. The session used four columns. This row is from the lecture 5 map:</p>
+<table>
+<thead>
+<tr>
+<th>Chapter unit</th>
+<th style="text-align: right;">Recording span</th>
+<th>Grounded spine</th>
+<th>Extension boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Decomposition</td>
+<td style="text-align: right;">13:30-24:30</td>
+<td>Chain-of-thought as a plan; Least-to-Most; Decomposed Prompting</td>
+<td>Interface sufficiency; global constraints; reliability composition</td>
+</tr>
+</tbody>
+</table>
+<p>For each source, also record the claim it supports and an evidence class: definition, theorem, empirical result, engineering check, or product claim. Add also the material that a two-hour lecture would include: prerequisites, derivations, numerical cases, algorithms, evaluation confounders, security limits, counterexamples.</p>
+<p><strong>Step 7. Research by section.</strong> Start from the course reading lists in the site bundle. Then search each major topic separately. Prefer original papers, specifications, official documentation, and maintained repositories. Reject a source that only mentions the topic. Date any time-sensitive product claim (the index page says "checked on 12 September 2026"). Verify every identifier. In lecture 6 the session corrected a wrong arXiv ID: <code>2406.08413</code> became <code>2405.15383</code>, and the description changed to match the real paper.</p>
+<p><strong>Step 8. Choose the running case.</strong> Pick one task with enough state and failure modes to carry the whole chapter (section 9 lists the nine existing cases). Define it before the notation.</p>
+<p><strong>Step 9. Write the full-depth draft.</strong> Write Markdown in the repository root as <code>lecture-NN-&lt;slug&gt;.md</code>. Aim for the full explanatory depth at once. Compress only after the reasoning is explicit. The skill orders the passes as: coverage, prose, mathematics, research, implementation, exercises, prose audit, parity, validation.</p>
+<p><strong>Step 10. Extend the harness.</strong> Add code to <code>agent_lab/</code> only where it implements an equation in the chapter. Add a behavioral test in <code>tests/test_agent_lab.py</code>. Use only the Python standard library. Keep the examples deterministic and free of credentials.</p>
+<p><strong>Step 11. Run the audits.</strong> Run the checks in section 14. Also run the citation title check from section 11, item 2. Run the self-narration scan and the long-sentence scan on the new Markdown.</p>
+<p><strong>Step 12. Gate on one chapter.</strong> Compare the new chapter with the exemplars (sections 7 and 14). Repair missing intellectual work. Do not pad short sections. Only then use chapter 10 as the pattern for chapters 11–13.</p>
+<p><strong>Step 13. Render, validate, and publish.</strong> Edit the files in section 6. Run <code>render_notes.py</code> and the checks. Publish only when the user asks (section 14).</p>
+<h2 id="6-update-checklist-what-breaks-when-lecture-10-arrives">6. Update checklist: what breaks when lecture 10 arrives</h2>
+<p><strong>Done 16 October 2026 (decision A, option 2).</strong> The validator and the renderer hold no lecture count, section count, or video duration. <code>validate_notes.py</code> reads the lecture count and each <code>duration_seconds</code> from <code>sources/manifest.json</code>. It counts the <code>##</code> headings and the recording-linked headings from the chapter Markdown. <code>render_notes.py</code> writes the same counts into the index sentence, and spells the chapter count with the <code>WORDS</code> list. Entries 1–9 of the manifest gained one field, <code>duration_seconds</code>. For each new lecture you now add a manifest record with <code>duration_seconds</code>, a <code>NOTES</code> tuple, and the hand-written index text. Line numbers below are from the files as of 17 October 2026, after chapter 10 was added. Chapter 10 used every row of this table.</p>
+<table>
+<thead>
+<tr>
+<th>File and line</th>
+<th>Current content</th>
+<th>Edit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sources/manifest.json</code></td>
+<td>Ten records, each with <code>duration_seconds</code></td>
+<td>Append one record per lecture. Include <code>duration_seconds</code> (4095, 3987, 3251 for lectures 11–13). Keep entries 1–10 unchanged.</td>
+</tr>
+<tr>
+<td><code>validate_notes.py:95</code></td>
+<td><code>required_definitions = {5: ..., 10: ...}</code></td>
+<td>Optional. Add an entry per new chapter to keep the acronym-expansion check</td>
+</tr>
+<tr>
+<td><code>render_notes.py:12</code></td>
+<td><code>NOTES = [...]</code> ten tuples</td>
+<td>Append <code>(slug, short title, one-line subtitle)</code></td>
+</tr>
+<tr>
+<td><code>render_notes.py:121-123</code></td>
+<td>Index title, intro, reading sequence</td>
+<td>Rewrite so it covers the new topics</td>
+</tr>
+<tr>
+<td><code>render_notes.py:126</code></td>
+<td>Python harness paragraph</td>
+<td>Add the new modules</td>
+</tr>
+<tr>
+<td><code>render_notes.py:129-141</code></td>
+<td>"first {count} available recordings" and the source table</td>
+<td>Add one table row per chapter</td>
+</tr>
+<tr>
+<td><code>render_notes.py:143</code>, "as of 17 October 2026"</td>
+<td>The counts are derived now. Update the date by hand.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>README.md:7, 9, 18, 42</code></td>
+<td>"first ten", "Seventy-two of 74", "ten CMU 11-768 study chapters"</td>
+<td>Update counts and topics</td>
+</tr>
+<tr>
+<td><code>agent_lab/README.md:3</code> and table</td>
+<td>"ten current study chapters"</td>
+<td>Update the count and add rows</td>
+</tr>
+<tr>
+<td><code>DEVELOPMENT-JOURNEY.md:74, 121, 131, 133</code></td>
+<td>Status paragraphs</td>
+<td>Add a short paragraph per round</td>
+</tr>
+</tbody>
+</table>
+<p>The validator enforces these minimums for chapters 5 and later (<code>validate_notes.py:55-67</code>):</p>
+<ul>
+<li>At least 4,500 words.</li>
+<li>At least two <code>python</code> blocks.</li>
+<li>At least 14 distinct external links that are not recording links.</li>
+<li>At least 250 words between <code>### Solutions and discussion</code> and <code>### Further reading</code>.</li>
+<li>A recording link on every <code>##</code> heading.</li>
+</ul>
+<p>Chapters 1–4 had two untimed final sections. New chapters cannot have an untimed <code>##</code> heading.</p>
+<p>The validator enforces these rules for every chapter:</p>
+<ul>
+<li>Exactly two <code>nav.chapter-nav</code> blocks. Their links are the previous chapter, the next chapter, and <code>index.html</code>.</li>
+<li>The literal strings <code>### Exercises</code> and <code>### Further reading</code>.</li>
+<li>At least five recording links, only on <code>##</code> lines, each with the chapter's own video ID.</li>
+<li>Neither <code>Watch by topic</code> nor <code>**Extension</code> anywhere in the file.</li>
+</ul>
+<h2 id="7-the-chapter-contract-measured">7. The chapter contract, measured</h2>
+<p>These numbers come from the ten Markdown files as of 17 October 2026 (chapter 10 was approved that day). They describe the existing set. They are diagnostics, not quotas. A chapter well outside a range needs a stated reason.</p>
+<table>
+<thead>
+<tr>
+<th>Chapter</th>
+<th>Words</th>
+<th><code>##</code> sections</th>
+<th>Median words per <code>##</code></th>
+<th><code>###</code> sections</th>
+<th>Python blocks</th>
+<th>External links</th>
+<th>Exercises</th>
+<th>Solution words</th>
+<th>Bold terms</th>
+<th>Display equations</th>
+<th>Mean sentence words</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>5,385</td>
+<td>7</td>
+<td>735</td>
+<td>10</td>
+<td>2</td>
+<td>14</td>
+<td>3</td>
+<td>258</td>
+<td>59</td>
+<td>4</td>
+<td>15.0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>4,983</td>
+<td>7</td>
+<td>501</td>
+<td>9</td>
+<td>4</td>
+<td>15</td>
+<td>3</td>
+<td>257</td>
+<td>72</td>
+<td>3</td>
+<td>14.3</td>
+</tr>
+<tr>
+<td>3</td>
+<td>5,374</td>
+<td>6</td>
+<td>632</td>
+<td>9</td>
+<td>4</td>
+<td>18</td>
+<td>4</td>
+<td>308</td>
+<td>68</td>
+<td>6</td>
+<td>14.2</td>
+</tr>
+<tr>
+<td>4</td>
+<td>5,258</td>
+<td>7</td>
+<td>714</td>
+<td>9</td>
+<td>3</td>
+<td>18</td>
+<td>4</td>
+<td>320</td>
+<td>64</td>
+<td>2</td>
+<td>14.0</td>
+</tr>
+<tr>
+<td>5</td>
+<td>5,190</td>
+<td>7</td>
+<td>680</td>
+<td>11</td>
+<td>2</td>
+<td>14</td>
+<td>4</td>
+<td>355</td>
+<td>25</td>
+<td>23</td>
+<td>13.4</td>
+</tr>
+<tr>
+<td>6</td>
+<td>5,026</td>
+<td>8</td>
+<td>532</td>
+<td>12</td>
+<td>3</td>
+<td>14</td>
+<td>4</td>
+<td>320</td>
+<td>20</td>
+<td>15</td>
+<td>13.4</td>
+</tr>
+<tr>
+<td>7</td>
+<td>5,017</td>
+<td>8</td>
+<td>499</td>
+<td>15</td>
+<td>2</td>
+<td>14</td>
+<td>4</td>
+<td>313</td>
+<td>12</td>
+<td>18</td>
+<td>13.3</td>
+</tr>
+<tr>
+<td>8</td>
+<td>4,984</td>
+<td>8</td>
+<td>516</td>
+<td>18</td>
+<td>2</td>
+<td>14</td>
+<td>4</td>
+<td>287</td>
+<td>12</td>
+<td>15</td>
+<td>12.7</td>
+</tr>
+<tr>
+<td>9</td>
+<td>5,139</td>
+<td>8</td>
+<td>439</td>
+<td>17</td>
+<td>4</td>
+<td>15</td>
+<td>5</td>
+<td>295</td>
+<td>17</td>
+<td>36</td>
+<td>13.9</td>
+</tr>
+<tr>
+<td>10</td>
+<td>5,509</td>
+<td>8</td>
+<td>693</td>
+<td>12</td>
+<td>3</td>
+<td>24</td>
+<td>4</td>
+<td>293</td>
+<td>59</td>
+<td>14</td>
+<td>12.9</td>
+</tr>
+<tr>
+<td>Range</td>
+<td>4,983–5,509</td>
+<td>6–8</td>
+<td>439–735</td>
+<td>9–18</td>
+<td>2–4</td>
+<td>14–24</td>
+<td>3–5</td>
+<td>257–355</td>
+<td>12–72</td>
+<td>2–36</td>
+<td>12.7–15.0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fixed-form">Fixed form</h3>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Rule</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>File name</td>
+<td><code>lecture-NN-slug.md</code> with two-digit NN</td>
+<td><code>validate_notes.py:32</code></td>
+</tr>
+<tr>
+<td>Title line</td>
+<td><code># Lecture N — Title</code> (em dash)</td>
+<td>All nine files, line 1</td>
+</tr>
+<tr>
+<td>Byline</td>
+<td><code>*Independent study chapter · Based on a CMU 11-768: AI Agents lecture by NAME, D Month 2026 · [Course and attribution](index.html#sources)*</code></td>
+<td>All nine files, line 3</td>
+</tr>
+<tr>
+<td>Main sections</td>
+<td><code>## N. Title [MM:SS](https://www.youtube.com/watch?v=ID&amp;t=Ns)</code>, numbered from 0; MM can exceed 59 (lecture 3 has <code>[66:45]</code>)</td>
+<td><code>lecture-03-long-context.md</code></td>
+</tr>
+<tr>
+<td>Subsections</td>
+<td><code>###</code> headings, 9–18 per chapter, claim-shaped titles</td>
+<td>Table above</td>
+</tr>
+<tr>
+<td>Closing blocks</td>
+<td><code>### Scope and limits of ...</code>, <code>### Exercises</code>, <code>### Solutions and discussion</code>, <code>### Further reading</code></td>
+<td>Chapters 5–9</td>
+</tr>
+<tr>
+<td>Exercises</td>
+<td>3–5 numbered; mix compute, prove, explain, and design</td>
+<td><code>lecture-09-reinforcement-learning.md:428-434</code></td>
+</tr>
+<tr>
+<td>Solutions</td>
+<td>One numbered answer per exercise, then prose discussion that names each answer ("The first answer ...")</td>
+<td><code>lecture-09-reinforcement-learning.md:436-452</code></td>
+</tr>
+<tr>
+<td>Further reading</td>
+<td>Bullets of <code>[Title](url): the claim it supports</code></td>
+<td><code>lecture-09-reinforcement-learning.md:454-465</code></td>
+</tr>
+<tr>
+<td>Code</td>
+<td>2–4 <code>python</code> blocks; chapters 5–9 import <code>agent_lab</code> and end with <code>assert</code></td>
+<td><code>lecture-09-reinforcement-learning.md:229-238</code></td>
+</tr>
+<tr>
+<td>Figures</td>
+<td>None. The nine pages contain no <code>svg</code>, <code>img</code>, or <code>figure</code> element. Tables and code carry the evidence</td>
+<td><code>grep</code> on the nine HTML files</td>
+</tr>
+</tbody>
+</table>
+<h3 id="anatomy-of-one-section">Anatomy of one section</h3>
+<p>Lecture 9 shows the repeated pattern. The references are to lines of <code>lecture-09-reinforcement-learning.md</code>.</p>
+<ol>
+<li><strong>Open with the task and its consequence</strong> (lines 5-7). A hidden integer lies between 1 and 16; reward is one if the agent finds it within four guesses.</li>
+<li><strong>Define the objects in bold, then give the symbol</strong> (lines 9-16). A <strong>policy</strong> gets a plain definition before <code>\pi_\theta(a\mid h)</code> appears.</li>
+<li><strong>Contrast with the method the reader already knows</strong> (lines 11-18). SFT is set against RL on the same task.</li>
+<li><strong>Derive in visible steps</strong> (lines 110-146). The score-function identity gets one equation per move.</li>
+<li><strong>Explain the hinge in words</strong> (line 146): "The derivation does not differentiate through sampled actions or environment transitions."</li>
+<li><strong>Test on numbers</strong> (lines 64, 205-215, 308). The values are 0.634, 0.25, and 0.923.</li>
+<li><strong>Show the check as code</strong> (lines 229-238), then state its assumptions (lines 261 and 323).</li>
+<li><strong>State the boundary beside the claim</strong> (lines 82, 159-161, 422-426).</li>
+<li><strong>Bridge to the next question</strong> with a reason, not an announcement.</li>
+</ol>
+<h2 id="8-voice-and-prose">8. Voice and prose</h2>
+<p>The voice is that of an editor of graduate textbooks. It is impersonal, present-tense, and exact. The measures below come from the nine chapters, prose only (code, display math, tables, and lists excluded).</p>
+<ul>
+<li><strong>No first or second person in running prose.</strong> "we", "you", and "our" occur 0 times in 38,725 prose words. "professor" and "lecturer" occur 0 times. Three exceptions exist in lines that my prose count excludes. One is "tells us" (chapter 3, line 19). One is "How would you represent" in an exercise (chapter 4, line 222). One is a quoted attack string with "your credentials" (chapter 7, line 190). Do not add more.</li>
+<li><strong>Short sentences.</strong> Chapter means run from 12.7 to 15.0 words. Chapter medians run from 12 to 14. The longest sentence in a chapter runs from 33 to 52 words.</li>
+<li><strong>Objects are introduced with "Let".</strong> 167 sentences open with "Let", 18 with "Define", and 8 with "Consider".</li>
+<li><strong>Each paragraph makes one move.</strong> A paragraph states a result, then explains the mechanism, then gives the consequence or the limit. These are separate sentences.</li>
+<li><strong>Terms are fixed.</strong> A defined word keeps one meaning. The chapters do not use <em>proposal</em>, <em>action</em>, <em>decision</em>, and <em>execution</em> as synonyms, because they name different stages of the harness.</li>
+<li><strong>Modal verbs carry meaning.</strong> <em>Must</em> marks an invariant. <em>Can</em> marks capability. <em>May</em> marks uncertainty. <em>Should</em> marks a recommendation.</li>
+<li><strong>Equations are sentences.</strong> An English lead-in introduces the display, the display ends with its punctuation, and the next sentence interprets it.</li>
+<li><strong>Numbers replace praise.</strong> The text gives "approximately 0.634", not "high". It uses <em>prove</em> only for formal deduction.</li>
+</ul>
+<h3 id="passages-to-imitate">Passages to imitate</h3>
+<p>Each passage is quoted without change from the repository. The note after each quote names the move it makes.</p>
+<blockquote>
+<p>A laboratory wants an agent to procure a graphics processing unit (GPU) workstation. The agent must compare vendors, check whether each configuration satisfies a memory requirement, verify component compatibility, and prepare a requisition. Vendor searches can run independently. Compatibility checks depend on the returned specifications. The requisition depends on the comparison. If no configuration qualifies, the agent must revise its search rather than execute the original plan blindly.</p>
+</blockquote>
+<p><em>Lecture 5, opening.</em> One task, its dependencies, and its failure condition. Six sentences. The acronym is expanded at first use.</p>
+<blockquote>
+<p>A user asks an agent to buy a blue mug for less than twenty dollars. The agent observes a rendered screen, finds candidate products, opens a result, checks color and price, and adds an item to a cart. A visually plausible click can hit the wrong control. A correct cart can still contain an unauthorized item.</p>
+</blockquote>
+<p><em>Lecture 7, opening (first four sentences).</em> The consequence appears in the third and fourth sentences.</p>
+<blockquote>
+<p>The derivation does not differentiate through sampled actions or environment transitions. It increases log probability of actions on high-return trajectories. With zero reward, the basic estimator gives no update for that trajectory; it does not automatically push failed actions down.</p>
+</blockquote>
+<p><em>Lecture 9, line 146.</em> The hinge of the derivation, followed by its consequence and a limit. Three sentences, three moves.</p>
+<blockquote>
+<p>Therefore subtracting an action-independent baseline does not bias the expected gradient. It changes sample variance. A baseline that uses the sampled action can introduce bias.</p>
+</blockquote>
+<p><em>Lecture 9, line 203.</em> The result, its effect, then the exception. The mechanism sits in the displayed proof just above.</p>
+<blockquote>
+<p>The calculation assumes independent rollouts with the same success probability. Shared environment failures or deterministic decoding can increase correlation and make mixed-reward groups even rarer.</p>
+</blockquote>
+<p><em>Lecture 9, line 323.</em> Every code block ends with its assumptions.</p>
+<blockquote>
+<p>This is a property of the known task model. In an open environment, an aggressive mask can remove an action needed for recovery.</p>
+</blockquote>
+<p><em>Lecture 9, line 82.</em> The qualifier sits beside the claim, in the next sentence.</p>
+<blockquote>
+<p>Both predicates take the same $a$ and $U$, but they inspect different components of $U$. The sets $U^+$ and $U^-$ may overlap, and an action may belong to neither. Suppose the user says, “Organize the files in Folder A, but do not delete any files.” Renaming a file in Folder A belongs only to $U^+$.</p>
+</blockquote>
+<p><em>Lecture 1, line 13.</em> This passage replaced an abstract explanation after the user wrote "give a better simpler example". Prefer a plain folder example to a clever one.</p>
+<h3 id="headings">Headings</h3>
+<p>Section titles state a claim: "Baselines reduce variance without changing expectation", "Replanning is state estimation plus plan repair". Chapters 1–4 also use topic labels such as "The interaction loop". Prefer the claim form.</p>
+<h3 id="reference-text-for-the-rewrite">Reference text for the rewrite</h3>
+<p>Two documents are the source of these rules. The first is <code>textbook-style-report.html</code>: nine structural elements and eleven prose moves from twelve textbooks. The second is <code>~/.claude/skills/rigorous-explainer/references/technical-writing-guides.md</code>: Heiser and Abbott, with seven resolved conflicts. The house rule on length reads: "Remove words that do no work. Keep the definition, crucial inference, interpretation, and limitation." The user's own rule is shorter: "A little verbosity is preferred over compression."</p>
+<h2 id="9-the-formal-model-and-the-running-cases">9. The formal model and the running cases</h2>
+<p>New chapters extend the model in chapter 1. They do not start a parallel notation. This table lists the objects that chapters 1 and 9 define.</p>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Meaning (as defined in chapter 1 unless noted)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>s_t</code>, <code>o_t</code></td>
+<td>Hidden environment state; observation received at step t</td>
+</tr>
+<tr>
+<td><code>h_t</code>, <code>m_t</code></td>
+<td>Append-only event history; memory available at step t</td>
+</tr>
+<tr>
+<td><code>b_t</code>, <code>u_t</code></td>
+<td>Remaining budget; authorization and capability state</td>
+</tr>
+<tr>
+<td><code>x_t</code></td>
+<td>Run state <code>(s_t, h_t, m_t, b_t, u_t)</code></td>
+</tr>
+<tr>
+<td><code>theta</code>, <code>phi</code></td>
+<td>Model weights; harness choices (context selection, admission rules)</td>
+</tr>
+<tr>
+<td><code>C_phi</code>, <code>c_t</code></td>
+<td>Context builder; the model-visible context</td>
+</tr>
+<tr>
+<td><code>z_t</code></td>
+<td>The model's proposal</td>
+</tr>
+<tr>
+<td><code>e_t</code></td>
+<td>Trusted evidence the harness extracted from observations and authoritative records</td>
+</tr>
+<tr>
+<td><code>G_phi</code>, <code>a_t</code></td>
+<td>Execution gate; the action it returns: <code>a_t = G_phi(z_t, e_t, u_t, b_t)</code></td>
+</tr>
+<tr>
+<td><code>U = (U+, U-)</code></td>
+<td>Authorization policy: positive grants and explicit prohibitions</td>
+</tr>
+<tr>
+<td><code>allow(a, e, U)</code></td>
+<td><code>inScope(a,U)</code> and <code>preconditions(a,e)</code> and not <code>forbidden(a,U)</code></td>
+</tr>
+<tr>
+<td><code>omega</code>, <code>T</code></td>
+<td>One realized run (trajectory); its stopping time</td>
+</tr>
+<tr>
+<td><code>R_g</code>, <code>K</code>, <code>F</code></td>
+<td>Success on goal g; resource cost; indicator of any forbidden event</td>
+</tr>
+<tr>
+<td><code>lambda</code>, <code>delta</code>, <code>T_max</code></td>
+<td>Cost price; tolerated forbidden-event probability; step limit</td>
+</tr>
+<tr>
+<td><code>p_theta(tau given x)</code></td>
+<td>Chapter 9: trajectory probability under the policy for task instance x</td>
+</tr>
+<tr>
+<td><code>J(theta)</code></td>
+<td>Chapter 9: expected return</td>
+</tr>
+</tbody>
+</table>
+<p>One design rule runs through every chapter. <code>agent_lab/README.md</code> states it:</p>
+<blockquote>
+<p>a model proposes, the harness authorizes, an environment executes, observations update the next decision, and a verifier decides whether the run has completed.</p>
+</blockquote>
+<p>The gate uses trusted evidence <code>e_t</code>, never the hidden state <code>s_t</code>. A service must still re-check its own precondition at commit time.</p>
+<h3 id="running-cases-already-used">Running cases already used</h3>
+<table>
+<thead>
+<tr>
+<th>Chapter</th>
+<th>Case</th>
+<th>What it carries</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Cancel an order if it has not shipped</td>
+<td>Admission, hidden state, atomic preconditions, uncertain outcomes</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Grocery cart</td>
+<td>Tool effects, permissions, retries, concurrency</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Coding agent repairing a release, must not publish</td>
+<td>Context selection, caching, compaction, a hard constraint</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Return-policy skill</td>
+<td>Memory, temporal validity, retrieval, transfer</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Procure a GPU workstation</td>
+<td>Task graph, readiness, replanning, work and span</td>
+</tr>
+<tr>
+<td>6</td>
+<td>The defect <code>value or default</code> replaces zero</td>
+<td>Repository transitions, localization, verification</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Buy a blue mug for under twenty dollars</td>
+<td>Partial observability, grounding, injection</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Repair trajectory with one mistaken edit that is reverted</td>
+<td>Masking, mixtures, teacher forcing</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Number search from 1 to 16 within four guesses</td>
+<td>Policy gradient, baselines, group advantages</td>
+</tr>
+</tbody>
+</table>
+<p>Pick a new case for each new chapter. Pick one with hidden state, a consequential wrong action, and at least three places where the formalism can return to it.</p>
+<h3 id="suggested-chapter-to-harness-links-not-verified-against-the-recordings">Suggested chapter-to-harness links (not verified against the recordings)</h3>
+<p>These links come from the titles only. Check each one against the transcript before you use it.</p>
+<ul>
+<li>Lecture 10, Deep Research: context (chapter 3), memory (chapter 4), planning (chapter 5), and report evaluation (chapter 6).</li>
+<li>Lecture 11, Advanced RL Algorithms: <code>agent_lab/training.py</code>. Chapter 9 already covers GRPO, PPO clipping, and GAE. Cross-reference them. Do not repeat them.</li>
+<li>Lecture 12, RL Systems: the rollout-throughput relation in chapter 9, section 7 (<code>B d_r / m + d_u</code>).</li>
+<li>Lecture 13, Agentic Safety: the admission gate (chapter 1), information-flow and injection (chapters 2 and 7), and noncompensable constraints (chapter 9).</li>
+</ul>
+<h2 id="10-dos-and-donts-with-sources">10. Dos and don'ts, with sources</h2>
+<p>"PDT" times are the user's local time. <code>validate_notes.py</code> lines are as of 16 October 2026.</p>
+<h3 id="do">Do</h3>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Put one recording link on each <code>##</code> heading. Put none anywhere else.</td>
+<td>User, 12 Sep 08:40. Enforced at <code>validate_notes.py:50-52</code> and <code>:81-82</code>.</td>
+</tr>
+<tr>
+<td>Define every term and symbol before its first use. Audit the whole set for it.</td>
+<td>User, 12 Sep 10:02 (<code>inScope</code> was used and not defined). The audit also found <code>b_t</code> used for both budget and belief.</td>
+</tr>
+<tr>
+<td>Split a sentence that holds two claims. Prefer a little verbosity to compression.</td>
+<td>User, 12 Sep 10:52.</td>
+</tr>
+<tr>
+<td>Link to freely available online editions. Never link to a local path.</td>
+<td>User, 12 Sep 12:35.</td>
+</tr>
+<tr>
+<td>Give edition information for every cited book.</td>
+<td>User, 12 Sep 12:33.</td>
+</tr>
+<tr>
+<td>Cite primary sources inside the argument. Keep at least 14 distinct external links.</td>
+<td><code>validate_notes.py:58-62</code>; <code>parity-audit.md</code>.</td>
+</tr>
+<tr>
+<td>Expand each acronym at first use as "full name (ABBR)".</td>
+<td><code>validate_notes.py:95-120</code>; session audit, 25 Sep 14:31.</td>
+</tr>
+<tr>
+<td>State the byline and the "independent study" status on every chapter.</td>
+<td>User, 12 Sep 19:41 (role of 11-768); <code>index.html#sources</code>.</td>
+</tr>
+<tr>
+<td>Use real harness documentation as evidence. Mark it as an illustration, not a proof.</td>
+<td>User, 12 Sep 09:00; <code>DEVELOPMENT-JOURNEY.md</code> section 3.</td>
+</tr>
+<tr>
+<td>Report success, cost, delay, and risk separately before any single score.</td>
+<td>User, 12 Sep 10:52 (compression correction); <code>DEVELOPMENT-JOURNEY.md</code> item 4.</td>
+</tr>
+<tr>
+<td>Show the full accounting convention for a numerical example.</td>
+<td><code>DEVELOPMENT-JOURNEY.md</code> item 7 (the compaction example).</td>
+</tr>
+<tr>
+<td>Draft in the full depth first. Finish one chapter before the others.</td>
+<td>Session, 25 Sep 14:00 and 11:20.</td>
+</tr>
+<tr>
+<td>When the user says "do not change anything yet", only audit and report.</td>
+<td>User, 25 Sep 11:20 and 11:26.</td>
+</tr>
+<tr>
+<td>Verify the repository owner and name before you push. Report any substitution.</td>
+<td>Session, 25 Sep 18:54 (<code>az9733</code> did not exist).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dont">Don't</h3>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Do not narrate the lecture ("at minute T, the professor says").</td>
+<td>User, 12 Sep 08:40.</td>
+</tr>
+<tr>
+<td>Do not write self-referential patter ("Here is a precise, deliberately broad model.").</td>
+<td>User, 12 Sep 08:40.</td>
+</tr>
+<tr>
+<td>Do not add a "Watch by topic" map or <code>**Extension</code> labels.</td>
+<td><code>validate_notes.py:54</code>. Early versions used both.</td>
+</tr>
+<tr>
+<td>Do not publish captions, transcript dumps, slides, or textbook PDFs.</td>
+<td><code>.gitignore</code> (<code>sources/*</code>, <code>*.pdf</code>); <code>README.md:24</code>.</td>
+</tr>
+<tr>
+<td>Do not publish a content-reuse percentage from timestamp coverage.</td>
+<td><code>index.html</code>: such a claim "would require a claim-level provenance ledger".</td>
+</tr>
+<tr>
+<td>Do not judge depth by equation, heading, or link counts.</td>
+<td><code>parity-audit.md</code>; chapters 5–9 first attempt (74 equations, 52% of the words).</td>
+</tr>
+<tr>
+<td>Do not use the hidden state as if the harness knew it. Use trusted evidence.</td>
+<td><code>DEVELOPMENT-JOURNEY.md</code> item 6.</td>
+</tr>
+<tr>
+<td>Do not describe a tool error as "no side effect". An unknown outcome is not a no-op.</td>
+<td>Chapter 2; <code>DEVELOPMENT-JOURNEY.md</code> section 5.</td>
+</tr>
+<tr>
+<td>Do not use a scalar rank without stating its weights.</td>
+<td><code>DEVELOPMENT-JOURNEY.md</code> item 4; chapter 9, "Reward design is an identification problem".</td>
+</tr>
+<tr>
+<td>Do not prefix the repository name with "CMU 11-768" without written permission.</td>
+<td>Session, 25 Sep 14:47 (risk assessment, not legal advice).</td>
+</tr>
+<tr>
+<td>Do not use university logos, wordmarks, or colors.</td>
+<td>Session advice, 25 Sep 14:47.</td>
+</tr>
+<tr>
+<td>Do not leave workspace paths, a private network name, or personal data in a public file.</td>
+<td><code>DEVELOPMENT-JOURNEY.md</code> section 6; the user's "strip all personal info" request, 12 Sep 13:09.</td>
+</tr>
+<tr>
+<td>Do not push, deploy, or overwrite published files unless the user authorizes it.</td>
+<td><code>transcript-grounded-textbook</code> skill, last paragraph.</td>
+</tr>
+<tr>
+<td>Do not copy a link from the course reading list without opening it. Compare the returned title with the label.</td>
+<td>Section 11, item 2 (chapter 7 inherited a wrong arXiv ID).</td>
+</tr>
+<tr>
+<td>Do not post worked solutions to assignment-like tasks before you check the course policy.</td>
+<td>Course site: "Do not post assignment solutions publicly unless the instructors give permission."</td>
+</tr>
+<tr>
+<td>Do not write a lecturer's name that you cannot source.</td>
+<td>Section 11, item 3.</td>
+</tr>
+<tr>
+<td>Do not use <code>git add -A</code> in this repository.</td>
+<td>Section 11, item 12 (four untracked items, one of them the new <code>LICENSE</code>).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="11-unknown-unknowns">11. Unknown unknowns</h2>
+<p>Sections 1–10 describe what the project did. This section lists what you probably do not know yet. I used two sources. The first is a blind-spot pass by a forked agent. The second is a set of direct checks that I ran on 16 October 2026. They covered the live course site, all 129 external links in chapters 1–9, the two public GitHub repositories, and 12 recomputed numbers. Each item below is marked <strong>Verified</strong> (I checked it) or <strong>Inferred</strong> (I reasoned from evidence). The first pass changed no file. After that, at your request, I fixed the citations in chapters 7 and 8 and added an MIT licence. Those edits were committed and pushed in <code>ad58812</code> on 16 October.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>You may not know that...</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>The course has 14 more lectures after chapter 9.</td>
+<td>Verified</td>
+<td>Make the process repeatable (decision A)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Chapter 7 cited the wrong paper. The course's own reading list has the same error. Fixed on 16 October.</td>
+<td>Verified</td>
+<td>Check every link title (decision B)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>The course site names a lecturer only for guests. Bylines for 1–6 and 9 have no check.</td>
+<td>Verified</td>
+<td>Confirm from the recordings</td>
+</tr>
+<tr>
+<td>4</td>
+<td>One symbol means different things in different chapters.</td>
+<td>Verified</td>
+<td>Build a symbol ledger</td>
+</tr>
+<tr>
+<td>5</td>
+<td>An older public copy of the site is still live. The new repository had no licence. It now has an MIT licence (pushed in <code>ad58812</code>).</td>
+<td>Verified</td>
+<td>Decide on the old copy (decision C)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Course policy bans public assignment solutions. Assignment 3 is due 29 October.</td>
+<td>Verified (policy), Inferred (overlap)</td>
+<td>Your choice: no contact (decision D)</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Nobody has asked the instructors for permission.</td>
+<td>Verified</td>
+<td>You decided to contact no one (decision D)</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Nobody has independently checked the mathematics.</td>
+<td>Verified (small sample)</td>
+<td>Add a second reviewer (decision E)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>The agent cannot know papers newer than its training.</td>
+<td>Inferred</td>
+<td>Read each source live</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Captions and slides miss what the lecture showed. The chapters have no figures.</td>
+<td>Inferred</td>
+<td>Decide (decision F)</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Long sessions lose rules and cost more per turn.</td>
+<td>Verified</td>
+<td>One chapter per session</td>
+</tr>
+<tr>
+<td>12</td>
+<td>The guide and two tool folders are untracked in the publishable tree.</td>
+<td>Verified</td>
+<td>Decide (decision G)</td>
+</tr>
+<tr>
+<td>13</td>
+<td>The acquisition tools are not pinned, and one is unofficial.</td>
+<td>Inferred</td>
+<td>Pin and test</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Links, timestamps, and product claims go stale.</td>
+<td>Partly verified</td>
+<td>Date them; re-check</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Your reading time is the bottleneck.</td>
+<td>Inferred</td>
+<td>Budget it</td>
+</tr>
+</tbody>
+</table>
+<h3 id="facts-that-moved-under-the-guide">Facts that moved under the guide</h3>
+<p><strong>1. The course is not at lecture 13.</strong> The course site lists 30 schedule slots up to the final posters on 3 December. Twenty-three of them are lectures, and chapters 1–9 cover nine. Lecture 14 (OpenHands, Graham Neubig, 8 October) has slides online, but its recording is not public. Later lectures include LangGraph, observability, the future of work, multi-agent interaction, human-agent interaction, reranking, tree search, and two titled guest lectures. Fall break runs 12–16 October. So you are starting a process that may run for 14 more chapters.</p>
+<p>The site and the playlist agree on lecture numbers 1–13 today. This table adds the site data to section 2.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Site title</th>
+<th>Date</th>
+<th>Lecturer on site</th>
+<th>Slide file (HTTP 200 on 16 Oct)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>Domains 3: Deep Research Agents</td>
+<td>24 Sep</td>
+<td>Akari Asai</td>
+<td><code>lecture-10-deep-research-agents.pdf</code></td>
+</tr>
+<tr>
+<td>11</td>
+<td>Training 3: Advanced RL Algorithms</td>
+<td>29 Sep</td>
+<td>none listed</td>
+<td><code>lecture-11-rl-advanced.pdf</code></td>
+</tr>
+<tr>
+<td>12</td>
+<td>Training 4: RL Systems</td>
+<td>1 Oct</td>
+<td>Apurva Gandhi</td>
+<td><code>lecture-12-rl-systems.pdf</code></td>
+</tr>
+<tr>
+<td>13</td>
+<td>Safety 1: Agent Safety</td>
+<td>6 Oct</td>
+<td>none listed</td>
+<td><code>lecture-13-agent-safety.pdf</code></td>
+</tr>
+<tr>
+<td>14</td>
+<td>Frameworks 1: OpenHands</td>
+<td>8 Oct</td>
+<td>Graham Neubig</td>
+<td><code>lecture-14-openhands.pdf</code></td>
+</tr>
+</tbody>
+</table>
+<p>The slide base is <code>https://www.cmu-agents.com/slides/</code>. The YouTube title for lecture 13 is "Agentic Safety". The site title is "Safety 1: Agent Safety". Use the site title for the chapter, and check that the recording matches it.</p>
+<p><strong>What to do.</strong> Do the one-time change in decision A (section 12). It removes the five edits that every new chapter would otherwise need. Also plan the structure: with 25 or more chapters, a single flat list of cards and a single "Reading sequence" paragraph (<code>render_notes.py:123</code>) will not scale. Group chapters into parts. Keep chapter numbers equal to lecture numbers, so that URLs stay stable.</p>
+<p><strong>3. Who taught what.</strong> The site names a lecturer only for guests (Koh, Song, Asai, Gandhi, and others). It names no one for lectures 1–6, 9, 11, and 13. The bylines for chapters 1–6 and 9 name Fried or Neubig. The Codex session said lecture 4 is taught by Fried although it sits on Neubig's playlist. I found no written source for these names. A wrong byline is a public attribution error. Confirm each lecturer from the first minutes of the recording. If you cannot, write the lecture number and date only.</p>
+<h3 id="a-wrong-citation-is-already-in-the-published-set">A wrong citation is already in the published set</h3>
+<p><strong>2. Wrong citations.</strong> I extracted all 129 unique external URLs from chapters 1–9. They include 82 arXiv papers. I fetched each arXiv title from the arXiv API and compared it with the link label. Every ID exists. Seventeen labels differ clearly from the title. Fifteen are ordinary aliases, such as "DrGRPO" for "Understanding R1-Zero-Like Training". Two needed a closer look. My filter hid any label that shares a long word with its title, so a wrong link with a similar label could pass it.</p>
+<ol>
+<li><strong>Chapter 7, lines 50 and 66 (fixed on 16 October).</strong> The label is "MiniWoB++". The link was <code>arxiv.org/abs/1704.04368</code>. That paper is "Get To The Point: Summarization with Pointer-Generator Networks". The course site lists the same ID under the label "MiniWoB". The chapter copied the error. I read the PDF of <code>1802.08802</code> ("Reinforcement Learning on Web Interfaces Using Workflow-Guided Exploration"). It states: "MiniWoB++: a new set of tasks that we constructed". Both links now point to it. Line 50 now says that MiniWoB++ extends the earlier MiniWoB benchmark with stochastic environments and varied natural-language goals, which is what the paper says.</li>
+<li><strong>Chapter 8, lines 155 and 331 (link was correct; gloss refined).</strong> The label is "BalanceSFT". My first check said this was a mismatch, because the arXiv API listed the title "FunReason: ...". The current PDF of <code>2505.20192</code> is titled "BalanceSFT: Improving LLM Function Calling with Balanced Training Signals and Data Hardness". So the label and the link were right. My title check used metadata that lagged the paper. The chapter's gloss "data balancing" was incomplete, so it now says "balanced training signals and data hardness ... for function calling". Compare a label with the current PDF title, not only with the API listing.</li>
+</ol>
+<p>Two further findings:</p>
+<ul>
+<li>Six <code>openai.com</code> links returned HTTP 403 to a script. A browser may open them. I did not verify this.</li>
+<li>One DOI link looked broken in my first check because my pattern cut it at a parenthesis. The rendered link in the HTML is whole. The same cut happens in the validator's link pattern (<code>validate_notes.py:59</code>), so a tool that uses it can miscount links with parentheses.</li>
+</ul>
+<p><strong>Why this matters.</strong> The validator never opens an external link. It cannot tell a correct citation from a wrong one. The course's own policy says: "AI output is not an authoritative source. Check generated code and factual claims, verify citations against the original sources." Apply that standard to your notes. For each new chapter, fetch every cited identifier and print the returned title beside the label.</p>
+<h3 id="consistency-across-the-series">Consistency across the series</h3>
+<p><strong>4. Symbols collide across chapters.</strong> Each chapter defines its symbols before use, so the define-before-use audit passes. The same letter still has several meanings across the set:</p>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Chapter 1 meaning</th>
+<th>Chapter 9 meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>phi</code></td>
+<td>Harness choices (line 50)</td>
+<td>Parameters of the value model <code>V_phi</code> (lines 267, 269)</td>
+</tr>
+<tr>
+<td><code>lambda</code></td>
+<td>Price of resource use (line 56)</td>
+<td>Trace parameter in generalized advantage estimation (line 275)</td>
+</tr>
+<tr>
+<td><code>delta</code></td>
+<td>Tolerated forbidden-event probability (line 56)</td>
+<td>Temporal-difference residual <code>delta_t</code> (line 267)</td>
+</tr>
+<tr>
+<td><code>tau</code></td>
+<td>Consequence thresholds <code>tau_0 &lt; tau_1</code> (line 17)</td>
+<td>A trajectory (line 34)</td>
+</tr>
+<tr>
+<td><code>G</code></td>
+<td>Execution gate <code>G_phi</code> (line 52)</td>
+<td>Group size (line 283) and reward-to-go <code>G_t</code> (line 244)</td>
+</tr>
+</tbody>
+</table>
+<p>An earlier audit already found <code>b_t</code> used for both budget and belief. Lectures 11 and 12 add more RL symbols and will multiply the collisions. Section 9 says "do not start a parallel notation". That rule is not yet true of the nine chapters. Keep a series-wide symbol ledger. Check each new chapter against it. Decide whether to rename the old uses. Renaming changes published chapters.</p>
+<h3 id="licence-permission-and-course-policy">Licence, permission, and course policy</h3>
+<p><strong>5. Older public copy and licence.</strong> <code>agent-systems-foundations</code> is the first GitHub repository for these notes. You created it on 12 September. On 25 and 26 September the project was copied to a second repository, which you renamed <code>11-768-ai-agents-notes</code>. The first repository was never removed. It is still public, and its Pages site still returns HTTP 200 at <code>az9713.github.io/agent-systems-foundations/</code>. Its last push (25 September, 21:54 UTC) predates commits <code>5c7e3a9</code> and <code>56fc731</code>. So two public copies of the same notes exist, and the old one is stale. It has 0 stars, 0 forks, 0 watchers, and 0 open issues.</p>
+<p>The new repository had no licence file. On 16 October, at your request, I added an MIT <code>LICENSE</code> (copyright "2026 az9713") and a "License" section in <code>README.md</code>. Both were pushed in <code>ad58812</code>. The licence covers only your original text, code, and scripts. It does not cover the recordings, the slides, the course name, or the papers. MathJax keeps its own licence. If you want a legal name in the copyright line, change <code>LICENSE</code>.</p>
+<p>Your options for the old repository:</p>
+<ul>
+<li><strong>Leave it.</strong> Nothing changes. The stale site stays live.</li>
+<li><strong>Archive it.</strong> GitHub marks it read-only. The stale site stays live.</li>
+<li><strong>Redirect it.</strong> Replace its home page with a short page that forwards visitors to the new site. Anyone who holds an old link still arrives.</li>
+<li><strong>Delete it.</strong> The old site returns a 404 error and old links break.</li>
+</ul>
+<p><strong>6. Course policy and the assignments.</strong> The course site states a rule. "Do not post assignment solutions publicly unless the instructors give permission." The course has three assignments. Assignment 1 is Harness, due 14 September. Assignment 2 is Eval, due 1 October. Assignment 3 is Training, due 29 October. The assignment repositories are public under <code>github.com/cmu-agents</code>. Your repository holds a harness (<code>agent_lab</code>), evaluation chapters, and chapters on training with worked exercise solutions. Lectures 11 and 12 probably feed Assignment 3. I did not read the assignment repositories, so I cannot say whether <code>agent_lab</code> overlaps them. You decided to contact no one (item 7), so this question stays open. One step that needs no contact is to read the public assignment repositories yourself before you publish training code. The site also bans AI tools for the graded "lecture highlights". Enrolled students could use public AI-written notes for that purpose. That is not your breach, but the staff may care.</p>
+<p><strong>7. Permission.</strong> I searched the course site bundle for "license", "copyright", "redistribut", and "permission". It has no reuse statement for the recordings or slides. The only licence text belongs to React. The absence of a prohibition is not a grant. The Codex session advised against a "CMU" repository prefix without written permission and called that advice a risk assessment. The repository now carries the course identifier in titles, metadata, and footers. No one has asked the staff. <strong>Decision (16 October): you chose to contact no one.</strong> This guide therefore proposes no outreach. The risk stays with you. The disclaimers on every page ("independent study", "not an official CMU resource") are the only mitigation in place.</p>
+<h3 id="verification-gaps">Verification gaps</h3>
+<p><strong>8. No independent check of the content.</strong> The validator and the rendering checks test structure, LaTeX syntax, and links. The same kind of agent wrote and audited the chapters. I recomputed 12 numbers in three chapters. Eight are in the chapter 3 budget example: 1,685,000, 31,700, 97,000, 117,000, 565,000, 66.5%, 8,700, and the closed form. One is the 8.3% precision in chapter 4. Three are 0.634, 0.010, and 0.923 in chapter 9. All 12 are correct. That is a small sample of several hundred claims. Use a second reviewer for each chapter. Options in your skill list: <code>science-editor</code> (claim-by-claim edit), <code>codex-review</code>, and a human spot-check of two derivations per chapter. A blind solve of the exercises by another model would also test the solutions.</p>
+<p><strong>9. Sources newer than the agent's training.</strong> The latest paper cited in chapters 1–9 is dated 1 June 2026 (<code>2606.01533</code>). The agent writing the chapters has a training cutoff, so it cannot recall papers or pages after it. For those, it can only paraphrase what it fetched. Title checks (section B) confirm existence, not content. For each cited paper, require the agent to quote the sentence that supports the claim.</p>
+<p><strong>10. Captions and slides miss what was shown.</strong> The chapters contain no figures or images. Lectures 10 (deep research) and 13 (safety) likely show demos and diagrams. I have not watched them. Your own intake workflow has a second track, chaptered video analysis with timestamps, for "what was shown". Decide whether these lectures need it.</p>
+<h3 id="process-cost-and-hygiene">Process, cost, and hygiene</h3>
+<p><strong>11. Context decay and cost.</strong> The Codex session recorded 10 context compactions in 7,426 events. I infer that the early rules survived because they were copied into a skill and into the text. The rules were: no recount of the lecture, and define before use. The round-2 first attempt still shipped thin chapters after reading <code>rigorous-explainer</code>. A rule that sits only in the conversation is at risk. This session was also flagged at about 421,000 tokens. The Codex session recorded no token or cost total. Use one fresh session per chapter. Load the guide at the start. End each session with a handoff file.</p>
+<p><strong>12. The guide sits in the publishable tree.</strong> <code>git status</code> shows four untracked items: <code>new-lecture-workflow-guide.html</code>, <code>.ignore/</code>, <code>.serena/</code>, and the new <code>LICENSE</code>. None is covered by <code>.gitignore</code>. You want <code>LICENSE</code> committed, but not the other three. The command <code>git add -A</code> would stage all four. The guide holds home-relative tool paths (<code>~/.codex/...</code>) and a session ID. Stage named files only. Decide whether the guide lives outside the repository.</p>
+<p><strong>13. The acquisition tools are fragile.</strong> <code>fetch_transcripts.py</code> uses an unofficial caption interface that can break or be rate-limited, and its terms of use are unchecked. <code>yt-dlp</code> changes often. The course site bundle changes its file name. <code>requirements.txt</code> does not list these tools. Pin their versions in a separate acquisition requirements file. Test the pipeline on lecture 10 before you rely on it.</p>
+<p><strong>14. Staleness.</strong> Recording links use <code>t=</code> offsets. Hidden or re-uploaded videos break them. Product documentation changes. The index page says "checked on 12 September 2026", which will be wrong for new chapters. Date each product claim in its own chapter.</p>
+<p><strong>15. Your reading time.</strong> Four chapters are about 20,000 words. At 200 words per minute that is about 100 minutes for one read-through. The agent work in round 2 took about 70 minutes for the first attempt and about 40 minutes for the rebuild. Your review is the larger cost. Review each chapter against the parity table before you read it in full.</p>
+<h3 id="one-rule-on-safety-content">One rule on safety content</h3>
+<p>Lecture 13 will contain attack patterns. Chapter 2 sets the pattern: frame attacks as threat models with defenses. Do not add working exploit detail.</p>
+<h2 id="12-decisions-that-need-your-answer">12. Decisions that need your answer</h2>
+<h3 id="style-differences-inside-the-existing-set">Style differences inside the existing set</h3>
+<p>I measured four real differences between chapters 1–4 and chapters 5–9. I did not choose between them.</p>
+<table>
+<thead>
+<tr>
+<th>Measure</th>
+<th>Chapters 1–4</th>
+<th>Chapters 5–9</th>
+<th>My recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bold defined terms per chapter</td>
+<td>59, 72, 68, 64</td>
+<td>25, 20, 12, 12, 17</td>
+<td>Follow chapters 1–4. Bold each term at its definition. The user asked for every term to be defined before use, and bold marks where.</td>
+</tr>
+<tr>
+<td>Displayed equations per chapter</td>
+<td>4, 3, 6, 2</td>
+<td>23, 15, 18, 15, 36</td>
+<td>Let the topic decide. Chapters 5–9 are more mathematical because the topics are. Keep derivations visible.</td>
+</tr>
+<tr>
+<td>Subsection headings (<code>###</code>) per chapter</td>
+<td>10, 9, 9, 9</td>
+<td>11, 12, 15, 18, 17</td>
+<td>Aim for 9–12. The skill warns against fragmenting sections.</td>
+</tr>
+<tr>
+<td>Code style</td>
+<td>Excerpts of source linked to GitHub; no <code>import agent_lab</code></td>
+<td>Runnable snippets that import <code>agent_lab</code> and <code>assert</code></td>
+<td>Use the chapters 5–9 form and link longer source.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="decisions-that-the-unknown-unknowns-raise">Decisions that the unknown unknowns raise</h3>
+<p>Each decision has a recommended default. The default is what I would do if you do not answer.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Decision</th>
+<th>Recommended default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td><strong>Decided and done (16 October):</strong> derive the counts and durations once.</td>
+<td>Done. See section 6.</td>
+</tr>
+<tr>
+<td>B</td>
+<td><strong>Done (links).</strong> Chapter 7's wrong link is fixed, and chapter 8's gloss is refined. Still open: a script that prints the current title of every cited arXiv paper beside its label.</td>
+<td>Add the script when you ask. It would be one new file.</td>
+</tr>
+<tr>
+<td>C</td>
+<td><strong>Licence done.</strong> MIT, pushed in <code>ad58812</code>. Still open: the stale public copy <code>agent-systems-foundations</code>.</td>
+<td>Redirect it to the new site, then archive it. Or delete it. It has 0 stars, forks, and issues.</td>
+</tr>
+<tr>
+<td>D</td>
+<td><strong>Decided: contact no one.</strong> No email to the course staff, and no question about the assignments.</td>
+<td>None. The risk is accepted.</td>
+</tr>
+<tr>
+<td>E</td>
+<td>A second reviewer for each chapter.</td>
+<td>Run <code>science-editor</code> on each new chapter, and spot-check two derivations yourself.</td>
+</tr>
+<tr>
+<td>F</td>
+<td>Add a video-analysis pass for lectures with demos or diagrams (10 and 13 first).</td>
+<td>Watch ten minutes of lecture 10 first. Then decide.</td>
+</tr>
+<tr>
+<td>G</td>
+<td><strong>Decided (16 October):</strong> the guide lives in the repository.</td>
+<td>Track <code>new-lecture-workflow-guide.html</code>. <code>HANDOFF.md</code>, <code>.ignore/</code>, and <code>.serena/</code> stay untracked. The repository is public, so the Pages site serves the guide once it is pushed.</td>
+</tr>
+<tr>
+<td>H</td>
+<td>Lectures: 10–13 only, or 14 as well when its recording appears.</td>
+<td>10–13 now. Add each later lecture when its recording is public.</td>
+</tr>
+<tr>
+<td>I</td>
+<td>Which agent writes the chapters. The <code>transcript-grounded-textbook</code> skill exists only for Codex (section 13).</td>
+<td>Copy the skill folder into <code>~/.claude/skills/</code> if Claude Code writes the chapters.</td>
+</tr>
+<tr>
+<td>J</td>
+<td>Which files change in the same pass (section 6): index, README, journey.</td>
+<td>Update the index and README. Add a short journey paragraph after the chapters are final.</td>
+</tr>
+<tr>
+<td>K</td>
+<td>Publish? Earlier rounds pushed and enabled Pages.</td>
+<td><strong>Settled for the 16 October edits:</strong> pushed in <code>ad58812</code> (two chapters, <code>README.md</code>, <code>LICENSE</code>). Still open for lectures 10–13: do not push until you approve each chapter.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="13-skills-and-tools">13. Skills and tools</h2>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>Path</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rigorous-explainer</code></td>
+<td><code>~/.claude/skills/rigorous-explainer/</code> (also <code>~/.agents/skills/rigorous-explainer/</code>)</td>
+<td>Editorial authority: teaching rules, prose rules, check scripts. Available in Claude Code.</td>
+</tr>
+<tr>
+<td><code>transcript-grounded-textbook</code></td>
+<td><code>~/.codex/skills/transcript-grounded-textbook/</code></td>
+<td>Series workflow: calibration, transcript map, source ledger, nine passes, parity audit. Codex only.</td>
+</tr>
+<tr>
+<td><code>dev-journey</code></td>
+<td>Claude Code skill list</td>
+<td>Writes the retrospective. It did not author chapters.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>transcript-grounded-textbook</code> skill is not in the Claude Code skill list for this session. Its files are <code>SKILL.md</code>, <code>references/workflow.md</code>, <code>references/parity-audit.md</code>, <code>references/agent-systems-baseline.md</code>, and <code>agents/openai.yaml</code>. Read them directly, or copy the folder to <code>~/.claude/skills/</code> if you choose.</p>
+<p>The two copies of <code>rigorous-explainer</code> differ. The <code>.claude</code> copy (modified 15 September) adds a "Common mistakes" section and a script, <code>check_provenance.py</code>. That script belongs to another project's gate for borrowed material parameters. It does not apply here. Some other scripts also differ, <code>checktex.py</code> among them. The Codex session used the <code>.agents</code> copy (modified 12 September). Both hold identical <code>references/textbook-style.md</code>.</p>
+<p>The skill's figure checks (<code>check_svg</code>, <code>check_overlap</code>, <code>check_frame</code>, <code>check_probfig</code>, <code>check_bodyprop</code>) do not apply, because these chapters have no figures.</p>
+<h2 id="14-check-then-publish">14. Check, then publish</h2>
+<h3 id="self-checks-on-the-markdown">Self-checks on the Markdown</h3>
+<p>Run these before you render. They are the checks the session ran on chapters 5–9.</p>
+<pre><code>grep -n -i -E &quot;professor|in the lecture|the lecture|recording|at [0-9]+:[0-9]+|here is|deliberately broad|as discussed|speaker&quot; lecture-1*.md
+</code></pre>
+<p>Today the same command on chapters 1–9 returns two hits. Both are the verb "recording" in an ordinary technical sentence. Read every hit.</p>
+<p>Also scan for sentences longer than 42 words. The session printed the line number and word count of each one. Then list every acronym in order of first appearance. Check that its expansion comes first.</p>
+<h3 id="build-and-validate">Build and validate</h3>
+<pre><code>python render_notes.py
+python validate_notes.py
+python -m agent_lab.order_demo
+python -m unittest discover -s tests -v
+python browser_check.py
+</code></pre>
+<p>Do not run the tests with <code>python -I</code>. Isolated mode removes the working folder from the import path and the tests fail to import <code>agent_lab</code>. As of 16 October 2026, <code>validate_notes.py</code> prints <code>package: PASS</code> and 16 tests pass.</p>
+<p>Then run the <code>rigorous-explainer</code> scripts on each new HTML file. The session ran <code>checktex.py</code>, <code>checklt.py</code>, <code>check_code.py</code>, <code>check_prose.py</code>, <code>check_links.py</code>, and <code>verify_dom.py</code>. Each takes the HTML path as its first argument. Use the DOM check, not a screenshot, because MathJax typesets after load.</p>
+<p>On Windows, set <code>PYTHONIOENCODING=utf-8</code> for scripts that print mathematical symbols, and read and write files with <code>encoding="utf-8"</code>.</p>
+<h3 id="final-audit-before-you-say-done">Final audit, before you say "done"</h3>
+<ul>
+<li>The new chapter has comparable word count and section depth to the exemplars. Ask which sections are only a definition, equations, and a short caveat.</li>
+<li>A running case appears in at least three sections.</li>
+<li>Every central equation has a derivation, an interpretation, and a check.</li>
+<li>Research links sit in the exposition, not only in "Further reading".</li>
+<li>Every code block has a contract and a runnable check.</li>
+<li>Every solution shows its reasoning.</li>
+<li>The definition-before-use audit passes.</li>
+<li>A browser check shows no <code>mjx-merror</code> element.</li>
+</ul>
+<h3 id="publish-only-on-request">Publish (only on request)</h3>
+<ol>
+<li>Stage named files only. Inspect the staged diff for transcripts, slides, local paths, personal data, and credentials.</li>
+<li>Commit with a message in the style of the log (for example, "Add transcript-grounded lectures 10 through 13").</li>
+<li>Push to <code>origin</code> (<code>https://github.com/az9713/11-768-ai-agents-notes.git</code>).</li>
+<li>Wait for the Pages build (source branch <code>main</code>, path <code>/</code>). Then fetch the index page, one new chapter, and the style report. Each must return HTTP 200 with its expected heading.</li>
+</ol>
+<p>The live site is <code>https://az9713.github.io/11-768-ai-agents-notes/</code>.</p>
+<h2 id="15-what-this-guide-does-not-cover">15. What this guide does not cover</h2>
+<ul>
+<li>I read the 39 user messages, the 155 assistant messages, and a sample of the 896 tool calls in the Codex session. I did not read all 7,426 events.</li>
+<li>I did not inspect the first drafts of chapters 1–4 beyond their word counts in git.</li>
+<li>I did not run <code>fetch_transcripts.py</code>, the site scrape, or the slide download. They are reconstructed from the session.</li>
+<li>The suggested chapter-to-harness links (section 9) come from the lecture titles. I have not read the new transcripts.</li>
+<li>Section 11 rests on direct checks made on 16 October 2026. They used the course site bundle, the arXiv API, HTTP status codes from one machine, and <code>gh</code> queries. Each can change. I did not read the assignment repositories, watch any lecture, or open the six <code>openai.com</code> pages in a browser.</li>
+<li>I judged the 17 label mismatches by eye. I read two abstracts. I did not read the papers.</li>
+<li>The blind-spot pass was done by a forked agent. I re-verified its claims about commits, files, and counts. I did not accept its inferences without evidence.</li>
+<li>The equation and solution-length figures for the first attempt at chapters 5–9 are the session's own measurements. I re-derived only the word counts, from git.</li>
+<li>Style statistics count prose only, with my own rules for what counts. The baseline reference in the Codex skill reports slightly different numbers (for example, a median of 543–901 words per section) because its counting rules differ. Use one rule consistently when you compare.</li>
+</ul>
+<h2 id="16-model-and-effort-by-phase">16. Model and effort by phase</h2>
+<p>Set 16 October 2026. This table is a judgment. No token count or quality score from this repository supports it. I do not know the price ratio between the models, so the table gives no cost figures. Use the measurement log below to replace the judgment with data.</p>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Model</th>
+<th>Effort</th>
+<th>Justification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fetch captions and slides. Build the source map. Run <code>validate_notes.py</code> and the tests.</td>
+<td>Sonnet 5.5</td>
+<td>low or medium</td>
+<td>The steps are mechanical. A script can check each result.</td>
+</tr>
+<tr>
+<td>Fetch every cited link. Compare each returned title with its label.</td>
+<td>Sonnet 5.5</td>
+<td>medium</td>
+<td>The task has high volume and low judgment. Chapters 1–9 have 129 external links.</td>
+</tr>
+<tr>
+<td>Report lecturer and date, with evidence or UNKNOWN.</td>
+<td>Sonnet 5.5</td>
+<td>medium</td>
+<td>The task needs care about evidence. It does not need deep reasoning. The course site lists no lecturer for lectures 11 and 13.</td>
+</tr>
+<tr>
+<td>Draft the chapter. Draft lecture 10 first.</td>
+<td>Opus 5.5</td>
+<td>high</td>
+<td>This phase decides the quality. See the reasons below.</td>
+</tr>
+<tr>
+<td>Review the draft.</td>
+<td>Opus 5.5</td>
+<td>high, in a fresh context</td>
+<td>A reviewer that did not write the draft finds more defects than the drafter.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="why-the-draft-gets-the-strongest-setting">Why the draft gets the strongest setting</h3>
+<ul>
+<li><code>validate_notes.py</code> checks structure, not depth. Only a reader can find a missing derivation or an undefined symbol.</li>
+<li>The draft must define every term before use. It must avoid the symbol collisions with chapters 1 and 9: <code>phi</code>, <code>lambda</code>, <code>delta</code>, <code>tau</code>, and <code>G</code>. It must tie each claim to a transcript passage.</li>
+<li>A weak draft costs more tokens later, because each correction round reads the whole chapter again.</li>
+</ul>
+<h3 id="why-not-a-higher-effort">Why not a higher effort</h3>
+<ul>
+<li>Do not use <code>xhigh</code> or <code>max</code> for the whole job. No evidence shows that they improve this task. They increase the reasoning tokens on every call.</li>
+<li>Use <code>xhigh</code> only if the lecture 10 review finds reasoning errors that <code>high</code> made.</li>
+<li>Fable 5.1 may give a better draft than Opus 5.5. It was not tested, and its price is unknown. Test it only if you accept an unknown cost.</li>
+</ul>
+<h3 id="what-drives-token-use">What drives token use</h3>
+<ul>
+<li>The transcripts are the largest input. Keep them in files. Let a Sonnet subagent write a short source map with timestamps. The drafting context then holds the map and the cited passages, not the full transcript.</li>
+<li>Effort changes the reasoning tokens. It does not change the input size. The input size is the larger lever.</li>
+</ul>
+<h3 id="measurement-log">Measurement log</h3>
+<p>Draft lecture 10 with the table above. Fill one row per lecture. Change one setting between lectures, and compare the rows.</p>
+<table>
+<thead>
+<tr>
+<th>Lecture</th>
+<th>Drafting model and effort</th>
+<th>Review model and effort</th>
+<th>Total tokens</th>
+<th>Review defects (blocking / other)</th>
+<th>Rounds to approval</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>Opus 5.5, high</td>
+<td>Opus 5.5, high (fresh reviewer) and Opus 5.5, high (<code>science-editor</code>)</td>
+<td>not recorded</td>
+<td>reviewer 3 / 12; editor 7 / about 30 line edits (overlapping)</td>
+<td>3 agent rounds (draft, fix, sentence split); approved by the user on 17 October 2026 with no changes</td>
+<td>5,509 words, 126 above the chapter 1–9 maximum; links all HTTP 200</td>
+</tr>
+<tr>
+<td>11</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>12</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>13</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><code>/model</code> switches the model. The place of the effort setting in this Claude Code build was not verified.</p>
+<h2 id="appendix-a-starting-prompt-for-the-next-session">Appendix: a starting prompt for the next session</h2>
+<blockquote>
+<p>Use <code>new-lecture-workflow-guide.html</code>. Write CMU 11-768 lectures 10–13 in the same style, voice, and substance as lectures 1–9. Before you draft: (1) rebuild the captions, slides, and a source map for each lecture (guide section 3), and report the lecturer and date with evidence, or write UNKNOWN; (2) ask me the open decisions in guide section 12; (3) for each lecture, list the concepts that are new and those that chapters 1–9 already cover, and check each symbol against the series ledger. Then draft lecture 10 only. Print the parity table against chapters 1 and 9. Fetch every cited link and print its returned title beside its label. Stop and wait for my review. Stage named files only. Do not commit or push until I say so.</p>
+</blockquote></main><aside class="side"><strong>On this page</strong><ul><li><a href="#1-summary">1. Summary</a></li><li><a href="#2-the-new-recordings">2. The new recordings</a></li><li><a href="#3-start-here-the-raw-sources-are-missing">3. Start here: the raw sources are missing</a></li><li><a href="#4-where-the-notes-came-from">4. Where the notes came from</a></li><li><a href="#5-the-pipeline-step-by-step">5. The pipeline, step by step</a></li><li><a href="#6-update-checklist-what-breaks-when-lecture-10-arrives">6. Update checklist: what breaks when lecture 10 arrives</a></li><li><a href="#7-the-chapter-contract-measured">7. The chapter contract, measured</a></li><li><a href="#8-voice-and-prose">8. Voice and prose</a></li><li><a href="#9-the-formal-model-and-the-running-cases">9. The formal model and the running cases</a></li><li><a href="#10-dos-and-donts-with-sources">10. Dos and don'ts, with sources</a></li><li><a href="#11-unknown-unknowns">11. Unknown unknowns</a></li><li><a href="#12-decisions-that-need-your-answer">12. Decisions that need your answer</a></li><li><a href="#13-skills-and-tools">13. Skills and tools</a></li><li><a href="#14-check-then-publish">14. Check, then publish</a></li><li><a href="#15-what-this-guide-does-not-cover">15. What this guide does not cover</a></li><li><a href="#16-model-and-effort-by-phase">16. Model and effort by phase</a></li><li><a href="#appendix-a-starting-prompt-for-the-next-session">Appendix: a starting prompt for the next session</a></li></ul></aside></div>
+<footer class="foot shell">Independent study companion to <a href="https://www.cmu-agents.com/">CMU 11-768: AI Agents</a> · <a href="index.html#sources">Attribution and scope</a> · Not an official CMU resource</footer></body></html>

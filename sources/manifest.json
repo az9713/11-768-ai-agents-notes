@@ -4,6 +4,7 @@
     "title": "What are Agents and How Do They Work?",
     "video_id": "UwfjzyLnvMg",
     "url": "https://www.youtube.com/watch?v=UwfjzyLnvMg",
+    "duration_seconds": 4073,
     "caption_language": "en",
     "caption_generated": true,
     "available_tracks": [
@@ -21,6 +22,7 @@
     "title": "Tool Use for Language Model Agents",
     "video_id": "jXChFB4JSyw",
     "url": "https://www.youtube.com/watch?v=jXChFB4JSyw",
+    "duration_seconds": 3442,
     "caption_language": "en",
     "caption_generated": true,
     "available_tracks": [
@@ -38,6 +40,7 @@
     "title": "Long Context Modeling for Agents",
     "video_id": "AiwCCvFW1uE",
     "url": "https://www.youtube.com/watch?v=AiwCCvFW1uE",
+    "duration_seconds": 4539,
     "caption_language": "en",
     "caption_generated": true,
     "available_tracks": [
@@ -55,6 +58,7 @@
     "title": "Memory and Skills for Agents",
     "video_id": "6zigF2a-2Pw",
     "url": "https://www.youtube.com/watch?v=6zigF2a-2Pw",
+    "duration_seconds": 4523,
     "caption_language": "en",
     "caption_generated": true,
     "available_tracks": [
@@ -72,6 +76,7 @@
     "title": "Planning, Task Decomposition, and Multi-Agent Coordination",
     "video_id": "S8v-dR4s29M",
     "url": "https://www.youtube.com/watch?v=S8v-dR4s29M",
+    "duration_seconds": 4514,
     "caption_language": "en",
     "caption_generated": true,
     "available_tracks": [
@@ -89,6 +94,7 @@
     "title": "Agents for Coding and Software Development",
     "video_id": "1BWeH1oOM7k",
     "url": "https://www.youtube.com/watch?v=1BWeH1oOM7k",
+    "duration_seconds": 4729,
     "caption_language": "en",
     "caption_generated": true,
     "available_tracks": [
@@ -106,6 +112,7 @@
     "title": "Computer Use Agents",
     "video_id": "jwGluLrrqjQ",
     "url": "https://www.youtube.com/watch?v=jwGluLrrqjQ",
+    "duration_seconds": 4466,
     "caption_language": "en",
     "caption_generated": true,
     "available_tracks": [
@@ -123,6 +130,7 @@
     "title": "Supervised Fine Tuning",
     "video_id": "O3HSU0AoILc",
     "url": "https://www.youtube.com/watch?v=O3HSU0AoILc",
+    "duration_seconds": 3899,
     "caption_language": "en",
     "caption_generated": true,
     "available_tracks": [
@@ -140,6 +148,7 @@
     "title": "Reinforcement Learning Basics",
     "video_id": "paAcPaaYZGM",
     "url": "https://www.youtube.com/watch?v=paAcPaaYZGM",
+    "duration_seconds": 4666,
     "caption_language": "en",
     "caption_generated": true,
     "available_tracks": [
@@ -151,5 +160,23 @@
     "segments": 1809,
     "last_caption_end_seconds": 4666.16,
     "retrieved_utc": "2026-09-25T14:20:56.503760+00:00"
+  },
+  {
+    "lecture": 10,
+    "title": "Deep Research",
+    "video_id": "nKUBrXFQBUM",
+    "url": "https://www.youtube.com/watch?v=nKUBrXFQBUM",
+    "duration_seconds": 4345,
+    "caption_language": "en",
+    "caption_generated": true,
+    "available_tracks": [
+      {
+        "language_code": "en",
+        "is_generated": true
+      }
+    ],
+    "segments": 1705,
+    "last_caption_end_seconds": 4346.28,
+    "retrieved_utc": "2026-10-17T03:51:48.301391+00:00"
   }
 ]

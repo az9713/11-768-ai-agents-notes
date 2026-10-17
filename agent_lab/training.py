@@ -1,6 +1,6 @@
-"""Small numerical definitions for Chapters 8 and 9."""
+"""Small numerical definitions for Chapters 8 through 10."""
 
-from math import log
+from math import exp, log
 from typing import Sequence
 
 
@@ -115,3 +115,14 @@ def degenerate_binary_group_probability(
     if group_size < 1:
         raise ValueError("group size must be positive")
     return success_probability**group_size + (1-success_probability)**group_size
+
+
+def contrastive_loss(scores: Sequence[float], positive_index: int) -> float:
+    """Return -log softmax(scores)[positive_index] over the candidates."""
+    if not scores:
+        raise ValueError("at least one candidate score is required")
+    if not 0 <= positive_index < len(scores):
+        raise ValueError("positive_index must name a candidate")
+    largest = max(scores)
+    normalizer = largest + log(sum(exp(score - largest) for score in scores))
+    return normalizer - scores[positive_index]

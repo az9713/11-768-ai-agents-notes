@@ -15,6 +15,8 @@ from agent_lab.context import (
 )
 from agent_lab.evaluation import (
     OutcomeVector,
+    citation_metrics,
+    cohen_kappa,
     normalized_to_pixels,
     pass_at_k,
     rubric_score,
@@ -37,6 +39,7 @@ from agent_lab.planning import (
 from agent_lab.tools import CallRejected
 from agent_lab.training import (
     centered_group_advantages,
+    contrastive_loss,
     degenerate_binary_group_probability,
     effective_token_shares,
     masked_cross_entropy,
@@ -351,6 +354,46 @@ class PlanningEvaluationTrainingTests(unittest.TestCase):
         self.assertAlmostEqual(
             degenerate_binary_group_probability(0.01, 8),
             0.01**8 + 0.99**8,
+        )
+
+
+class DeepResearchTests(unittest.TestCase):
+    def test_citation_accuracy_can_rise_while_recall_does_not(self) -> None:
+        cited = [[True], [True], [False], [True, True], []]
+        self.assertEqual(citation_metrics(cited), (0.8, 4, 0.6))
+        uncited = [[True], [True], [], [True, True], []]
+        self.assertEqual(citation_metrics(uncited), (1.0, 4, 0.6))
+        with self.assertRaisesRegex(ValueError, "pair"):
+            citation_metrics([[], []])
+
+    def test_citation_metrics_rejects_non_boolean_judgments(self) -> None:
+        with self.assertRaisesRegex(ValueError, "booleans"):
+            citation_metrics([[1, 2]])
+
+    def test_kappa_removes_agreement_expected_by_chance(self) -> None:
+        self.assertAlmostEqual(
+            cohen_kappa([True, True, True, False],
+                        [True, True, False, False]),
+            0.5,
+        )
+        with self.assertRaisesRegex(ValueError, "undefined"):
+            cohen_kappa([True, True], [True, True])
+
+    def test_kappa_rejects_non_boolean_labels(self) -> None:
+        with self.assertRaisesRegex(ValueError, "booleans"):
+            cohen_kappa([1, 0], [1, 1])
+
+    def test_contrastive_loss_is_softmax_cross_entropy(self) -> None:
+        self.assertAlmostEqual(
+            contrastive_loss([2.0, 1.0, 0.0], 0), 0.40760596444
+        )
+        self.assertAlmostEqual(
+            contrastive_loss([12.0, 11.0, 10.0], 0),
+            contrastive_loss([2.0, 1.0, 0.0], 0),
+        )
+        self.assertGreater(
+            contrastive_loss([2.0, 1.0, 0.0], 2),
+            contrastive_loss([2.0, 1.0, 0.0], 0),
         )
 
 
