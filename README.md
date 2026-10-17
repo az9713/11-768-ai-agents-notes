@@ -39,4 +39,8 @@ The optional browser check uses a local Google Chrome installation through Playw
 python browser_check.py
 ```
 
-The nine videos, course slides, and linked books remain the works of their respective rights holders. Their publication online does not grant this repository permission to redistribute them. No license for the independently authored repository material is specified here.
+The nine videos, course slides, and linked books remain the works of their respective rights holders. Their publication online does not grant this repository permission to redistribute them.
+
+## License
+
+The independently authored material in this repository (the chapter text, the `agent_lab` code and tests, and the render and validation scripts) is released under the [MIT License](LICENSE). The license covers only that material. It does not cover the CMU 11-768 recordings, slides, or course name, which belong to their rights holders. It does not cover the linked papers and books. The bundled MathJax file in `assets/` keeps its own license (`assets/mathjax-LICENSE`).

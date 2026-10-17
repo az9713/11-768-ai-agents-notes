@@ -47,7 +47,7 @@ The human interface is sometimes the only available interface, but it need not b
 
 ## 1. Environments became more realistic [06:00](https://www.youtube.com/watch?v=jwGluLrrqjQ&t=360s)
 
-Early GUI environments restricted tasks and interfaces to make interaction reproducible. [MiniWoB++](https://arxiv.org/abs/1704.04368) contains small browser tasks. [WebShop](https://arxiv.org/abs/2207.01206) models language-guided shopping. Such environments isolate learning problems but simplify state, layout, and consequences.
+Early GUI environments restricted tasks and interfaces to make interaction reproducible. [MiniWoB++](https://arxiv.org/abs/1802.08802) extends the earlier MiniWoB benchmark with small browser tasks that add stochastic environments and varied natural-language goals. [WebShop](https://arxiv.org/abs/2207.01206) models language-guided shopping. Such environments isolate learning problems but simplify state, layout, and consequences.
 
 [WebArena](https://arxiv.org/abs/2307.13854) provides reproducible, functional websites and executable goals across several domains. [VisualWebArena](https://arxiv.org/abs/2401.13649) adds visually grounded tasks. [OSWorld](https://arxiv.org/abs/2404.07972), a benchmark for operating-system tasks, uses real desktop applications, initial-state setup, and task-specific execution checks. These benchmark designs move evaluation closer to deployed computer use, while still resetting and controlling the environment.
 
@@ -63,7 +63,7 @@ Let realism profile $r(E)$ for environment $E$ be a vector
 
 $$r(E)=(r_{\rm visual},r_{\rm state},r_{\rm dynamics},r_{\rm consequence},r_{\rm history}).$$
 
-Each component is defined by a measurement protocol rather than by appearance alone. The vector prevents a single adjective from hiding which dimensions transfer to deployment. [Mini World of Bits++ (MiniWoB++)](https://arxiv.org/abs/1704.04368) isolates many interface skills in small tasks. [WebShop](https://arxiv.org/abs/2207.01206) adds language-guided product search. [WebArena](https://arxiv.org/abs/2307.13854), [VisualWebArena](https://arxiv.org/abs/2401.13649), and [OSWorld](https://arxiv.org/abs/2404.07972) increase site or application fidelity and use executable end-state checks.
+Each component is defined by a measurement protocol rather than by appearance alone. The vector prevents a single adjective from hiding which dimensions transfer to deployment. [Mini World of Bits++ (MiniWoB++)](https://arxiv.org/abs/1802.08802) isolates many interface skills in small tasks. [WebShop](https://arxiv.org/abs/2207.01206) adds language-guided product search. [WebArena](https://arxiv.org/abs/2307.13854), [VisualWebArena](https://arxiv.org/abs/2401.13649), and [OSWorld](https://arxiv.org/abs/2404.07972) increase site or application fidelity and use executable end-state checks.
 
 Benchmark progression also changes the source of failure. In a toy environment, a wrong click may dominate. In a persistent desktop, the same error can alter files that affect later steps. In an environment with personal history, the observation policy must decide which emails, calendar events, or documents are relevant without disclosing unrelated data. Capability and control become inseparable.
 

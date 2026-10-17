@@ -152,7 +152,7 @@ Inverse-probability weighting can correct selection only when the selection prob
 
 Data curricula can preserve coverage while raising quality. One stratum contains clean expert demonstrations. Another contains successful self-generated traces. A third contains corrected failures or recovery fragments. Sampling weights state the intended balance. Evaluation by task difficulty and failure type determines whether the curriculum improved capability rather than only the average easy case.
 
-[SWE-Gym](https://arxiv.org/abs/2412.21139), a training environment for software-engineering agents, constructs training environments and trajectories for software agents. [BalanceSFT](https://arxiv.org/abs/2505.20192) studies data balancing for supervised fine-tuning. Their shared methodological lesson is to measure the resulting student under the target interaction protocol. Teacher quality scores and dataset size do not substitute for that experiment.
+[SWE-Gym](https://arxiv.org/abs/2412.21139), a training environment for software-engineering agents, constructs training environments and trajectories for software agents. [BalanceSFT](https://arxiv.org/abs/2505.20192) studies balanced training signals and data hardness in supervised fine-tuning for function calling. Their shared methodological lesson is to measure the resulting student under the target interaction protocol. Teacher quality scores and dataset size do not substitute for that experiment.
 
 ## 4. A common trajectory protocol needs typed semantics [38:00](https://www.youtube.com/watch?v=O3HSU0AoILc&t=2280s)
 
@@ -328,6 +328,6 @@ The fourth split needs two independent grouping rules. Repository grouping tests
 - [Agent Data Protocol](https://arxiv.org/abs/2510.24702): a typed interlingua for heterogeneous agent trajectories.
 - [DAgger](https://proceedings.mlr.press/v15/ross11a.html): imitation learning on learner-visited states.
 - [SWE-Gym](https://arxiv.org/abs/2412.21139): training environments and trajectories for software agents.
-- [BalanceSFT](https://arxiv.org/abs/2505.20192): balancing supervised fine-tuning data.
+- [BalanceSFT](https://arxiv.org/abs/2505.20192): balanced training signals and data hardness in function-calling supervised fine-tuning.
 - [Hugging Face chat templates](https://huggingface.co/docs/transformers/en/chat_templating): model-specific conversation serialization.
 - [Transformer Reinforcement Learning (TRL) SFTTrainer](https://huggingface.co/docs/trl/en/sft_trainer): an implementation reference for supervised fine-tuning.
