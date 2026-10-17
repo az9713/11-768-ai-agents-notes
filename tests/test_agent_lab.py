@@ -1,5 +1,6 @@
 """Behavioral checks for the equations and boundaries used in the chapters."""
 
+import math
 import tempfile
 import unittest
 from pathlib import Path
@@ -36,17 +37,37 @@ from agent_lab.planning import (
     topological_order,
     work_span_bound,
 )
+from agent_lab.safety import (
+    alert_precision,
+    reachable_effects,
+    safety_outcomes,
+    zero_failure_upper_bound,
+)
 from agent_lab.tools import CallRejected
 from agent_lab.training import (
+    batch_makespans,
+    bf16_round,
     centered_group_advantages,
+    cispo_coefficient,
     contrastive_loss,
+    decode,
     degenerate_binary_group_probability,
     effective_token_shares,
+    gae_advantages,
+    greedy_encode,
+    kl_divergence,
     masked_cross_entropy,
+    ppo_clip_term,
+    ratio_moments,
     reinforce_estimate,
     reward_to_go,
 )
 from agent_lab.types import Authority, FinalAnswer, Observation, ToolCall
+
+
+TRIAGE = frozenset({"issues.read", "labels.write", "cache.write"})
+RELEASE = frozenset({"cache.read", "registry.write"})
+
 
 
 class HarnessTests(unittest.TestCase):
@@ -395,6 +416,228 @@ class DeepResearchTests(unittest.TestCase):
             contrastive_loss([2.0, 1.0, 0.0], 2),
             contrastive_loss([2.0, 1.0, 0.0], 0),
         )
+
+
+class Ch11GaeTest(unittest.TestCase):
+    rewards = [0.0, 0.0, 0.0]
+    values = [0.3, 0.6, 0.4, 0.0]
+
+    def test_half_trace_matches_worked_example(self):
+        advantages = gae_advantages(self.rewards, self.values, 1.0, 0.5)
+        expected = (0.1, -0.4, -0.4)
+        for got, want in zip(advantages, expected):
+            self.assertAlmostEqual(got, want, places=12)
+
+    def test_lambda_zero_is_td_error(self):
+        advantages = gae_advantages(self.rewards, self.values, 1.0, 0.0)
+        for got, want in zip(advantages, (0.3, -0.2, -0.4)):
+            self.assertAlmostEqual(got, want, places=12)
+
+    def test_lambda_one_telescopes_to_return_minus_value(self):
+        advantages = gae_advantages(self.rewards, self.values, 1.0, 1.0)
+        for t, got in enumerate(advantages):
+            self.assertAlmostEqual(got, sum(self.rewards[t:]) - self.values[t])
+
+    def test_rejects_wrong_value_count(self):
+        with self.assertRaises(ValueError):
+            gae_advantages([0.0], [0.0], 1.0, 0.5)
+
+
+class Ch11RatioMomentsTest(unittest.TestCase):
+    def test_slide_policies(self):
+        mean, variance, second = ratio_moments([0.4, 0.4, 0.2],
+                                               [0.7, 0.2, 0.1])
+        kl_behavior_target = kl_divergence([0.4, 0.4, 0.2], [0.7, 0.2, 0.1])
+        self.assertAlmostEqual(mean, -kl_behavior_target, places=12)
+        self.assertAlmostEqual(second, 1.375, places=12)
+        self.assertAlmostEqual(variance, 0.37666, places=4)
+
+    def test_equal_policies_have_unit_weight(self):
+        mean, variance, second = ratio_moments([0.5, 0.5], [0.5, 0.5])
+        self.assertEqual((mean, variance, second), (0.0, 0.0, 1.0))
+
+    def test_rejects_missing_support(self):
+        with self.assertRaises(ValueError):
+            ratio_moments([1.0, 0.0], [0.5, 0.5])
+
+
+class Ch11ClipTest(unittest.TestCase):
+    def test_positive_advantage_above_cap_has_no_gradient(self):
+        value, coefficient = ppo_clip_term(1.75, 1.0, 0.2, 0.2)
+        self.assertAlmostEqual(value, 1.2)
+        self.assertEqual(coefficient, 0.0)
+
+    def test_negative_advantage_above_cap_is_unbounded(self):
+        value, coefficient = ppo_clip_term(1.75, -1.0, 0.2, 0.2)
+        self.assertAlmostEqual(value, -1.75)
+        self.assertAlmostEqual(coefficient, -1.75)
+
+    def test_negative_advantage_below_floor_has_no_gradient(self):
+        value, coefficient = ppo_clip_term(0.5, -1.0, 0.2, 0.2)
+        self.assertAlmostEqual(value, -0.8)
+        self.assertEqual(coefficient, 0.0)
+
+    def test_inside_interval_keeps_raw_term(self):
+        self.assertEqual(ppo_clip_term(1.1, 2.0, 0.2, 0.2), (2.2, 2.2))
+
+    def test_cispo_keeps_every_token(self):
+        self.assertAlmostEqual(cispo_coefficient(1.75, 1.0, 0.2), 1.2)
+        self.assertAlmostEqual(cispo_coefficient(1.75, -1.0, 0.2), -1.2)
+        self.assertAlmostEqual(cispo_coefficient(0.5, -1.0, 0.2), -0.5)
+        self.assertAlmostEqual(cispo_coefficient(0.5, -1.0, 0.2, 0.2), -0.8)
+
+
+class Ch11KlTest(unittest.TestCase):
+    def test_distillation_example_and_asymmetry(self):
+        student, teacher = [0.5, 0.5], [0.8, 0.2]
+        self.assertAlmostEqual(kl_divergence(student, teacher), 0.2231, 4)
+        self.assertAlmostEqual(kl_divergence(teacher, student), 0.1927, 4)
+
+    def test_three_action_mode_seeking_example(self):
+        teacher = [0.49, 0.02, 0.49]
+        committed, even = [0.9, 0.05, 0.05], [1 / 3] * 3
+        self.assertAlmostEqual(kl_divergence(committed, teacher), 0.479, 3)
+        self.assertAlmostEqual(kl_divergence(even, teacher), 0.681, 3)
+        self.assertAlmostEqual(kl_divergence(teacher, committed), 0.802, 3)
+        self.assertAlmostEqual(kl_divergence(teacher, even), 0.321, 3)
+
+    def test_zero_only_for_equal_distributions(self):
+        self.assertEqual(kl_divergence([0.3, 0.7], [0.3, 0.7]), 0.0)
+        self.assertTrue(math.isinf(kl_divergence([0.5, 0.5], [1.0, 0.0])))
+
+
+class Ch12RLSystemsTest(unittest.TestCase):
+    def test_static_batches_wait_for_their_longest_request(self):
+        static, continuous = batch_makespans([10, 120, 30, 40], slots=2)
+        self.assertEqual(static, 160.0)
+        self.assertEqual(continuous, 120.0)
+
+    def test_continuous_batching_respects_lower_and_upper_bounds(self):
+        durations = [10, 120, 30, 40, 20, 30, 60, 10]
+        _, continuous = batch_makespans(durations, slots=4)
+        lower = max(max(durations), sum(durations) / 4)
+        upper = sum(durations) / 4 + (1 - 1 / 4) * max(durations)
+        self.assertTrue(lower <= continuous <= upper)
+
+    def test_equal_durations_take_whole_waves(self):
+        self.assertEqual(batch_makespans([5.0] * 9, slots=4), (15.0, 15.0))
+
+    def test_makespan_rejects_bad_input(self):
+        with self.assertRaises(ValueError):
+            batch_makespans([1.0], slots=0)
+        with self.assertRaises(ValueError):
+            batch_makespans([-1.0], slots=1)
+
+    def test_bf16_keeps_seven_fraction_bits(self):
+        self.assertEqual(bf16_round(1.0 + 2**-7), 1.0 + 2**-7)
+        self.assertEqual(bf16_round(1.0 + 2**-9), 1.0)
+        # A tie rounds to the even neighbour.
+        self.assertEqual(bf16_round(1.0 + 2**-8), 1.0)
+        self.assertEqual(bf16_round(1.0 + 3 * 2**-8), 1.0 + 2**-6)
+        self.assertEqual(bf16_round(-2.5), -2.5)
+        with self.assertRaises(ValueError):
+            bf16_round(float("nan"))
+
+    def test_bf16_absorbs_update_below_half_spacing(self):
+        w = bf16_round(0.0177)
+        self.assertEqual(w, 145 * 2**-13)
+        self.assertEqual(bf16_round(w + 3e-6), w)
+        self.assertNotEqual(bf16_round(w + 2**-13), w)
+
+    def test_retokenization_loses_sampled_tokens(self):
+        vocab = ("H", "e", "l", "Hel", "Hello", "o", "el", "lo")
+        self.assertEqual(decode((3, 7), vocab), "Hello")
+        self.assertEqual(greedy_encode("Hello", vocab), (4,))
+        self.assertEqual(greedy_encode("Hel", vocab), (3,))
+        with self.assertRaises(ValueError):
+            greedy_encode("x", vocab)
+
+
+class ReachableEffectsTests(unittest.TestCase):
+    def test_shared_cache_carries_publish_to_triage(self) -> None:
+        effects = {"triage": TRIAGE, "release": RELEASE}
+        reach = reachable_effects(effects, {"triage": ["release"]}, "triage")
+        self.assertIn("registry.write", reach)
+        self.assertEqual(reach, TRIAGE | RELEASE)
+
+    def test_removing_the_trust_edge_restores_the_run_bound(self) -> None:
+        effects = {"triage": TRIAGE, "release": RELEASE}
+        self.assertEqual(reachable_effects(effects, {}, "triage"), TRIAGE)
+
+    def test_reach_is_transitive_and_cycles_terminate(self) -> None:
+        effects = {
+            "a": frozenset({"x"}),
+            "b": frozenset({"y"}),
+            "c": frozenset({"z"}),
+        }
+        trusts = {"a": ["b"], "b": ["c"], "c": ["a"]}
+        self.assertEqual(
+            reachable_effects(effects, trusts, "a"), frozenset("xyz")
+        )
+
+    def test_trust_does_not_flow_backward(self) -> None:
+        effects = {"triage": TRIAGE, "release": RELEASE}
+        reach = reachable_effects(effects, {"triage": ["release"]}, "release")
+        self.assertEqual(reach, RELEASE)
+
+    def test_unknown_run_is_rejected(self) -> None:
+        with self.assertRaises(ValueError):
+            reachable_effects({"triage": TRIAGE}, {"triage": ["x"]}, "triage")
+
+
+class AlertPrecisionTests(unittest.TestCase):
+    def test_slide_example_gives_ninety_of_189(self) -> None:
+        self.assertAlmostEqual(
+            alert_precision(0.01, 0.9, 0.01), 90 / 189, places=12
+        )
+
+    def test_rarer_unsafe_actions_lower_precision(self) -> None:
+        self.assertLess(
+            alert_precision(0.001, 0.9, 0.01),
+            alert_precision(0.01, 0.9, 0.01),
+        )
+        self.assertAlmostEqual(
+            alert_precision(0.001, 0.9, 0.01), 0.0009 / 0.01089, places=12
+        )
+
+    def test_rates_outside_unit_interval_are_rejected(self) -> None:
+        with self.assertRaises(ValueError):
+            alert_precision(1.5, 0.9, 0.01)
+
+    def test_silent_monitor_is_rejected(self) -> None:
+        with self.assertRaises(ValueError):
+            alert_precision(0.01, 0.0, 0.0)
+
+
+class SafetyOutcomeTests(unittest.TestCase):
+    def test_slide_counts_use_two_denominators(self) -> None:
+        self.assertEqual(
+            safety_outcomes(100, 80, 10, 100, 25, 10),
+            (0.8, 0.1, 0.25, 0.1),
+        )
+
+    def test_harm_without_attempt_is_rejected(self) -> None:
+        with self.assertRaises(ValueError):
+            safety_outcomes(100, 80, 10, 100, 5, 10)
+
+    def test_overlapping_completion_and_refusal_is_rejected(self) -> None:
+        with self.assertRaises(ValueError):
+            safety_outcomes(100, 95, 10, 100, 25, 10)
+
+
+class ZeroFailureBoundTests(unittest.TestCase):
+    def test_hundred_clean_runs_bound_about_three_percent(self) -> None:
+        self.assertAlmostEqual(zero_failure_upper_bound(100), 0.0295, 4)
+
+    def test_299_runs_are_needed_for_one_percent(self) -> None:
+        self.assertLess(zero_failure_upper_bound(299), 0.01)
+        self.assertGreater(zero_failure_upper_bound(298), 0.01)
+
+    def test_invalid_arguments_are_rejected(self) -> None:
+        with self.assertRaises(ValueError):
+            zero_failure_upper_bound(0)
+        with self.assertRaises(ValueError):
+            zero_failure_upper_bound(10, confidence=1.0)
 
 
 if __name__ == "__main__":

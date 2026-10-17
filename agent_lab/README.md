@@ -1,6 +1,6 @@
 # Companion Python harness
 
-This standard-library package accompanies the ten current study chapters. It
+This standard-library package accompanies the thirteen current study chapters. It
 runs without a model account or network connection. The proposal source in
 `order_demo.py` is deterministic so the mechanics can be tested separately from
 model variability.
@@ -15,6 +15,9 @@ model variability.
 | 6–7, evaluation | `evaluation.py` | pass@k, multidimensional outcomes, weighted rubrics, and coordinate transforms |
 | 8–9, training | `training.py` | Masked loss, effective mixtures, reward-to-go, REINFORCE, and group diagnostics |
 | 10, deep research | `evaluation.py`, `training.py` | Chance-corrected judge agreement, citation accuracy and recall, contrastive retrieval loss |
+| 11, advanced RL | `training.py` | Generalized advantage estimates, importance-weight moments, PPO and CISPO coefficients, KL divergence |
+| 12, RL systems | `training.py` | Static and continuous batching makespans, bfloat16 rounding, greedy encoding and decoding |
+| 13, safety | `safety.py` | Cross-run reach through shared state, alert precision, safety outcome rates, zero-failure upper bound |
 
 From the repository root, run:
 

@@ -178,5 +178,59 @@
     "segments": 1705,
     "last_caption_end_seconds": 4346.28,
     "retrieved_utc": "2026-10-17T03:51:48.301391+00:00"
+  },
+  {
+    "lecture": 11,
+    "title": "Advanced RL Algorithms",
+    "video_id": "jKx7_fOZRzg",
+    "url": "https://www.youtube.com/watch?v=jKx7_fOZRzg",
+    "duration_seconds": 4095,
+    "caption_language": "en",
+    "caption_generated": true,
+    "available_tracks": [
+      {
+        "language_code": "en",
+        "is_generated": true
+      }
+    ],
+    "segments": 1500,
+    "last_caption_end_seconds": 4094.0,
+    "retrieved_utc": "2026-10-17T03:52:14.307104+00:00"
+  },
+  {
+    "lecture": 12,
+    "title": "RL Systems",
+    "video_id": "dwR6NP9nI-8",
+    "url": "https://www.youtube.com/watch?v=dwR6NP9nI-8",
+    "duration_seconds": 3987,
+    "caption_language": "en",
+    "caption_generated": true,
+    "available_tracks": [
+      {
+        "language_code": "en",
+        "is_generated": true
+      }
+    ],
+    "segments": 1554,
+    "last_caption_end_seconds": 3987.74,
+    "retrieved_utc": "2026-10-17T03:52:23.439566+00:00"
+  },
+  {
+    "lecture": 13,
+    "title": "Agentic Safety",
+    "video_id": "Mbonnq-PUGM",
+    "url": "https://www.youtube.com/watch?v=Mbonnq-PUGM",
+    "duration_seconds": 3251,
+    "caption_language": "en",
+    "caption_generated": true,
+    "available_tracks": [
+      {
+        "language_code": "en",
+        "is_generated": true
+      }
+    ],
+    "segments": 1234,
+    "last_caption_end_seconds": 3251.28,
+    "retrieved_utc": "2026-10-17T03:52:37.058914+00:00"
   }
 ]

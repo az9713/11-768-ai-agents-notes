@@ -113,6 +113,21 @@ def main():
              "Reinforcement learning with verifiable rewards (RLVR)",
              "Group Relative Policy Optimization (GRPO)",
              "Dense Passage Retrieval (DPR)"),
+        11: ("Reinforcement learning (RL)",
+             "Generalized advantage estimation (GAE)",
+             "Proximal Policy Optimization (PPO)",
+             "process reward model (PRM)",
+             "Kullback-Leibler (KL)"),
+        12: ("reinforcement learning (RL)",
+             "key/value (KV)",
+             "Mixture-of-Experts (MoE)",
+             "Token-in, token-out (TITO)",
+             "Single Program Multiple Data (SPMD)",
+             "Low-Rank Adaptation (LoRA)"),
+        13: ("continuous-integration (CI)",
+             "attack success rate (ASR)",
+             "supervised fine-tuning (SFT)",
+             "Chain-of-thought (CoT)"),
     }
     for number, definitions in required_definitions.items():
         md = next(ROOT.glob(f"lecture-{number:02d}-*.md")).read_text(
